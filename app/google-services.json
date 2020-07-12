@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "189996719964",
+    "firebase_url": "https://journaltask-fa2d6.firebaseio.com",
+    "project_id": "journaltask-fa2d6",
+    "storage_bucket": "journaltask-fa2d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189996719964:android:bccb998980b572c474eb99",
+        "android_client_info": {
+          "package_name": "com.example.journaltask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189996719964-roldc35v1nh54uqsp2pkjguct5mor8g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm3xMqFC1VGxJcZEtsh7p8SxsETIOdf4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189996719964-roldc35v1nh54uqsp2pkjguct5mor8g3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
