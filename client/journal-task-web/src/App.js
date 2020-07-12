@@ -1,27 +1,26 @@
-import React, { Component } from 'react';
-import './App.css';
-import Main from './components/MainComponent';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux/configureStore';
-
-const store = ConfigureStore();
-
-class App extends Component{
-  constructor(props){
-    super(props);
-  }
-  render(){
+import React from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import Dashboard from './components/dashboard/Dashboard';
+import ProjectDetails from './components/projects/ProjectDetails';
+import Signin from './components/auth/Signin';
+import Signup from './components/auth/Signup';
+import CreateProject from './components/projects/CreateProject';
+function App() {
     return (
-        <Provider store={store}>
-          <BrowserRouter>
+        <BrowserRouter>
             <div className="App">
-              <Main />
+                <Navbar />
+                <Switch>
+                    <Route exact path = '/' component = {Dashboard}></Route>
+                    <Route path = '/project/:id' component = {ProjectDetails}></Route>
+                    <Route path = '/signin' component = {Signin}></Route>
+                    <Route path = '/signup' component = {Signup}></Route>
+                    <Route path = '/create' component = {CreateProject}></Route>
+                </Switch>
             </div>
-          </BrowserRouter>
-        </Provider>
+        </BrowserRouter>
     );
-  }
 }
 
 export default App;
