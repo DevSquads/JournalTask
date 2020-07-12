@@ -7,7 +7,7 @@
                 <img src="{{ asset(auth()->user()->image_path) }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>@lang('site.title')</p>
+                <p>{{auth()->user()->name}}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>

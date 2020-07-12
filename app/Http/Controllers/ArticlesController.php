@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Sqits\UserStamps\Tests\Models\User;
 
@@ -12,44 +15,64 @@ class ArticlesController extends Controller
 
     public function index(Request $request)
     {
+        if(auth()->user()->hasRole('super_admin') ){
+            $allArticles=[];
+            $users= DB::table('users')
+                ->orderBy('articles_counts', 'desc')
+                ->get();
+            foreach($users as $user) {
+                $articles =Article::where('user_id' , '=' , $user->id)
+                    ->get();
+                 $user->articles =$articles;
+                foreach ( $articles as $article) {
+                    array_push($allArticles,['article'=>$article,'email'=>$user->email]);
+                 }
+            }
 
+            $finalResults=$this->paginate($allArticles,15,0,
+                ["path" => "http://task.devel/en/articles",
+                 "pageName" => "page"]);
+            return view('dashboard.articles.adminindex',compact('finalResults'));
+        }
+        if(auth()->user()->hasRole('user')) {
+            $allArticles=[];
+            $myarticles=Article::where('user_id','=',auth()->user()->id)->get();
+            foreach($myarticles as $row) {
+                array_push($allArticles,$row);
+            }
+            $otherArticles=Article::where('user_id','!=',auth()->user()->id)
+                ->Where('status','=',1)->get();
 
-//
-//        if(auth()->user()->hasRole('super_admin') ){
-//            DB::table('posts')
-//                ->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
-//                ->where('is_published', true)
-//                ->groupBy('user_id');
-//            $articles = DB::table('articles')->select('user_id',
-//                DB::raw('COUNT()'));
-//            return view('dashboard.articles.index',compact('articles'));
-//        }
-//        if(auth()->user()->hasRole('user')) {
-////            $userArticles=collect(Article::where('user_id','=',auth()->user()->id)->get());
-////            $articles = Article::where('status','=','1')->get();
-////            $userArticles=$userArticles->merge($articles)->paginate(5);
-//            $articles=Article::orderByRaw('user_id','=',auth()->user()->id)->get();
-//            return view('dashboard.articles.index',compact('articles'));
-//        }
-//
-        $articles=Article::latest()->paginate(5);
-        $articles = Article::where(function ($q) use ($request) {
+            foreach ( $otherArticles as $article) {
+                array_push($allArticles,$article);
+            }
+            $finalResults=$this->paginate($allArticles,15,0,
+                ["path" => "http://task.devel/en/articles",
+                    "pageName" => "page"]);
+//           dd($finalResults);
+            return view('dashboard.articles.index',compact('finalResults'));
+        }
+        $finalResults = Article::where(function ($q) use ($request) {
             return $q->when($request->search, function ($query) use ($request) {
-                return $query->where('title', 'like', '%' . $request->search . '%')
-                    ;
+                return $query->where('title', 'like', '%' . $request->search . '%');
             });
         })->latest()->paginate(10);
-        return view('dashboard.articles.index',compact('articles'));
+        return view('dashboard.articles.index',compact('finalResults'));
     }//end of index
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
     public function create(){
         return view('dashboard.articles.create');
     }//end of create
-
     public function show(Article $article){
         return view('dashboard.articles.show',compact('article'));
     }//end of create
-
     public function store(Request $request){
         $rules = [ ];
         foreach (config('translatable.locales') as $locale) {
@@ -69,12 +92,10 @@ class ArticlesController extends Controller
         return redirect()->route('articles.index');
 
     }//end of store
-
     public function edit(Article $article){
         return view('dashboard.articles.edit', compact('article'));
 
     }//end of edit
-
     public function update(Request $request, Article $article)
     {
         $rules = [ ];
@@ -88,7 +109,6 @@ class ArticlesController extends Controller
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('articles.index');
     }//end of update
-
     public function destroy(Article $article){
         $article->delete();
         auth()->user()->articles_counts=auth()->user()->articles_counts-1;
@@ -97,8 +117,8 @@ class ArticlesController extends Controller
         return redirect()->route('articles.index');
 
     }//end of destroy
-
-    public function review(Article $article,$res){
+    public function review($id,$res){
+        $article=Article::where('id','=',$id)->first();
         $article->status=$res;
         $article->save();
         session()->flash('success', __('site.updated_successfully'));

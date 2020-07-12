@@ -15,17 +15,33 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>@lang('site.title')</th>
-                            <th>@lang('site.status')</th>
-                            <th>@lang('site.description')</th>
+                            <th>@lang('site.name')</th>
+                            <th>@lang('site.value')</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>@lang('site.title')</td>
                                 <td>{{ $article->title }}</td>
-                                <td>{{ $article->status }}</td>
+                            </tr>
+                            <tr>
+                                <td>@lang('site.status')</td>
+                                @if( $article->status===1)
+                                    <td> @lang('site.accepted') </td>
+                                @endif
+                                @if( $article->status==0)
+                                    <td>   @lang('site.pending')</td>
+                                @endif
+                                @if( $article->status===-1)
+                                    <td>    @lang('site.rejected')</td>
+                                @endif
+
+                            </tr>
+                            <tr>
+                                <td>@lang('site.description')</td>
                                 <td>{!! $article->description !!}</td>
                             </tr>
+
                         </tbody>
                     </table><!-- end of table -->
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@lang('site.title')</title>
+    <title>@lang('site.sitename')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -97,7 +97,7 @@
         <a href="{{ asset('dashboard') }}/index2.html" class="logo">
             {{--<!-- mini logo for sidebar mini 50x50 pixels -->--}}
             <span class="logo-mini"><b>@lang('site.titlesm')</span>
-            <span class="logo-lg"><b>@lang('site.title')</span>
+            <span class="logo-lg"><b>@lang('site.sitename')</span>
         </a>
 
         <nav class="navbar navbar-static-top">

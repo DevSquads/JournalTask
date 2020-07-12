@@ -49,14 +49,13 @@
                 <div class="box-body">
 
                     @if ($finalResults->count() > 0)
-
                         <table class="table table-hover">
-
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
                                 <th>@lang('site.status')</th>
+                                <th>@lang('site.author')</th>
                                 @if (auth()->user()->hasPermission('update_articles','delete_articles'))
                                 <th>@lang('site.action')</th>
                                 @endif
@@ -65,39 +64,51 @@
 
                             <tbody>
                             @foreach ($finalResults as $index=>$row)
+{{--                                    @dd($row['article']->id)--}}
                                 <tr>
                                     <td>{{ $index + 1+(($finalResults->currentPage()-1) * $finalResults->perPage()) }}</td>
-                                    <td>{{$row->title}}</td>
+                                    <td>{{$row['article']->title}}</td>
                                     <td>
-                                        @if($row->status===1)
+                                       @if($row['article']->status===1)
                                             @lang('site.accepted')
-                                        @endif
-                                        @if($row->status==0)
+                                       @endif
+                                       @if($row['article']->status==0)
                                             @lang('site.pending')
-                                        @endif
-                                        @if($row->status===-1)
-                                            @lang('site.rejected')
-                                        @endif
+                                       @endif
+                                       @if($row['article']->status===-1)
+                                           @lang('site.rejected')
+                                       @endif
                                     </td>
-
+                                    <td>{!! $row['email'] !!}</td>
                                     <td>
                                     @if (auth()->user()->hasPermission('read_articles'))
-                                            <a href="{{ route('articles.show',  $row->id) }}" class="btn btn-info btn-sm">@lang('site.show')</a>
+                                            <a href="{{ route('articles.show',  $row['article']->id) }}" class="btn btn-info btn-sm">@lang('site.show')</a>
                                     @endif
                                         @if (auth()->user()->hasPermission('update_articles'))
-                                            <a href="{{ route('articles.edit', $row->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                            <a href="{{ route('articles.edit', $row['article']->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                          @else
                                             <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                         @endif
                                         @if (auth()->user()->hasPermission('delete_articles'))
-                                            <form action="{{ route('articles.destroy', $row->id) }}" method="post" style="display: inline-block">
+                                            <form action="{{ route('articles.destroy', $row['article']->id) }}" method="post" style="display: inline-block">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
                                                 <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
                                             </form><!-- end of form -->
-                                        @else
+                                         @else
                                             <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
                                         @endif
+                                        @if (auth()->user()->hasPermission('publish_articles'))
+                                            @if($row['article']->status===0)
+                                             <a href="{{ route('dashboard.reviewarticle',  ['id'=>$row['article']->id,'res'=> 1]) }}" class="btn btn-info btn-sm">@lang('site.accept')</a>
+                                            @endif
+                                        @endif
+                                        @if (auth()->user()->hasPermission('reject_articles'))
+                                            @if($row['article']->status===0)
+                                                <a href="{{ route('dashboard.reviewarticle', ['id'=>$row['article']->id,'res'=> -1]) }}" class="btn btn-danger btn-sm">@lang('site.reject')</a>
+                                            @endif
+                                        @endif
+
                                     </td>
                                 </tr>
 
