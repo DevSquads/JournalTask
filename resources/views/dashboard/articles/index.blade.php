@@ -68,14 +68,20 @@
                             <tbody>
                             @foreach ($articles as $index=>$row)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $index + 1+(($articles->currentPage()-1) * $articles->perPage()) }}</td>
                                     <td>{{ $row->title }}</td>
-                                    <td>{{ $row->status }}</td>
+                                    <td>
+                                       @if($row->status===1)
+                                            @lang('site.accepted')
+                                       @endif
+                                       @if($row->status==0)
+                                            @lang('site.pending')
+                                       @endif
+                                       @if($row->status===-1)
+                                           @lang('site.rejected')
+                                       @endif
+                                    </td>
                                     <td>{!! $row->description !!}</td>
-{{--                                    @if (auth()->user()->hasPermission('read_articles'))--}}
-{{--                                    <td>--}}
-{{--                                        <a href="{{ route('articles.show',  $row->id) }}" class="btn btn-info btn-sm">@lang('site.show')</a></td>--}}
-{{--                                     @endif--}}
                                     <td>
                                     @if (auth()->user()->hasPermission('read_articles'))
                                             <a href="{{ route('articles.show',  $row->id) }}" class="btn btn-info btn-sm">@lang('site.show')</a>
@@ -94,6 +100,13 @@
                                          @else
                                             <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
                                         @endif
+                                        @if (auth()->user()->hasPermission('publish_articles'))
+                                             <a href="{{ route('dashboard.reviewarticle',  ['id'=>$row->id,'res'=> 1]) }}" class="btn btn-info btn-sm">@lang('site.accept')</a>
+                                        @endif
+                                        @if (auth()->user()->hasPermission('reject_articles'))
+                                            <a href="{{ route('dashboard.reviewarticle', ['id'=>$row->id,'res'=> -1]) }}" class="btn btn-danger btn-sm">@lang('site.reject')</a>
+                                        @endif
+
                                     </td>
                                 </tr>
 

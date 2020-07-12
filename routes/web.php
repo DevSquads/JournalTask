@@ -16,6 +16,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => ['loc
     Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(function () {
         //Welcome Route
         Route::get('/', 'WelcomeController@index')->name('welcome');
+        Route::get('review/{id}/{res}', 'ArticlesController@review')->name('reviewarticle');
         //user routes
         Route::resource('users', 'UsersController')->except(['show']);
         Route::resource('roles', 'RoleController')->except(['show']);

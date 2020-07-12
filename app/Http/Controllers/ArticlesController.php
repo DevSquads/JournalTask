@@ -12,13 +12,24 @@ class ArticlesController extends Controller
 
     public function index(Request $request)
     {
+
+
+//
 //        if(auth()->user()->hasRole('super_admin') ){
-//            $articles=Article::get()->sortBy(function ($article){
-//                return $article->
-//            })
+//            DB::table('posts')
+//                ->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
+//                ->where('is_published', true)
+//                ->groupBy('user_id');
+//            $articles = DB::table('articles')->select('user_id',
+//                DB::raw('COUNT()'));
+//            return view('dashboard.articles.index',compact('articles'));
 //        }
 //        if(auth()->user()->hasRole('user')) {
-//            dd('USer');
+////            $userArticles=collect(Article::where('user_id','=',auth()->user()->id)->get());
+////            $articles = Article::where('status','=','1')->get();
+////            $userArticles=$userArticles->merge($articles)->paginate(5);
+//            $articles=Article::orderByRaw('user_id','=',auth()->user()->id)->get();
+//            return view('dashboard.articles.index',compact('articles'));
 //        }
 //
         $articles=Article::latest()->paginate(5);
@@ -27,10 +38,9 @@ class ArticlesController extends Controller
                 return $query->where('title', 'like', '%' . $request->search . '%')
                     ;
             });
-        })->latest()->paginate(5);
+        })->latest()->paginate(10);
         return view('dashboard.articles.index',compact('articles'));
     }//end of index
-
 
     public function create(){
         return view('dashboard.articles.create');
@@ -53,6 +63,8 @@ class ArticlesController extends Controller
         $request_data['user_id']=auth()->user()->id;
 
         Article::create($request_data);
+        auth()->user()->articles_counts=auth()->user()->articles_counts+1;
+        auth()->user()->save();
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('articles.index');
 
@@ -79,13 +91,19 @@ class ArticlesController extends Controller
 
     public function destroy(Article $article){
         $article->delete();
+        auth()->user()->articles_counts=auth()->user()->articles_counts-1;
+        auth()->user()->save();
         session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.articles.index');
+        return redirect()->route('articles.index');
 
     }//end of destroy
 
-
-
+    public function review(Article $article,$res){
+        $article->status=$res;
+        $article->save();
+        session()->flash('success', __('site.updated_successfully'));
+        return redirect()->route('articles.index');
+    }//end of Article
 
 
 

@@ -66,7 +66,7 @@
                             <tbody>
                             @foreach ($users as $index=>$user)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $index + 1+(($users->currentPage()-1) * $users->perPage()) }}</td>
 
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
@@ -74,8 +74,6 @@
                                     <td>
                                         @if (auth()->user()->hasPermission('update_users'))
                                             <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        {{-- @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a> --}}
                                         @endif
                                         @if (auth()->user()->hasPermission('delete_users'))
                                             <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="post" style="display: inline-block">

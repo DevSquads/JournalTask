@@ -60,11 +60,11 @@
                                 @endif
                             </tr>
                             </thead>
-                            
+
                             <tbody>
                             @foreach ($roles as $index=>$role)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $index + 1 +(($roles->currentPage()-1) * $roles->perPage())}}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
                                         @if (auth()->user()->hasPermission('update_roles'))
@@ -83,18 +83,18 @@
                                         @endif
                                     </td>
                                 </tr>
-                            
+
                             @endforeach
                             </tbody>
 
                         </table><!-- end of table -->
-                        
+
                         {{ $roles->appends(request()->query())->links() }}
-                        
+
                     @else
-                        
+
                         <h2>@lang('site.no_data_found')</h2>
-                        
+
                     @endif
 
                 </div><!-- end of box body -->

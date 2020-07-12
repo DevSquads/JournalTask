@@ -63,8 +63,11 @@ return [
 
 
     'load_prods' => 'Load Products',
-
-
+    'rejected'=>'Rejected',
+    'accepted'=>'Accepted',
+    'reject'=>'Reject',
+    'accept'=>'Accept',
+    'pending'=>'Pending',
     'ar' => [
         'name' => 'Arabic Name',
         'description' => 'Arabic Description',

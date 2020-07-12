@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Article;
 use App\Models\User;
 
 
@@ -15,23 +16,15 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-//        $categories_count = Category::count();
-//        $products_count = Product::count();
-//        $clients_count = Client::count();
-          //  $users_count = User::whereRoleIs('admin')->count();
-       $users_count = User::count();
-//       $suppliers_count = Supplier::count();
-//       $orders_count = Order::count();
-//       $orders_suppliers_count = OrderSupplier::count();
+        $users_count=User::all()->count();
+        $articles_count=Article::all()->count();
+        $rejected_count=Article::where('status','=','-1')->get()->count();
+        $pending_count=Article::where('status','=','0')->get()->count();
+        $accepted_count=Article::where('status','=','1')->get()->count();
 
-        // $sales_data = Order::select(
-        //     DB::raw('YEAR(created_at) as year'),
-        //     DB::raw('MONTH(created_at) as month'),
-        //     DB::raw('SUM(total_price) as sum')
-        // )->groupBy('month')->get();
-//        'categories_count', 'products_count', 'clients_count','suppliers_count','orders_suppliers_count','orders_count'
-        return view('dashboard.welcome', compact( 'users_count',));
-
+        return view('dashboard.welcome',compact(
+            'users_count','articles_count','accepted_count','rejected_count','pending_count'
+        ));
     }//end of index
 
 }//end of controller
