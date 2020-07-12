@@ -29,7 +29,32 @@
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
+    <style>
+        body {
+            background-image: url('{{ asset('./images/photo-1432888498266-38ffec3eaf0a.png') }}') !important;
+            background-size:cover !important;
+            background-repeat: no-repeat !important;
+            height: 100% !important;
+            overflow: hidden !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box-body{
+            border-radius: 15px;
+            background-color: rgba(0,0,0,0.7);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .login-logo{
+            color: #000;
+            font-size: 36px;
+            font-weight: 500;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 15px;
+        }
+    </style>
 </head>
 <body class="login-page">
 
@@ -64,9 +89,6 @@
             <div class="form-group has-feedback">
                 <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('site.password_confirmation')">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="form-group">
-                <label style="font-weight: normal;"><input type="checkbox" name="remember"> @lang('site.remember_me')</label>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block btn-flat">@lang('site.register')</button>
