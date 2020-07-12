@@ -7,11 +7,11 @@ This is the simple Dashboard to control of Users,Roles,Permissions For Those use
 You Can make All Crud Operation For Articles
 
 ## Features
-1 : Multi Language Dashboard (support RTL and Arabic Language)
-2 : Flexibility to Add Any Language easily
-3 : Adding Content In Available Languages
-4 : Roles And Permissions To Controls Of Users Authorizations
-5 : All Crud Operations For Articles
+1 : Multi Language Dashboard (support RTL and Arabic Language)<br>
+2 : Flexibility to Add Any Language easily<br>
+3 : Adding Content In Available Languages<br>
+4 : Roles And Permissions To Controls Of Users Authorizations<br>
+5 : All Crud Operations For Articles<br>
 
 ## Installation & Usage
 1 : Clone Repo
