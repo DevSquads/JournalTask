@@ -31,7 +31,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <style>
         body {
-            background-image: url('{{ asset('./images/photo-1432888498266-38ffec3eaf0a.png') }}') !important;
+            background-image: url('{{ asset('./photo-1432888498266-38ffec3eaf0a.png') }}') !important;
             background-size:cover !important;
             background-repeat: no-repeat !important;
             height: 100% !important;

@@ -12,7 +12,7 @@
     {{--<!-- Styles -->--}}
     <style>
         html, body {
-            background-image: url('{{ asset('./images/photo-1512805668868-1608a189cc2b.jpg') }}');
+            background-image: url('{{ asset('./photo-1512805668868-1608a189cc2b.jpg') }}');
             background-size:cover ;
             background-repeat: no-repeat;
             color: #fff;
