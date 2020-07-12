@@ -15,8 +15,11 @@ return [
         'super_admin' => [
             'admins' => 'c,r,u,d',
             'users' => 'c,r,u,d',
-            'articles' => 'c,r,u,d',
+            'articles' => 'c,r,u,d,p,j',
             'roles' => 'c,r,u,d',
+        ],
+        'user' => [
+            'articles' => 'c,r,u',
         ],
     ],
 
@@ -25,5 +28,7 @@ return [
         'r' => 'read',
         'u' => 'update',
         'd' => 'delete',
+        'p' => 'publish',
+        'j' => 'reject'
     ]
 ];

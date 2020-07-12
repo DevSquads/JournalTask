@@ -19,7 +19,8 @@ return [
     'title'=>'Title',
     'titlesm' => 'TM',
     'stitle' => 'Task Manager',
-
+    'register'=>'Register',
+    'password_confirmation'=>'Password Confirmation',
     'confirm_delete' => 'Confirm Delete',
     'yes' => 'Yes',
     'no' => 'No',

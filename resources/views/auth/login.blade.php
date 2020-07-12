@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Task Manager System</title>
 
-    {{--<!-- Bootstrap 3.3.7 -->--}}
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/skin-blue.min.css') }}">

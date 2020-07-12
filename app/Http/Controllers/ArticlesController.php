@@ -12,20 +12,32 @@ class ArticlesController extends Controller
 
     public function index(Request $request)
     {
+//        if(auth()->user()->hasRole('super_admin') ){
+//            $articles=Article::get()->sortBy(function ($article){
+//                return $article->
+//            })
+//        }
+//        if(auth()->user()->hasRole('user')) {
+//            dd('USer');
+//        }
+//
         $articles=Article::latest()->paginate(5);
-//        $articles = Article::where(function ($q) use ($request) {
-//            return $q->when($request->search, function ($query) use ($request) {
-//                return $query->where('title', 'like', '%' . $request->search . '%')
-//                    ;
-//            });
-//        })->latest()->paginate(5);
+        $articles = Article::where(function ($q) use ($request) {
+            return $q->when($request->search, function ($query) use ($request) {
+                return $query->where('title', 'like', '%' . $request->search . '%')
+                    ;
+            });
+        })->latest()->paginate(5);
         return view('dashboard.articles.index',compact('articles'));
-
     }//end of index
 
 
     public function create(){
         return view('dashboard.articles.create');
+    }//end of create
+
+    public function show(Article $article){
+        return view('dashboard.articles.show',compact('article'));
     }//end of create
 
     public function store(Request $request){

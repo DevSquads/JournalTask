@@ -23,7 +23,8 @@ return [
     'titlesm' => 'مدير المهام',
     'articles'=>'مقالات',
     'title'=>'عنوان',
-
+'register'=>'تسجيل',
+    'password_confirmation'=>'تاكيد كلمة المرور',
     'confirm_delete' => 'تاكيد الحذف',
     'yes' => 'نعم',
     'no' => 'لا',
