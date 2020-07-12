@@ -27,5 +27,11 @@ He wants to make an app that would help him manage the articles that being poste
 
 # Task Deadline
 - Monday Morning 13/07/2020.
-
+# My work description
+- Choosed tech (Android with FireBase as backend)
+- # scenario :
+- user can regester as an author and can give himself the privilege of admin to approve binding articels (samir in the story)
+- after logiin author can create articels and admin can create , approve binding articels and deleting articels  
+- users can see List of articles sorted by most popular authors ( who has the highest number of published articles).
+- When an author view all articles, they see their own articles first. 
 
