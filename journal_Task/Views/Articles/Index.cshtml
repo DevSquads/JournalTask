@@ -1,0 +1,107 @@
+﻿@model IEnumerable<journal_Task.Models.Article>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<h1>Your Published Articles</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var myuser = UserManager.GetUserAsync(User).Result;
+            var myList = myuser.Articles;
+        }
+        @if (myList.Any())
+        {
+            @foreach (var item in myList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuthorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No Published Articels Yet.</td></tr>
+        }
+    </tbody>
+</table>
+
+
+
+<h1>All Published Articles</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+            </tr>
+        }
+        }
+        else
+        {
+    <tr>
+        <td>No Published Articels Yet.</td>
+    </tr>
+        }
+    </tbody>
+</table>
