@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="angForm" novalidate>
+        <div class="form-group">
+          <label class="col-md-4">Article Title</label>
+          <input type="text" class="form-control" 
+            formControlName="title" 
+            #title />
+        </div>
+        <div *ngIf="angForm.controls['title'].invalid && (angForm.controls['title'].dirty || angForm.controls['title'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['title'].errors.required">
+            Title is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Article Description </label>
+          <textarea class="form-control" rows = 7 cols = "5"
+          formControlName="description" 
+          #description></textarea>
+        </div>
+        <div *ngIf="angForm.controls['description'].invalid && (angForm.controls['description'].dirty || angForm.controls['description'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['description'].errors.required">
+            description is required
+          </div>
+        </div>
+       
+        <div class="form-group">
+            <button (click) = "addArticle(title.value, description.value)" type="submit" class="btn btn-primary"
+            [disabled]="angForm.pristine || angForm.invalid" >
+              Post Article
+            </button>
+    </div>
+      </form>
+    </div>
+  </div>
