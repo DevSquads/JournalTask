@@ -1,3 +1,6 @@
+// Execute the mongoDB file to create, define the collections and connect to the database
+require("./api/config/DBConnection");
+
 var express = require("express"),
 	logger = require("morgan"),
 	cors = require("cors"),
