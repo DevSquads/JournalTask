@@ -2,7 +2,6 @@ const { signup: signupValidationSchema } = require('../user.validation');
 const User = require('../user.model');
 
 async function signupAdmin(req, res) {
-    console.log(req.body);
     try {
         const { error, value } = signupValidationSchema.validate(req.body);
 
@@ -28,7 +27,6 @@ async function signupAdmin(req, res) {
                 }
             });
     } catch (error) {
-        console.log(error);
         return res.status(500).send({ message: 'Internal server error' });
     }
 }
