@@ -1,0 +1,37 @@
+{
+  "name": "JournalTask",
+  "version": "1.0.0",
+  "description": "- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.\r - Push your work to your forked repo \"user-name/JournalTask\".\r - Create pull request in the original repo \"devsquads/JournalTask\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdalahshaban/JournalTask.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdalahshaban/JournalTask/issues"
+  },
+  "homepage": "https://github.com/abdalahshaban/JournalTask#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.0.1",
+    "mongoose": "^5.9.24",
+    "request": "^2.88.2",
+    "supertest": "^4.0.2",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
