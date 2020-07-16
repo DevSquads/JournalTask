@@ -2,9 +2,9 @@
   "name": "JournalTask",
   "version": "1.0.0",
   "description": "- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.\r - Push your work to your forked repo \"user-name/JournalTask\".\r - Create pull request in the original repo \"devsquads/JournalTask\"",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
