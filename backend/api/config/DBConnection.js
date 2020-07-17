@@ -32,7 +32,7 @@ process.on("SIGINT", function() {
 	});
 });
 
-mongoose.connect(dburl, { useNewUrlParser: true } , function(err) {
+mongoose.connect(dburl, { useUnifiedTopology: true, useNewUrlParser: true } , function(err) {
 	if (!err) {
 		return console.log("Successfully connected to the database");
 	}
