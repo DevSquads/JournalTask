@@ -4,10 +4,13 @@ var express = require("express"),
 
 	//importing controllers
 	articleCtrl = require("../controllers/article.controller");
+	adminCtrl = require("../controllers/admin.controller");
 
 //-----------------------------Article Routes-------------------------
 router.get("/article/listArticlesSortedByMostPopularAuthors", articleCtrl.listArticlesSortedByMostPopularAuthors);
 router.post("/article/createArticle", articleCtrl.createArticle);
-router.delete("/article/deleteArticle", articleCtrl.deleteArticle);
+
+//----------------------------Admin Routes----------------------------------
+router.delete("/admin/deleteArticle", adminCtrl.deleteArticle);
 
 module.exports = router;
