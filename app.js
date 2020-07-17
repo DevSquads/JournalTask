@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const Config = require('./config');
 const verifyToken = require('./middlewares/verifyToken')
 const { userAPI } = require('./components/user');
+const { ArticleAPI } = require('./components/article');
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.set('port', PORT);
 
 // passing routes
 app.use('/api', verifyToken, userAPI);
+app.use('/api', verifyToken, ArticleAPI);
 
 //Capture All 404 errors
 app.use(function (req, res, next) {

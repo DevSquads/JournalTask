@@ -6,7 +6,6 @@ async function verifyToken(req, res, next) {
     if (isRouteExcluded) return next();
 
     if (!req.headers.authorization) return res.status(401).json({ message: 'Unauthorized request' });
-
     const token = req.headers.authorization;
 
     return jwt.verify(token, Config.JWTsecret, (err, decoded) => {
@@ -17,7 +16,10 @@ async function verifyToken(req, res, next) {
                     token: null
                 });
             }
-            next();
+            return res.status(401).json({
+                message: 'Token Not Valid. Pleas login again',
+                token: null
+            });
         }
         req.userData = decoded;
         next();
