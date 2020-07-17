@@ -48,3 +48,5 @@ mongoose.connect(dburl, { useNewUrlParser: true } , function(err) {
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+
+require("../models/article.model");
