@@ -16,6 +16,10 @@ var articleSchema = mongoose.Schema({
       type: String,
       required: true,
       trim: true
+    },
+    approved: {
+        type: Boolean,
+        default: false
     }
 
 });
