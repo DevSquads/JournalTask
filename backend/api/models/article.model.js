@@ -17,7 +17,7 @@ var articleSchema = mongoose.Schema({
       required: true,
       trim: true
     },
-    approved: {
+    approved: { //approval by Admin(Samir)
         type: Boolean,
         default: false
     }

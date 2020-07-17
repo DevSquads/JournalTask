@@ -11,6 +11,7 @@ router.get("/article/listArticlesSortedByMostPopularAuthors", articleCtrl.listAr
 router.post("/article/createArticle", articleCtrl.createArticle);
 
 //----------------------------Admin Routes----------------------------------
+router.patch("/admin/approveArticle", adminCtrl.approveArticle);
 router.delete("/admin/deleteArticle", adminCtrl.deleteArticle);
 
 module.exports = router;
