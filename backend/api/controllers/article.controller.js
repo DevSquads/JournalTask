@@ -6,6 +6,7 @@ var mongoose = require("mongoose"),
 //Method to list of articles sorted by most popular authors ( who has the highest number of published articles).
 module.exports.listArticlesSortedByMostPopularAuthors = function(req, res, next) {
 	Article.aggregate([
+        {$match: {approved: true}},
         { $group: { _id: "$authorName", total: { $sum: 1 }, docs: { '$push': '$$ROOT' } } },
         { $sort: { total: -1 } }
      ]).exec(function(err, articles) {
