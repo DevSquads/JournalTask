@@ -6,7 +6,7 @@ var mongoose = require("mongoose"),
 //Method to list of articles sorted by most popular authors ( who has the highest number of published articles).
 module.exports.listArticlesSortedByMostPopularAuthors = function(req, res, next) {
 	Article.aggregate([
-        { $group: { _id: "$authorName", total: { $sum: 1 } } },
+        { $group: { _id: "$authorName", total: { $sum: 1 }, docs: { '$push': '$$ROOT' } } },
         { $sort: { total: -1 } }
      ]).exec(function(err, articles) {
 		if (err) {
@@ -16,19 +16,23 @@ module.exports.listArticlesSortedByMostPopularAuthors = function(req, res, next)
 			return res
 				.status(404)
 				.json({ err: null, msg: "Articles not found.", data: null });
-		}
+        }
+
+        var results = [];
+        for(var i = 0; i < articles.length ; i++){
+            results.push.apply(results,articles[i].docs)
+        }
+
 		res.status(200).json({
 			err: null,
 			msg: "Articles retrieved successfully.",
-			data: articles
+			data: results
 		});
 	});
 };
 
 //Method to create article.
 module.exports.createArticle = function(req, res, next) {
-
-    console.log("enter");
 
 	var valid = req.body.title && 
 				Validations.isString(req.body.title) &&
