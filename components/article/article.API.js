@@ -1,5 +1,5 @@
 const express = require('express');
-const { addArticle, editArticle, deleteArticle, aprroveArticle, getArticleInfo, getArticlesByUserId } = require('./articleController');
+const { addArticle, editArticle, deleteArticle, aprroveArticle, getArticleInfo, getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles } = require('./articleController');
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router.put('/article/edit-article/:articleId', editArticle);
 router.delete('/article/delete-article/:articleId', deleteArticle);
 router.get('/article/approve-article/:articleId', aprroveArticle);
 router.get('/article/get-article-info/:articleId', getArticleInfo);
-router.get('/article/get-articles-by-user-id', getArticlesByUserId);
+router.get('/article/getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles', getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles);
 
 
 module.exports = router;

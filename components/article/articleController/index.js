@@ -2,7 +2,7 @@ const addArticle = require('./article.add');
 const editArticle = require('./article.edit');
 const deleteArticle = require('./article.delete');
 const aprroveArticle = require('./article.approve');
-const getArticlesByUserId = require('./article.get.all');
+const getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles = require('./article.get.all');
 const getArticleInfo = require('./article.get.info');
 
 
@@ -11,6 +11,6 @@ module.exports = {
     editArticle,
     deleteArticle,
     aprroveArticle,
-    getArticlesByUserId,
+    getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles,
     getArticleInfo
 };
