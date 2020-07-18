@@ -12,12 +12,12 @@ async function verifyToken(req, res, next) {
         if (err) {
             if (err.expiredAt < new Date()) {
                 return res.status(401).json({
-                    message: 'Token was Expired. Pleas login again',
+                    message: 'Token Not Valid. Please login again',
                     token: null
                 });
             }
             return res.status(401).json({
-                message: 'Token Not Valid. Pleas login again',
+                message: 'Token Not Valid. Please login again',
                 token: null
             });
         }

@@ -4,7 +4,8 @@
   "description": "- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.\r - Push your work to your forked repo \"user-name/JournalTask\".\r - Create pull request in the original repo \"devsquads/JournalTask\"",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha --timeout 15000 ./test/**/*.js"
   },
   "repository": {
     "type": "git",

@@ -18,7 +18,7 @@ async function deleteArticle(req, res, next) {
 
         await User.updateOne({ _id: article.addedBy }, { $pull: { articles: article._id } })
 
-        return res.status(200).json({ message: 'Articles Deleted Successfully', article });
+        return res.status(200).json({ message: 'article Deleted Successfully', article });
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: 'Internal server error' });
