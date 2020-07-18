@@ -13,7 +13,7 @@ const userData = {
 };
 
 
-describe('testing  user signup', () => {
+describe.skip('testing  user signup', () => {
     it('signup ok', () => {
         return request('localhost:3000/api')
             .post('/user/signup')

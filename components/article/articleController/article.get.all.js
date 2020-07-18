@@ -1,7 +1,7 @@
 const Article = require('../article.model');
 const { User } = require('../../user');
 
-async function getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles(req, res, next) {
+async function getArticlesSortedByMostPopularAuthorsOrAuthorViewAllArticles(req, res, next) {
     try {
         let user = await User.findOne({ _id: req.userData._id })
 
@@ -16,12 +16,12 @@ async function getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles(req
         ]
         let articles = await Article.aggregate(pipeline);
         //if user role admin //samir example
-        if (user.role === 'admin') return res.status(200).json(articles);
+        if (user.role === 'admin') return res.status(200).json({ message: 'get All Articles Successfully', articles });
 
         //author
         articles = await Article.find({});
         articles.sort((a, b) => b.addedBy.toString().localeCompare(user._id));
-        return res.status(200).json(articles);
+        return res.status(200).json({ message: 'get All Articles Successfully', articles });
 
     } catch (error) {
         console.log(error);
@@ -29,4 +29,4 @@ async function getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles(req
     }
 }
 
-module.exports = getArticlesSortedByMostPopularAuthorsOrAuthorvViewAllArticles;
+module.exports = getArticlesSortedByMostPopularAuthorsOrAuthorViewAllArticles;
