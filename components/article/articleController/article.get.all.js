@@ -8,12 +8,10 @@ async function getArticleByUserId(req, res, next) {
         if (!user) return res.status(400).json({ message: 'Invalid user' });
 
         let articles = await Article.find({}).sort({ approve: -1 });
-        // articles.sort((a, b) => b.addedBy.toString().localeCompare(a.addedBy));
         if (user.role === 'admin') return res.status(200).json(articles);
 
         articles = await Article.find({});
         articles.sort((a, b) => b.addedBy.toString().localeCompare(user._id));
-        // articles.sort((a, b) => b.approve - a.approve);
         return res.status(200).json(articles);
 
     } catch (error) {
