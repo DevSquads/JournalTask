@@ -50,6 +50,6 @@ He wants to make an app that would help him manage the articles that being poste
 1. Download the database sql file from this link : 
 [Here](https://drive.google.com/file/d/1Z09mguHlzj1448MbtGXp-N5pOZkcsY7_/view?usp=sharing)
 
-2. You can also take a look at the E2E tests made in the document at this link : 
+2. You can also take a look at the E2E tests made in the document at this link , you will also find in the first page the users name and passwords you can login with : 
 [Here](https://drive.google.com/file/d/1O9Vps1y7tPj7rSXPxOfHmy_sQUgPtGFq/view?usp=sharing)
 
