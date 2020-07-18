@@ -9,7 +9,7 @@ const signupSchema = {
         .pattern(/^[a-zA-Z]+$/)
         .min(2)
         .max(20)
-        .rule({ message: ' name length must be between 2~20 characters and consists of letters only' }),
+        .rule({ message: 'name length must be between 2~20 characters and consists of letters only' }),
     email: joi.string()
         .required()
         .email()
