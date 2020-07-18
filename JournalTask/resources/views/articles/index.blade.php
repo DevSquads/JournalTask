@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@php
+$articles = $userArticles->merge($otherArticles);
+@endphp
+
 @section('content')
     <div class="d-flex justify-content-between">
       <h2>List of Articles</h2>

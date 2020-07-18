@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'ArticleController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/articles/notapproved', 'ApproveController@index')->name('articles.notApproved');
 Route::post('/articles/notapproved', 'ApproveController@approval')->name('articles.approval');
 Route::resource('/articles', 'ArticleController');

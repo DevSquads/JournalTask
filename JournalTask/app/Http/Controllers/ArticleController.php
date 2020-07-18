@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\User;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -21,9 +20,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::where('status', 1)->get();
+        $userArticles = auth()->user()->articles()->whereStatus(1)->get();
 
-        return view('articles.index', compact('articles'));
+        $otherArticles = Article::where('user_id', '<>', auth()->id())
+            ->whereStatus(1)->get();
+
+        return view('articles.index', compact('userArticles', 'otherArticles'));
     }
 
     /**
