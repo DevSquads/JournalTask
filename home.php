@@ -1,6 +1,7 @@
 <?php 
   include_once 'database.php';
    session_start();
+   $admin = $_SESSION['admin'];
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,12 @@
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
 						<li><a href="articles.php">articles</a></li>
+						<?php if($admin == 1) { ?>
+							<li><a href="approveArticles.php">Pending Requests</a></li>
+						<?php }else { ?>
 						<li><a href="addArticle.php">Add Articles</a></li>
+						<?php } ?>
+
 						<li><a href="login.php">Log Out</a></li>
 					</ul>
 				</nav>

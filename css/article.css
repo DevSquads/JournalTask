@@ -28,20 +28,31 @@
 
 }
 
- .button
- {
-     position:  absolute;
-     width: 400px;
-     height: 60px;
-     font-size: 15px;
-     top: 20px;
-     background-color: #e6b800;
-     border: none;
-     border-radius: 20px 20px 20px 20px;
-    
- }
- .button a
- {
-     color:white;
-     margin: -20px;
- }
+
+.article input {
+    display: block;
+    width: 80%;
+    color: white;
+    background-color: #1f489a;
+    position: absolute;
+    left: 10%;
+    text-transform: uppercase;
+    height: 40px;
+    border-radius: 0px 0px  10px 10px;
+    border: none;
+    font-weight: bold;
+   
+}
+
+.article input:hover{
+    display: block;
+    width: 80%;
+    color: white;
+    background-color: #5b84d7;
+    position: absolute;
+    text-transform: uppercase;
+    height: 40px;
+    border-radius: 0px 0px 10px 10px;
+    border: none;
+    font-weight: bold;
+}

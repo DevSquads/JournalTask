@@ -1,3 +1,10 @@
+<?php 
+
+include_once 'database.php';
+session_start();
+
+$admin = $_SESSION['admin'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -38,7 +45,12 @@
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
 						<li><a href="articles.php">Articles</a></li>
-						<li><a href="addArticle.php">Add article</a></li>
+						<?php if($admin == 1) { ?>
+							<li><a href="approveArticles.php">Pending Requests</a></li>
+						<?php }else { ?>
+						<li><a href="addArticle.php">Add Articles</a></li>
+						<?php } ?>
+
 						<li><a href="login.php">Log Out</a></li>
 					</ul>
 				</nav>
@@ -55,9 +67,6 @@
                <div class="articless">
 			   <h3 style="color:yellow;margin-left:20px;margin-top:90px;"> Your Published Articles : </h3>
 			   <?php 
-
-					include_once 'database.php';
-					session_start();
 					$username = $_SESSION['user'];
 
 					$sql=" SELECT * FROM articles WHERE author = '$username' AND approved = 1 ";
@@ -111,6 +120,8 @@
 							<input type="submit" value="Go to Article" name="<?php echo $id;?>">
 						</form>
 						</div>
+
+						
 					
 				<?php 
 				 } 
@@ -130,8 +141,6 @@
 			 {
 				  $_SESSION['clicked_article'] = $id;
 				  header('location:article.php');
-				//  exit();
-			     // break;
 			 }
 		}
 ?>
