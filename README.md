@@ -37,7 +37,7 @@ After cloning project files:
 2- Navigate to  “ server ” folder  (navigate in new terminal)
 
 - To install dependencies, run command =>  npm install
-- To start application, run command =>  nodemon app.js
+- To start application, run command =>  nodemon app.js OR node app.js
 - Application will be running on localhost:8080
 
 # Users Data 
