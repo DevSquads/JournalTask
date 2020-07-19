@@ -6,12 +6,11 @@
 
 The Application consists of 5 main pages:
 
-- Login page.             => It is the Landing page of the application that ensure the authorization of users before entering the application core.
-- Articles page           => This page contains only the published articles .
-- Add Article page      => In this page users can add their article and wait for approval to be published.
-- Dashboard page     => This page contains all articles and it’s status (published or unpublished) ordered by the signed user first then,
-			         the most popular artist ( who has the highest number of published articles)..
-5- Error page              => This page will be loaded automatically if user navigate to a wrong url .
+- Login page => It is the Landing page of the application that ensure the authorization of users before entering the application core.
+- Articles page => This page contains only the published articles .
+- Add Article page => In this page users can add their article and wait for approval to be published.
+- Dashboard page => This page contains all articles and it’s status (published or unpublished) ordered by the signed user first then, the most popular artist ( who has the highest number of published articles).
+5- Error page => This page will be loaded automatically if user navigate to a wrong url .
 
 
 The project is built using the following technologies:
