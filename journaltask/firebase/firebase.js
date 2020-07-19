@@ -27,7 +27,7 @@ let storageRef;
             //firebase.analytics();
             this.app = firebase;
             this.auth = firebase.auth();
-            this.storage = this.app.storage();
+           // this.storage = this.app.storage();
             //this.storageRef = this.storage.ref();
             
 

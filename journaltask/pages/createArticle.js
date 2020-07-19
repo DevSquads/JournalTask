@@ -14,7 +14,7 @@ import {
 import articleInstance from "../Model/Article";
 // import Head from "next/head";
 // import author from "../Model/Author";
-import fb from "../firebase/firebase";
+import fb from "../firebase";
 import author from "../Model/Author";
 
 let createArticle = () => {
