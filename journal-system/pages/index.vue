@@ -7,7 +7,7 @@
 
         </mdb-col>
         <mdb-col md="6">
-          <mdb-card class="pt-4 pb-5">
+          <mdb-card class="pt-5 pb-3">
             <mdb-card-body class="mb-5 mx-4">
               <div class="text-center">
                 <h3 class="dark-grey-text mb-5"><strong>Login</strong></h3>

@@ -15,20 +15,24 @@ The Application consists of 5 main pages:
 
 The project is built using the following technologies:
 
-- Exppress.js (node.js back-end Framework) 
+- Exppress.js (node.js back-end Framework)
 - Nuxt.js a progressive framework based on Vue. js (javascript front-end framework)
 - Firebase (database)
 
-Project files consists of two main folders 
+Project files consists of two main folders
 
 - journal-system (front-end)
 - server (back-end)
+
+You can watch The Project Demo Preview Through The Below Link
+
+https://drive.google.com/drive/folders/1VlHOndkQfSpk7lvvEgTmPZxSClUhasgX?usp=sharing
 
 # Installation and Running
 
 After cloning project files:
 
-1- Navigate to  “ journal-system ” folder 
+1- Navigate to  “ journal-system ” folder
 
 - To install dependencies, run command =>  npm install
 - To start application, run command =>  npm run dev
@@ -40,7 +44,7 @@ After cloning project files:
 - To start application, run command =>  nodemon app.js OR node app.js
 - Application will be running on localhost:8080
 
-# Users Data 
+# Users Data
 
 1- Samir (Admin)
 
@@ -57,15 +61,15 @@ After cloning project files:
 - Email: menna@gmail.com
 - Password: menna1234
 
-# Test Cases Scenarios 
+# Test Cases Scenarios
 
-1- Sign in with ( Admin Account ) 
+1- Sign in with ( Admin Account )
 
 - you will see all pages available to navigate.
 - you will see your articles sorted firstly in dashboard
 - you will have the access to publish / delete articles from database in the dashboard page.
 
-2- Sign in with ( User Account ) 
+2- Sign in with ( User Account )
 
 - you will see all pages available to navigate.
 - you will see your articles sorted firstly in dashboard
@@ -88,7 +92,7 @@ He wants to make an app that would help him manage the articles that being poste
 - Create article.
 - Delete article.
 - Only Samir can approve/delete articles.
-- When an author view all articles, they see their own articles first. 
+- When an author view all articles, they see their own articles first.
 - Edit README to include the reqired steps to run your application.
 
 # Stack
