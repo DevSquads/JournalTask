@@ -1,6 +1,6 @@
 import firebase from "../firebase/firebase";
 
-let userRef;
+let authRef;
 
 class Author {
 
@@ -10,10 +10,23 @@ class Author {
     constructor(){
         if (process.browser) {
             let frbase = new firebase();
-            articleRef = frbase.app.firestore().collection("authors");
+            authRef = frbase.auth;
           }
     }
 
+
+    async register(email,password,username){
+        let newAuthor = authRef.createUserWithEmailAndPassword(email,password);
+        //await newAuthor.user.updateProfile({displayName: username});
+    }
+
+    async login(email,password){
+        return authRef
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+          console.log("USER ID ",response.user.uid);
+      })
+    }
     
 
     

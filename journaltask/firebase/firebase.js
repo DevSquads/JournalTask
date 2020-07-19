@@ -13,7 +13,7 @@ import firebaseConfig from './config';
 // Initialize Firebase
 let storageRef;
 
- class Firebase {
+  class Firebase {
     static firebaseInstance;
     constructor(){
         
@@ -24,7 +24,7 @@ let storageRef;
                 firebase.initializeApp(firebaseConfig);
             }
             
-            firebase.analytics();
+            //firebase.analytics();
             this.app = firebase;
             this.auth = firebase.auth();
             this.storage = this.app.storage();
@@ -41,3 +41,5 @@ let storageRef;
 
     }
 }
+
+export default Firebase;
