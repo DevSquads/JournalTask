@@ -23,7 +23,8 @@ async function signupAdmin(req, res) {
                     _id: user._id,
                     name: user.name,
                     email: user.email,
-                    articles: user.articles
+                    articles: user.articles,
+                    role: user.role
                 }
             });
     } catch (error) {
