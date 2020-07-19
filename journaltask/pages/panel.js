@@ -2,6 +2,8 @@ import React, {useContext,useEffect, useState} from "react";
 import Header from "./layouts/Header";
 import {Nav,Button,Container,Row,Col,Navbar,Card} from 'react-bootstrap'
 import article from "../Model/Article";
+import userrole from "../Model/UserRole";
+import fb from "../firebase/firebase";
 
 
 
@@ -12,10 +14,13 @@ let adminPanel = ()=>{
   const [unapprovedarticles,setunapprovedArticles] = useState([]);
   const [approvedarticles,setapprovedArticles] = useState([]);
 
+  let [userid, setUserId] = useState("");
+  let [username, setUserName] = useState("");
+
   useEffect(() => {
     let tempfn = async () => {
       let temparr = await article.getUnapprovedArticles();
-      let temparrTwo = await article.getapprovedArticles();
+      let temparrTwo = await article.getapprovedArticles(); 
       console.log("Unapproved Articles ", temparr);
       setunapprovedArticles(temparr);
       setapprovedArticles(temparrTwo);
@@ -24,7 +29,34 @@ let adminPanel = ()=>{
     tempfn();
 
     // ApplyFilter(lowerBound,upperBound);
+  }, []),
+
+  useEffect(() => {
+    let tempfn = async () => {
+      console.log("HELLO ");
+      let firebase = new fb();
+      firebase.auth.onAuthStateChanged(async (user) => {
+        console.log(user);
+        if (user) {
+          setUserId(user.uid);
+          setUserName(user.displayName);
+          console.log(user.displayName);
+          let role = await userrole.getUserRole(user.uid);
+          if(role !="admin")
+          location.href = "./createArticle";
+          
+        } else console.log("No user is signed in");
+      });
+     
+      
+      
+     
+    };
+    tempfn();
+
+    // ApplyFilter(lowerBound,upperBound);
   }, [])
+
 
 
     return (
@@ -55,7 +87,7 @@ let adminPanel = ()=>{
   {unapprovedarticles.length==0 &&(
     <p><strong>There are currently no un approved articles</strong></p>
   )}
-{unapprovedarticles.map((data)=>(
+{unapprovedarticles.map((data,index)=>(
   <Card style={{ width: '18rem',marginTop:"1.5rem"}}>
   <Card.Body>
     <Card.Title>{data.articleTitle}</Card.Title>
@@ -78,7 +110,7 @@ let adminPanel = ()=>{
 
 }
 <h2><strong>Approved Articles</strong></h2>
-{approvedarticles.map((data)=>(
+{approvedarticles.map((data,index)=>(
   <Card style={{ width: '18rem',marginTop:"1.5rem"}}>
   <Card.Body>
     <Card.Title>{data.articleTitle}</Card.Title>

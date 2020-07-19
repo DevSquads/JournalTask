@@ -38,7 +38,7 @@ let createArticle = () => {
           setpopularId(num);
         }
       });
-      console.log("max ", max);
+      
     };
     tempfn();
 
@@ -62,9 +62,32 @@ let createArticle = () => {
     const filtered = approvedarticles.filter((val) => {
       return val.author == id;
     });
+    const notFiltered = approvedarticles.filter((val) => {
+      return val.author != id;
+    });
     console.log(filtered);
-    return filtered;
+    let sortedArray = [...filtered,...notFiltered];
+    return sortedArray;
   };
+
+  let getMyArticles = (myId)=>{
+    let myArticles = approvedarticles.filter((val)=>{
+      return val.author==myId;
+    })
+    
+    console.log(myArticles);
+    const notmyArticles = approvedarticles.filter((val)=>{
+      return val.author!=myId;
+    })
+    // myArticles.push(approvedarticles.filter((val)=>{
+    //   return val.author!=myId;
+    // }))
+    // return myArticles;
+    let newArray = [...myArticles,...notmyArticles];
+    return newArray;
+    
+
+  }
   let submit = async () => {
     console.log("Before upload");
     await articleInstance.createArticle(title, content, userid, username);
@@ -83,8 +106,8 @@ let createArticle = () => {
       <Navbar bg="dark" variant="dark" style={{ marginBottom: "2rem" }}>
         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Register</Nav.Link>
-          <Nav.Link href="#features">Login</Nav.Link>
+          <Nav.Link href="/">Register</Nav.Link>
+          <Nav.Link href="/Login">Login</Nav.Link>
         </Nav>
       </Navbar>
 
@@ -120,6 +143,7 @@ let createArticle = () => {
                     setViewArticle(true),
                       setwriteArticle(false),
                       setFiltered(false);
+                      setapprovedArticles(getMyArticles(userid))
                   }}
                   eventKey="link-1"
                   style={{ color: "#FFFFFF" }}
@@ -131,9 +155,10 @@ let createArticle = () => {
                     setViewArticle(false),
                       setwriteArticle(false),
                       setFiltered(true),
-                      setfilteredArticles(
-                        filterArticlesBypopularity(popularid)
-                      );
+                      // setfilteredArticles(
+                      //   filterArticlesBypopularity(popularid)
+                      // );
+                      setfilteredArticles(filterArticlesBypopularity(popularid))
                   }}
                   eventKey="link-1"
                   style={{ color: "#FFFFFF" }}

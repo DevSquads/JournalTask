@@ -1,5 +1,5 @@
 import firebase from "../firebase";
-
+import userRole from "../Model/UserRole";
 let authRef;
 
 class Author {
@@ -17,9 +17,26 @@ class Author {
     authRef
       .createUserWithEmailAndPassword(email, password)
       .then(function (result) {
+        userRole.addRole(0,result.user.uid);
         return result.user.updateProfile({
           displayName: username,
         });
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  async registerAdmin(email, password, username) {
+    authRef
+      .createUserWithEmailAndPassword(email, password)
+      .then(function (result) {
+        userRole.addRole(1,result.user.uid);
+        return result.user.updateProfile({
+          displayName: username,
+        });
+        
       })
       .catch(function (error) {
         console.log(error);
