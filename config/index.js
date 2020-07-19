@@ -3,7 +3,7 @@ const JWTsecret = 'articles';
 config.JWTsecret = process.env.SECRET || JWTsecret;
 config.TokenDurationInHours = 24;
 
-config.dbURI = "mongodb://localhost:27017/articles",
+config.dbURI = "mongodb+srv://article:article@articlecluster.wjpz7.mongodb.net/article?retryWrites=true&w=majority",
 
 
 
