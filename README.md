@@ -15,8 +15,8 @@ The Application consists of 5 main pages:
 
 The project is built using the following technologies:
 
-- Exppress.js  - node.js  Framework -  (back-end) 
-- Nuxt.js - javascript framework - (front-end)
+- Exppress.js (node.js back-end Framework) 
+- Nuxt.js (javascript front-end framework)
 - Firebase (database)
 
 Project files consists of two main folders 
