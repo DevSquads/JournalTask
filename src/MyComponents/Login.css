@@ -1,0 +1,21 @@
+.LoginRoot {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.LoginContainer .MuiOutlinedInput-root {
+    border-radius: 40px;
+}
+
+.LoginContainer .MuiButton-root{
+    margin-top: 10px;
+    background-color: #2196f3;
+    color: white;
+}
+
+.LoginContainer .MuiButton-contained:hover{
+    background-color: #117ace;
+}
