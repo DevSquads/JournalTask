@@ -63,6 +63,14 @@ class Author {
       }
     });
   }
+
+
+  logout(){
+      return authRef.signOut().then(()=>{
+        window.location.href = "/Login";
+      });
+      
+  }
 }
 
 let author = new Author();

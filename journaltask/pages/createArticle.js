@@ -15,6 +15,7 @@ import articleInstance from "../Model/Article";
 // import Head from "next/head";
 // import author from "../Model/Author";
 import fb from "../firebase/firebase";
+import author from "../Model/Author";
 
 let createArticle = () => {
   let [userid, setUserId] = useState("");
@@ -91,10 +92,11 @@ let createArticle = () => {
   let submit = async () => {
     console.log("Before upload");
     await articleInstance.createArticle(title, content, userid, username);
+    setLgShow(true);
     console.log("After upload");
   };
 
-  //let [lgShow, setLgShow] = useState(false);
+  let [lgShow, setLgShow] = useState(false);
   let [viewArticle, setViewArticle] = useState(true);
   let [writeArticle, setwriteArticle] = useState(false);
   const [title, setTitle] = useState("");
@@ -108,10 +110,11 @@ let createArticle = () => {
         <Nav className="mr-auto">
           <Nav.Link href="/">Register</Nav.Link>
           <Nav.Link href="/Login">Login</Nav.Link>
+          <Nav.Link onClick = {()=>author.logout()}>Logout</Nav.Link>
         </Nav>
       </Navbar>
 
-      {/* <Modal
+      <Modal
         size="lg"
         show={lgShow}
         onHide={() => setLgShow(false)}
@@ -122,8 +125,8 @@ let createArticle = () => {
             Success
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>An admin would approve your article , you'll be notified</Modal.Body>
-      </Modal> */}
+        <Modal.Body>An admin would approve your article. When approved they'll appear in the "view articles section</Modal.Body>
+      </Modal>
       <Container>
         <Row>
           <Col sm={4}>
