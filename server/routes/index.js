@@ -132,7 +132,7 @@ router.post('/api/articles', (req, res) => {
 
 router.get('/api/puplishedArticles', (req, res) => {
   console.log('inside articles get api')
-  db.collection('articles').where('isPuplished', '==', true).get()
+  db.collection('articles').where('isPuplished', '==', true).orderBy("publishedAt","desc").get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -219,7 +219,7 @@ router.post('/api/deleteArticle', (req, res) => {
      });
 });
 
-//publish Article=========================, publisheTime: new Date()
+//publish Article=========================
 
 router.post('/api/puplishArticle', (req, res) => {
   let id = req.body.articleId
@@ -229,7 +229,7 @@ router.post('/api/puplishArticle', (req, res) => {
   console.log(id)
   console.log(authorName)
 
-  db.collection(`articles`).doc(id).update({isPuplished: true})
+  db.collection(`articles`).doc(id).update({isPuplished: true,publishedAt:new Date()})
   .then(() => {
     console.log('updated');
     db.collection('users').where('name', '==', `${authorName}`).get()

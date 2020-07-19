@@ -3,7 +3,7 @@
     <div class="middle">
       <img class="img-fluid" src="~assets/img/error.png" alt="">
       <h1>Oops, something went wrong!</h1>
-      <h5>Back to <a href="/">safety</a>!</h5>
+      <h5>Back to <a href="/articles">safety</a>!</h5>
     </div>
   </div>
 </template>
