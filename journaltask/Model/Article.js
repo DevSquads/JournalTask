@@ -67,7 +67,8 @@ class Article {
                   articleId:doc.id,
                   articleTitle: doc.data().title,
                   articleDescription:doc.data().description,
-                  author:doc.data().authorid
+                  author:doc.data().authorid,
+                  authorName:doc.data().authorName
               }
               this.unapprovedArticles.push(tdoc);
           })
@@ -83,7 +84,8 @@ class Article {
                     articleId:doc.id,
                     articleTitle: doc.data().title,
                     articleDescription:doc.data().description,
-                    author:doc.data().authorid
+                    author:doc.data().authorid,
+                    authorName:doc.data().authorName
                 }
                 this.approvedArticles.push(tdoc);
             })

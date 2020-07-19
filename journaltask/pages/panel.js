@@ -59,7 +59,7 @@ let adminPanel = ()=>{
   <Card style={{ width: '18rem',marginTop:"1.5rem"}}>
   <Card.Body>
     <Card.Title>{data.articleTitle}</Card.Title>
-    <Card.Subtitle className="mb-2 text-muted">Written by: {data.author}</Card.Subtitle>
+    <Card.Subtitle className="mb-2 text-muted">Written by: {data.authorName}</Card.Subtitle>
     <Card.Text>
       {data.articleDescription}
     </Card.Text>
@@ -82,14 +82,14 @@ let adminPanel = ()=>{
   <Card style={{ width: '18rem',marginTop:"1.5rem"}}>
   <Card.Body>
     <Card.Title>{data.articleTitle}</Card.Title>
-    <Card.Subtitle className="mb-2 text-muted">Written by: {data.author}</Card.Subtitle>
+    <Card.Subtitle className="mb-2 text-muted">Written by: {data.authorName}</Card.Subtitle>
     <Card.Text>
       {data.articleDescription}
     </Card.Text>
     {/* <Card.Link href="#">Approve Article</Card.Link>
     <Card.Link href="#">Delete Article</Card.Link> */}
-    <Button onClick = {()=>article.approveArticle(data.articleId)}>Approve Article</Button>
-    <br/>
+    {/* <Button onClick = {()=>article.approveArticle(data.articleId)}>Approve Article</Button>
+    <br/> */}
     <Button style = {{marginTop:"2rem"}} onClick = {()=>article.deleteArticle(data.articleId)}>Delete Article</Button>
 
     
