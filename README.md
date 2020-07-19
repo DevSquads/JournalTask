@@ -1,5 +1,79 @@
 # JournalTask
 
+
+
+# Project Description and Structure
+
+The Application consists of 5 main pages:
+
+1- Login page.             => It is the Landing page of the application that ensure the authorization of users before entering the application core.
+2- Articles page           => This page contains only the published articles .
+3- Add Article page      => In this page users can add their article and wait for approval to be published.
+4- Dashboard page     => This page contains all articles and it’s status (published or unpublished) ordered by the signed user first then,
+			         the most popular artist ( who has the highest number of published articles)..
+5- Error page              => This page will be loaded automatically if user navigate to a wrong url .
+
+
+The project is built using the following technologies:
+
+1- Exppress.js  - node.js  Framework -  (back-end) 
+2- Nuxt.js - javascript framework - (front-end)
+3- Firebase (database)
+
+Project files consists of two main folders 
+
+1- journal-system (front-end)
+2- server (back-end)
+
+# Installation and Running
+
+After cloning project files:
+
+1- Navigate to  “ journal-system ” folder 
+
+- To install dependencies, run command =>  npm install
+- To start application, run command =>  npm run dev
+- Application will be running on localhost:3000
+
+2- Navigate to  “ server ” folder  (navigate in new terminal)
+
+- To install dependencies, run command =>  npm install
+- To start application, run command =>  nodemon app.js
+- Application will be running on localhost:8080
+
+# Users Data 
+
+1- Samir (Admin)
+
+- Email: samir@gmail.com
+- Password: samir1234
+
+2- Ali (User)
+
+- Email: ali@gmail.com
+- Password: ali1234
+
+3- Menna (User)
+
+- Email: menna@gmail.com
+- Password: menna1234
+
+# Test Cases Scenarios 
+
+1- Sign in with ( Admin Account ) 
+
+- you will see all pages available to navigate.
+- you will see your articles sorted firstly in dashboard
+- you will have the access to publish / delete articles from database in the dashboard page.
+
+2- Sign in with ( User Account ) 
+
+- you will see all pages available to navigate.
+- you will see your articles sorted firstly in dashboard
+- you will NOT have the access to publish / delete articles from database in the dashboard page. (ACTIONS COLUMNS WILL BE HIDDEN)
+
+=======================================================================================================================
+
 # Description
 - Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.
 - Push your work to your forked repo "user-name/JournalTask".
