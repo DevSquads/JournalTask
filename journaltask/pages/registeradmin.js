@@ -24,7 +24,7 @@ let register = ()=>{
     
   <Form.Group controlId="formBasicusername" style = {{width:350,marginLeft:580}}>
     <Form.Label>Admin Name</Form.Label>
-    <Form.Control type="text" placeholder="Author name" onChange = {(e)=>setUSername(e.target.value)} />
+    <Form.Control type="text" placeholder="Admin name" onChange = {(e)=>setUSername(e.target.value)} />
   </Form.Group>
   
   <Form.Group controlId="formBasicEmail" style = {{width:350,marginLeft:580}}>
