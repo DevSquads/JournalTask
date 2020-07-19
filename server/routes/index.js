@@ -98,9 +98,7 @@ router.post('/api/articles', (req, res) => {
             return;
           }
           snapshot.forEach(doc => {
-            // console.log(doc.id, '=>', doc.data());
             var pDoc = { id: doc.id,name:doc.data().name ,counter:doc.data().counter}
-            // console.log(pDoc)
             authors.push(pDoc)
           });
           console.log(authors)
@@ -134,8 +132,7 @@ router.post('/api/articles', (req, res) => {
 
 router.get('/api/puplishedArticles', (req, res) => {
   console.log('inside articles get api')
-  let coll = db.collection('articles');
-  let query = coll.limit(9).where('isPuplished', '==', true).get()
+  db.collection('articles').where('isPuplished', '==', true).get()
     .then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -181,16 +178,48 @@ console.log(obj);
 
 router.post('/api/deleteArticle', (req, res) => {
   let id = req.body.articleId
+  let author = req.body.author
+  let status = req.body.status
+  let userCounter;
+  let userId ;
+  console.log(id)
+  console.log(author)
+
   console.log(id)
   db.collection(`articles`).doc(id).delete()
-  .then(console.log('deleted'))
+  .then(() => {
+    console.log('deleted');
+    console.log(`status of article is: ${status}`);
+    if(status == 'true'){
+      db.collection('users').where('name', '==', `${author}`).get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          }
+          let docs = [];
+          snapshot.forEach(doc => {
+            var pDoc = { id: doc.id, counter: doc.data().counter}
+            docs.push(pDoc)
+          });
+          userCounter = docs[0].counter
+          userId = docs[0].id
+          console.log(userCounter)
+          console.log(userId)
+          db.collection(`users`).doc(userId).update({counter: userCounter-1 })
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+    }
+  })
    .catch(err => {
        console.log('Error deleting document', err);
        res.json('error');
      });
 });
 
-//publish Article=========================
+//publish Article=========================, publisheTime: new Date()
 
 router.post('/api/puplishArticle', (req, res) => {
   let id = req.body.articleId
@@ -199,8 +228,6 @@ router.post('/api/puplishArticle', (req, res) => {
   let userId ;
   console.log(id)
   console.log(authorName)
-
-
 
   db.collection(`articles`).doc(id).update({isPuplished: true})
   .then(() => {
@@ -232,7 +259,6 @@ router.post('/api/puplishArticle', (req, res) => {
        console.log('Error updating document', err);
        res.json('error');
      });
-
 });
 
 //exporting routs=========================

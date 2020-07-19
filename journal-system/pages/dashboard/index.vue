@@ -30,7 +30,7 @@
             <td v-if="article.isPuplished == true && usersRole == 'admin'" ></td>
             <td v-if="article.isPuplished == false && usersRole == 'admin'" ><a @click="publishArticle(article.id, article.author)"><mdb-icon icon="upload" /></a> </td>
           <!-- published or not condition -->
-          <td v-if="usersRole == 'admin'"><a @click="deletArticle(article.id)"> <mdb-icon icon="trash-alt" /></a> </td>
+          <td v-if="usersRole == 'admin'"><a @click="deletArticle(article.id, article.author, article.isPuplished )"> <mdb-icon icon="trash-alt" /></a> </td>
         </tr>
       </mdb-tbl-body>
     </mdb-tbl>
@@ -63,10 +63,10 @@
       }
     },
     methods:{
-      deletArticle(id, author){
+      deletArticle(id, author, status){
         console.log('hi from delete')
         console.log(id)
-        this.$axios.post('http://localhost:8080/api/deleteArticle', {"articleId": `${id}`})
+        this.$axios.post('http://localhost:8080/api/deleteArticle', {"articleId": `${id}`, "author": `${author}`, "status": `${status}` })
         .then(res => {
           console.log('In Delete Article')
         })

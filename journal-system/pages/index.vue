@@ -82,7 +82,7 @@
             console.log(data);
             console.log('in login method');
             this.$router.push('/articles')
-          }).catch(error => this.error = error)
+          }).catch(error => this.errors.push('There is no user record corresponding to this identifier. The user may have been deleted.'))
         }
       }
     }

@@ -4,13 +4,13 @@
       <mdb-navbar-brand href="/">
        LEGENDARY News
       </mdb-navbar-brand>
-      <mdb-navbar-toggler>
+      <mdb-navbar-toggler  v-if="loggedIn">
         <mdb-navbar-nav>
           <mdb-nav-item href="/articles" active>Articles</mdb-nav-item>
-          <mdb-nav-item href="/addArticle">Add Article</mdb-nav-item>
           <mdb-nav-item href="/dashboard">Dashboard</mdb-nav-item>
+          <mdb-nav-item href="/addArticle">Add Article</mdb-nav-item>
         </mdb-navbar-nav>
-        <form v-if="loggedIn">
+        <form>
           <mdb-navbar-nav>
             <mdb-nav-item @click="logout" href="#">Logut</mdb-nav-item>
           </mdb-navbar-nav>
