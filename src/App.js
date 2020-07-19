@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
+import ArticleView from './MyComponents/ArticleView';
 
 const useStyles = makeStyles({
     root: {
@@ -18,14 +19,14 @@ function App() {
     const classes = useStyles();
  return (
     <div className="App">
-        <AppBar classes={{root: classes.root}} position="fixed">
+        <AppBar classes={{root: classes.root}} position="static">
             <Toolbar>
                 <div className="AppBarTitle">
                     Journal Task
                 </div>
             </Toolbar>
         </AppBar>
-        <Login/>
+        <ArticleView/>
     </div>
   );
 }
