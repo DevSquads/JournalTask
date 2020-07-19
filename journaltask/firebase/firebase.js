@@ -1,9 +1,9 @@
 //import firebase from 'firebase/app';
 //import * as admin from 'firebase-admin';
-import 'firebase/auth';
-//import 'firebase/analytics';
-import 'firebase/storage';
-import "firebase/firestore";
+// import 'firebase/auth';
+// //import 'firebase/analytics';
+// import 'firebase/storage';
+// import "firebase/firestore";
 import * as firebase from "firebase";
 
 import firebaseConfig from './config';

@@ -37,7 +37,7 @@ let Login = ()=>{
   
   
  </Form>
- <Button variant="primary" type="submit" style = {{marginTop:"5px"}} onClick = {()=>author.login(email,pass)}>
+ <Button variant="primary" type="submit" style = {{marginTop:"5px"}} onClick = {()=>{author.login(email,pass),location.href = "./createArticle"}}>
      Submit
    </Button>
  </div>

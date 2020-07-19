@@ -3,6 +3,8 @@ import React, {useContext,useEffect,useState} from "react";
 import {Form,Button,Nav,Row,Container,Col,Modal,Navbar} from 'react-bootstrap'
 import articleInstance from "../Model/Article";
 import Head from "next/head";
+import author from "../Model/Author";
+import fb from "../firebase/firebase";
 //import {Navbar,Nav,NavDropDown} from "react-bootstrap";
 //import article from "../Model/Article";
 
@@ -10,11 +12,32 @@ import Head from "next/head";
 
 let createArticle = ()=>{
 
+let [userid,setUserId] = useState("");
+let [username,setUserName] = useState("");
+
+  useEffect(()=>{
+
+    console.log("HELLO ");
+    let firebase = new fb();
+    firebase.auth.onAuthStateChanged(async(user)=> {
+      console.log(user);
+      if(user){
+        setUserId(user.uid);
+        setUserName(user.displayName);
+        console.log(user.displayName);
+        console.log(user.uid);
+      }
+      else console.log("No user is signed in");
+    });
+  
+
+  
+},[])
 
 
   let submit = async()=>{
     console.log("Before upload");
-   await articleInstance.createArticle(title,content);
+   await articleInstance.createArticle(title,content,userid,username);
     console.log("After upload");
   }
 
