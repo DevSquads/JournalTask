@@ -1,0 +1,521 @@
+{
+    "swagger": "2.0",
+    "title": "Article Api Doc",
+    "description": "Swagger API Documentation For Article API",
+    "contact": {
+        "name": "API Support",
+        "url": "https://github.com/abdalahshaban/JournalTask.git",
+        "email": "abdalahshaban129@gmail.com"
+    },
+    "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0",
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "API For Article"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "securityDefinitions": {
+        "jwt": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user/signup": {
+            "post": {
+                "tags": [
+                    "Signup"
+                ],
+                "description": "Signup",
+                "parameters": [
+                    {
+                        "name": "Signup Data",
+                        "description": "Signup User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/addUser"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "new User added",
+                        "schema": {
+                            "$ref": "#definitions/responseUser"
+                        }
+                    },
+                    "409": {
+                        "description": "Email already exists",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signup/admin": {
+            "post": {
+                "tags": [
+                    "SignupAdmin"
+                ],
+                "description": "SignupAdmin",
+                "parameters": [
+                    {
+                        "name": "Signup Data",
+                        "description": "Signup User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/addUser"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "new User added",
+                        "schema": {
+                            "$ref": "#definitions/responseUser"
+                        }
+                    },
+                    "409": {
+                        "description": "Email already exists",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "login"
+                ],
+                "description": "login",
+                "parameters": [
+                    {
+                        "name": "login Data",
+                        "description": "login User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/loginUser"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "login User",
+                        "schema": {
+                            "$ref": "#definitions/responseUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid username or password",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/add-article": {
+            "post": {
+                "tags": [
+                    "Add Article"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "Add new Article",
+                "parameters": [
+                    {
+                        "name": "Article",
+                        "description": "Article that we want create",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/addArticle"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "new article added",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/edit-article/{articleId}": {
+            "parameters": [
+                {
+                    "name": "articleId",
+                    "in": "path",
+                    "description": "Id of The Article",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "put": {
+                "tags": [
+                    "edit Article"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "edit Article",
+                "parameters": [
+                    {
+                        "name": "Article",
+                        "description": "Article that we want edit",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#definitions/editArticle"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article edited successfully",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Article",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/delete-article/{articleId}": {
+            "parameters": [
+                {
+                    "name": "articleId",
+                    "in": "path",
+                    "description": "Id of The Article",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "delete": {
+                "tags": [
+                    "Delete article"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "Get Article Info",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Article Info Successfully",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Article",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/approve-article/{articleId}": {
+            "parameters": [
+                {
+                    "name": "articleId",
+                    "in": "path",
+                    "description": "Id of The Article",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "tags": [
+                    "approve Article"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "approve Article",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Article approve Successfully",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Article",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/get-article-info/{articleId}": {
+            "parameters": [
+                {
+                    "name": "articleId",
+                    "in": "path",
+                    "description": "Id of The Article",
+                    "type": "string",
+                    "required": true
+                }
+            ],
+            "get": {
+                "tags": [
+                    "get Article Info"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "Get Article Info",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Article Info Successfully",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Article",
+                        "schema": {
+                            "$ref": "#definitions/invalidArticle"
+                        }
+                    }
+                }
+            }
+        },
+        "/article/getArticlesSortedByMostPopularAuthorsOrAuthorViewAllArticles": {
+            "get": {
+                "tags": [
+                    "get All Article based On Role"
+                ],
+                "security": [
+                    {
+                        "jwt": []
+                    }
+                ],
+                "description": "get All Article",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get All Articles Successfully",
+                        "schema": {
+                            "$ref": "#definitions/responseArticle"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "addUser": {
+            "required": [
+                "name",
+                "email",
+                "password"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "loginUser": {
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "responseUser": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "userData": {
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "articles": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "role": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "responseArticle": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "article": {
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "approve": {
+                            "type": "boolean"
+                        },
+                        "addedBy": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "addArticle": {
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "editArticle": {
+            "required": [
+                "title",
+                "description"
+            ],
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "invalidArticle": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ArticleInfo": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "approve": {
+                    "type": "boolean"
+                },
+                "addedBy": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
