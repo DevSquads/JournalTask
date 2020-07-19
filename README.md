@@ -1,30 +1,47 @@
-# JournalTask
+# Manage Article
 
-# Description
-- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.
-- Push your work to your forked repo "user-name/JournalTask".
-- Create pull request in the original repo "devsquads/JournalTask"
+You can :
 
-# Story
-Samir the chief editor in “legen- wait for it-dary news” asked the journal owner Yehia to make him an appointment with DevSquads their technical partner to ask them for help.
-He wants to make an app that would help him manage the articles that being posted by the journalists, Samir is the only one that can delete articles, and approve the articles to be published, every article has a title, description, and author name.
+  + registration (email - password)
+  + login 
+  + AUth provided by JWT
+  + create a article (title-description)
+  + get user article
+  + Only admin can approve/delete articles.
+  + When an author view all articles, they see their own articles first
 
+### Tech
 
-# Requirements
-- List of articles sorted by most popular authors ( who has the highest number of published articles).
-- Create article.
-- Delete article.
-- Only Samir can approve/delete articles.
-- When an author view all articles, they see their own articles first. 
-- Edit README to include the reqired steps to run your application.
+Article uses a number of open source projects to work properly:
 
-# Stack
-- Choosing the tech stack is up to you.
+* [node.js] - evented I/O for the backend
+* [Express] - fast node.js network app framework 
+* [MongoDb] - NoSql DataBase , the most popular database for modern apps
 
-# Nice to have
-- Tests.
-- Organized and well written git commit history.
-- E2E tests.
+And of course Article itself is open source with a [public repository][git-repo-url] on GitHub.
 
-# Task Deadline
-- Monday Morning 20/07/2020.
+### Installation
+
+Article requires [Node.js](https://nodejs.org/) v8+ to run.
+
+Install the dependencies and devDependencies and start the server.
+
+``` sh
+$ git clone https://github.com/abdalahshaban/JournalTask.git
+$ cd JournalTask
+$ npm install -d
+$ npm run start or node app.js
+```
+
+for run test 
+
+``` sh
+$ cd JournalTask
+$ npm install 
+$ npm run test
+```
+
+   [git-repo-url]: <https://github.com/abdalahshaban/JournalTask.git>
+   [node.js]: <http://nodejs.org>
+   [express]: <http://expressjs.com>
+   [mongoDb]:<https://www.mongodb.com/>
