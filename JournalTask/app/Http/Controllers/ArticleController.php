@@ -20,12 +20,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $userArticles = auth()->user()->articles()->whereStatus(1)->get();
+        $userArticles = auth()->user()->articles()->active()->get();
 
-        $otherArticles = Article::where('user_id', '<>', auth()->id())
-            ->whereStatus(1)->get();
+        $otherArticles = Article::otherArticles()->active()->get();
 
-        return view('articles.index', compact('userArticles', 'otherArticles'));
+        $articles = $userArticles->merge($otherArticles);
+        return view('articles.index', compact('articles'));
     }
 
     /**
@@ -74,8 +74,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
+        if (auth()->user()->is_admin === 1) {
+            $article->delete();
 
-        return redirect()->route('articles.index');
+            return back();
+        }
     }
 }

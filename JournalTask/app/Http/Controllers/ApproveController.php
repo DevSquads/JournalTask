@@ -16,9 +16,9 @@ class ApproveController extends Controller
     {
         if (auth()->user()->is_admin === 1) {
             
-        $articles = Article::where('status', 0)->get();
+            $articles = Article::inactive()->get();
 
-        return view ('articles.notApproved', compact('articles'));
+            return view ('articles.notApproved', compact('articles'));
         }
     }
 
