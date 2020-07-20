@@ -1,0 +1,36 @@
+.ArticlesListRoot .DeleteButton {
+    background-color: red;
+    margin-left: 10px;
+    color: white;
+}
+
+.ArticlesListRoot .DeleteButton:hover{
+    background-color: rgb(173, 6, 6);
+    color: white;
+}
+
+.ArticlesListRoot .Mui-disabled{
+    background-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.26)
+}
+
+.ArticlesListRoot .ApproveButton:hover {
+    background-color: rgb(10, 175, 10);
+    color: white;
+}
+
+.ArticlesListRoot .ApproveButton{
+    background-color: rgb(10, 153, 10);
+    color: white;
+    margin-left: 10px;
+}
+
+.ArticlesListRoot .ViewButton:hover {
+    background-color: lightblue;
+    color: white;
+}
+
+.ArticlesListRoot .ViewButton{
+    background-color: rgb(71, 145, 170);
+    color: white;
+}

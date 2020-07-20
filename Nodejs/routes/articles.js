@@ -1,8 +1,8 @@
 const router = require('express').Router();
 let Article = require('../Models/article.Model');
 
-router.route('/').get((req, res) => {
-    Article.find()
+router.route('/').post((req, res) => {
+    Article.find(req.body)
     .then(articles => res.json(articles))
     .catch(err => res.status(400).json('Error: ' + err));
 });

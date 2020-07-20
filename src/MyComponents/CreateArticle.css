@@ -1,0 +1,21 @@
+.CreateArticleRoot {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 70%;
+    align-items: flex-end;
+}
+
+.CreateArticleRoot .MuiButton-root{
+    margin-top: 10px;
+    background-color: #2196f3;
+    color: white;
+}
+
+.CreateArticleRoot .MuiButton-contained:hover{
+    background-color: #117ace;
+}
+
+.CreateArticleRoot .ArticleDescription {
+    margin-top: 10px;
+}
