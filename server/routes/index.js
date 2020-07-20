@@ -18,7 +18,7 @@ const db = admin.firestore();
 
 router.get('/', (req, res) => res.send('Your Journal System Is Running And Functional'))
 
-//get users==========================
+//get all users==========================
 
 router.get('/api/users', (req, res) => {
   console.log('inside users get api')

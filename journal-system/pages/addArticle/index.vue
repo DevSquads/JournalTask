@@ -37,8 +37,10 @@
 
                 <mdb-row class="mt-3">
                   <mdb-col class="mt-3" md="8">
+                    <div class="text-left">
+                      <label>Author Name</label>
+                    </div>
                     <select v-model="author" class="browser-default custom-select">
-                      <option selected >Author Name</option>
                       <option v-for="(user,index) in users" v-bind:key="index"
                       :value="user.data.name">{{user.data.name}}</option>
                     </select>

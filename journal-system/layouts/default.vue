@@ -1,10 +1,11 @@
 <template>
   <div class="main-content">
-    <mdb-navbar color="indigo" dark>
+    <appHeader v-if="!loggedIn" />
+    <mdb-navbar v-if="loggedIn" color="indigo" dark>
       <mdb-navbar-brand href="/">
        LEGENDARY News
       </mdb-navbar-brand>
-      <mdb-navbar-toggler  v-if="loggedIn">
+      <mdb-navbar-toggler>
         <mdb-navbar-nav>
           <mdb-nav-item href="/articles" active>Articles</mdb-nav-item>
           <mdb-nav-item href="/dashboard">Dashboard</mdb-nav-item>
@@ -31,11 +32,13 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import Cookies from 'js-cookie'
+import appHeader from '~/components/appHeader.vue'
 import appFooter from '~/components/appFooter.vue'
 import { mdbNavbar, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, mdbDropdown, mdbDropdownMenu, mdbDropdownToggle, mdbInput, mdbDropdownItem } from 'mdbvue';
 
 export default {
   components: {
+    appHeader,
     appFooter,
     mdbNavbar,
     mdbNavbarBrand,
