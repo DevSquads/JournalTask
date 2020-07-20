@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using JournalTask.Models;
 using JournalTask.ViewModels;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace JournalTask.Controllers
@@ -42,7 +43,10 @@ namespace JournalTask.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = _context.Articles.Find(id);
+
+            var article = _context.Articles
+                .Include(a => a.Author)
+                .SingleOrDefault(a => a.Id == id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -93,27 +97,38 @@ namespace JournalTask.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Article article = _context.Articles.Find(id);
+
+            Article article = _context.Articles
+                .SingleOrDefault(a => a.Id == id);
             if (article == null)
             {
                 return HttpNotFound();
             }
-            return View(article);
+
+            ArticleViewModel editArticle = new ArticleViewModel(article);
+
+            
+            return View(editArticle);
         }
 
         // POST: Articles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manger")]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Author")] Article article)
+        public ActionResult Edit(ArticleViewModel viewArticle)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Entry(article).State = EntityState.Modified;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                return View(viewArticle);
             }
-            return View(article);
+            
+            var article = _context.Articles
+                .SingleOrDefault(a => a.Id == viewArticle.Id);
+
+            article.Update(viewArticle);
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Articles/Delete/5
@@ -126,7 +141,9 @@ namespace JournalTask.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Article article = _context.Articles.Find(id);
+            var article = _context.Articles
+                .Include(a => a.Author)
+                .SingleOrDefault(a => a.Id == id);
             if (article == null)
             {
                 return HttpNotFound();
@@ -185,7 +202,7 @@ namespace JournalTask.Controllers
             article.Accept();
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Waiting");
         }
 
 

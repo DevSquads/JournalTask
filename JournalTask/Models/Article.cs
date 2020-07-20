@@ -32,5 +32,11 @@ namespace JournalTask.Models
         {
             IsApproved = true;
         }
+
+        public void Update(ArticleViewModel viewArticle)
+        {
+            Title = viewArticle.Title;
+            Description = viewArticle.Description;
+        }
     }
 }
