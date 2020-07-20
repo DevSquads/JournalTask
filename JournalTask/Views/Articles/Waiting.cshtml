@@ -1,0 +1,56 @@
+﻿@model IEnumerable<JournalTask.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pending Articles</h2>
+
+
+@if (!Model.Any())
+{
+    <p> there is no articles </p>
+}
+
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var article in Model
+            .OrderByDescending(a => a.Author.Id == (string)ViewData["userId"])
+            .ThenByDescending(a => a.Author.NOfArticles))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => article.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => article.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => article.Author.Name)
+                    (Articles)
+                    @Html.DisplayFor(modelItem => article.Author.NOfArticles)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Approve", "Approve", new { id = article.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

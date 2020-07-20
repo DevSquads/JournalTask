@@ -162,6 +162,32 @@ namespace JournalTask.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize(Roles = "Manger")]
+        public ActionResult Waiting()
+        {
+            ViewData["userId"] = User.Identity.GetUserId();
+            var articles = _context.Articles
+                .Where(a => !a.IsApproved)
+                .Include(a => a.Author)
+                .ToList();
+
+            return View(articles);
+        }
+        [Authorize(Roles = "Manger")]
+        public ActionResult Approve(int id)
+        {
+            Article article = _context.Articles.Find(id);
+            if (article == null)
+            {
+                return HttpNotFound();
+            }
+
+            article.Accept();
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

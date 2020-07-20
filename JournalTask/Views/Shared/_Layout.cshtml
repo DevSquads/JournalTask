@@ -22,7 +22,11 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Articles", "Index", "Articles")</li>
-            </ul>
+                @if (User.IsInRole("Manger"))
+                {
+                    <li>@Html.ActionLink("Pending Articles ", "Waiting", "Articles")</li>
+
+                }                </ul>
             @Html.Partial("_LoginPartial")
         </div>
     </div>
