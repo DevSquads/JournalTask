@@ -1,24 +1,78 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import './Login.css';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Button from '@material-ui/core/Button';
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import "./Login.css";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
+import $ from "jquery";
 
-function Login(){
-    return (
-        <div className="LoginRoot">
-            <div className="LoginContainer">
-                <TextField  fullWidth = {true} InputProps = {{ startAdornment:(<InputAdornment position="start">
-                <AccountCircle />
-                </InputAdornment>)
-                }} label="Author" variant="outlined" size="small" placeholder="Enter author name"/>
-                <Button fullWidth={true} variant="contained">
-                    Login
-                </Button>
-            </div>
-        </div>
-    )
+class Login extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			userName: "",
+        };
+        this.handleUserNameChange = this.handleUserNameChange.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.addUser = this.addUser.bind(this);
+	}
+
+	handleLogin() {
+		$.ajax({
+			url: "http://localhost:5000/users/",
+			data: { userName: this.state.userName },
+		}).done((response) => {
+			if (response.length) {
+				this.props.setLoggedUser(response[0]);
+			} else {
+                this.addUser();
+			}
+		});
+	}
+
+	addUser() {
+		$.ajax({
+			url: "http://localhost:5000/users/add",
+			data: { userName: this.state.userName, userType: 2 },
+		}).done((response) => {
+            this.handleLogin();
+        });
+	}
+
+	handleUserNameChange(event) {
+		this.setState({ userName: event.target.value });
+	}
+
+	render() {
+		return (
+			<div className="LoginRoot">
+				<div className="LoginContainer">
+					<TextField
+						value={this.state.userName}
+						onChange={this.handleUserNameChange}
+						fullWidth={true}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<AccountCircle />
+								</InputAdornment>
+							),
+						}}
+						label="Author"
+						variant="outlined"
+						size="small"
+						placeholder="Enter author name"
+					/>
+					<Button
+						fullWidth={true}
+						variant="contained"
+						onClick={this.handleLogin}>
+						Login
+					</Button>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Login;

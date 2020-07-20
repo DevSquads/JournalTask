@@ -11,8 +11,18 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            componentToRender: <Login/>
+            componentToRender: null,
+            loggedUser: null
         }
+        this.setLoggedUser = this.setLoggedUser.bind(this);
+    }
+
+    componentDidMount(){
+        this.setState({componentToRender: <Login setLoggedUser = {this.setLoggedUser}/>})
+    }
+
+    setLoggedUser(user){
+        this.setState({loggedUser:user, componentToRender: <ArticlesList/>});
     }
 
     render(){
