@@ -26,13 +26,17 @@ class App extends React.Component {
     }
 
     render(){
-        let {componentToRender} = this.state;
+        let {componentToRender, loggedUser} = this.state;
         return (
             <div className="App">
                 <AppBar position="static">
                     <Toolbar>
                         <div className="AppBarTitle">
                             Journal Task
+                        </div>
+                        <div className="appBarTabs">
+                            <div>Articles List</div>
+                            {loggedUser && loggedUser.userType == 1 ? <div> Articles to Approve </div> : null}
                         </div>
                     </Toolbar>
                 </AppBar>

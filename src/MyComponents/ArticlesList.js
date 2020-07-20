@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import $ from "jquery";
+import Axios from "axios";
 
 class ArticlesList extends React.Component {
     constructor(props){
@@ -20,8 +20,8 @@ class ArticlesList extends React.Component {
     }
 
     getAllArticles(){
-        $.ajax("http://localhost:5000/articles/").done((response)=>{
-            this.setState({Articles: response});
+        Axios.get("http://localhost:5000/articles/").done((response)=>{
+            this.setState({Articles: response.data});
         })
     }
 

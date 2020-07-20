@@ -4,7 +4,7 @@ import "./Login.css";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
-import $ from "jquery";
+import Axios from "axios";
 
 class Login extends React.Component {
 	constructor(props) {
@@ -18,12 +18,11 @@ class Login extends React.Component {
 	}
 
 	handleLogin() {
-		$.ajax({
-			url: "http://localhost:5000/users/",
-			data: { userName: this.state.userName },
-		}).done((response) => {
-			if (response.length) {
-				this.props.setLoggedUser(response[0]);
+		Axios.post("http://localhost:5000/users/", { userName: this.state.userName }
+		).then((response) => {
+            console.log(response);
+			if (response.data.length) {
+				this.props.setLoggedUser(response.data[0]);
 			} else {
                 this.addUser();
 			}
@@ -31,10 +30,7 @@ class Login extends React.Component {
 	}
 
 	addUser() {
-		$.ajax({
-			url: "http://localhost:5000/users/add",
-			data: { userName: this.state.userName, userType: 2 },
-		}).done((response) => {
+		Axios.post("http://localhost:5000/users/add",{ userName: this.state.userName, userType: 2 }).then((response) => {
             this.handleLogin();
         });
 	}
