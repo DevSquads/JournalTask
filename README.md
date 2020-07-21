@@ -18,4 +18,6 @@ How to run application:
 
 10- open localhost:3000 in your browser.
 
+11- enter Samir name if you want to be an admin, or any other name for normal user.
+
 everything should be working find now.
