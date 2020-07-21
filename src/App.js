@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import ArticlesList from './MyComponents/ArticlesList'
 import CreateArticle from './MyComponents/CreateArticle';
+import ArticleView from './MyComponents/ArticleView';
 
 class App extends React.Component {
     constructor(props){
@@ -25,19 +26,19 @@ class App extends React.Component {
     }
 
     setLoggedUser(user){
-        this.setState({loggedUser:user, componentToRender: <ArticlesList user={user} approve={false}/>, mainTitle: "Articles List"});
+        this.setState({loggedUser:user, componentToRender: <ArticlesList user={user} approve={false} setComponent = {this.setComponent}/>, mainTitle: "Articles List"});
     }
 
-    setComponent(componentName){
+    setComponent(componentName, articleData){
         let {componentToRender, mainTitle, loggedUser} = this.state;
         if(!loggedUser){return;}
         if(componentName == "Articles List"){
-            componentToRender = <ArticlesList user={loggedUser} approve={false}/>;
+            componentToRender = <ArticlesList user={loggedUser} approve={false} setComponent = {this.setComponent}/>;
             mainTitle = componentName;
         }
         else if(componentName == "Articles to Approve")
         {   
-            componentToRender = <ArticlesList user={loggedUser} approve={true}/>;
+            componentToRender = <ArticlesList user={loggedUser} approve={true} setComponent = {this.setComponent}/>;
             mainTitle = componentName;
         }
         else if(componentName == "Create Article")
@@ -45,10 +46,13 @@ class App extends React.Component {
             componentToRender = <CreateArticle user={loggedUser} setComponent = {this.setComponent}/>;
             mainTitle = componentName;
         }
+        else if(componentName == "View Article")
+        {   
+            componentToRender = <ArticleView article={articleData}/>;
+            mainTitle = "Article Details";
+        }
         this.setState({componentToRender, mainTitle});
     }
-
-
 
     render(){
         let {componentToRender, loggedUser, mainTitle} = this.state;

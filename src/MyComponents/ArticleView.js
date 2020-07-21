@@ -1,19 +1,13 @@
 import React from 'react';
 import './ArticleView.css';
 
-const Article = {
-    title: "Ay 7aga",
-    description: "7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer 7agat keteeeeeeeeer ",
-    author: "Tamer Mohamed",
-    Approved: true
-}
-
-function ArticleView(){
+function ArticleView(props){
+    let {article} = props;
     return (
         <div className="ArticleViewRoot">
-            <div className="ArticleTitle">{Article.title}</div>
-            <div className="ArticleAuthor">{"By " + Article.author}</div>
-            <div className="ArticleDescription">{Article.description}</div>
+            <div className="ArticleTitle">{article.title}</div>
+            <div className="ArticleAuthor">{"By " + article.authorName}</div>
+            <div className="ArticleDescription">{article.description}</div>
         </div>
     )
 }

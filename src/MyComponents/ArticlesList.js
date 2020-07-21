@@ -41,6 +41,25 @@ class ArticlesList extends React.Component {
         }
     }
 
+    approveAricle(article){
+        article.approved = true;
+        let {Articles} = this.state;
+        Axios.post("http://localhost:5000/articles/update/" + article._id, article).then((response)=>{
+            this.setState({
+                Articles: Articles.filter(currentArticle => currentArticle._id != article._id)
+            })
+        })
+    }
+
+    deleteArticle(article){
+        let {Articles} = this.state;
+        Axios.delete("http://localhost:5000/articles/delete/" + article._id).then((response)=>{
+            this.setState({
+                Articles: Articles.filter(currentArticle => currentArticle._id != article._id)
+            })
+        })
+    }
+
     render(){
         let {Articles} = this.state;
         return (
@@ -55,13 +74,13 @@ class ArticlesList extends React.Component {
                     </TableHead>
                     <TableBody>
                     {Articles.map((article) => (
-                        <TableRow key={article.__id}>
+                        <TableRow key={article._id}>
                             <TableCell>{article.authorName}</TableCell>
                             <TableCell>{article.title}</TableCell>
                             <TableCell>
-                                <Button className="ViewButton">View</Button>
-                                {this.props.approve ? <Button className="ApproveButton" disabled={this.props.user.userType != 1}>Approve</Button> : null}
-                                <Button className="DeleteButton" disabled={this.props.user.userType != 1}>Delete</Button>
+                                <Button className="ViewButton" onClick={() => this.props.setComponent("View Article", article)}>View</Button>
+                                {this.props.approve ? <Button className="ApproveButton" onClick={() => this.approveAricle(article)}>Approve</Button> : null}
+                                <Button className="DeleteButton" disabled={this.props.user.userType != 1} onClick={() => this.deleteArticle(article)}>Delete</Button>
                             </TableCell>
                         </TableRow>
                     ))}
