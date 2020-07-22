@@ -17,10 +17,7 @@ He wants to make an app that would help him manage the articles that being poste
 - Only Samir can approve/delete articles.
 - When an author view all articles, they see their own articles first. 
 - Edit README to include the required steps to run your application.
-
-# Installation
-- To make it easy for any developer that is going to work/run your application it needs to be platform independent and easy to build.
-- We recommend using Docker.
+- Dockerizing your application.
 
 # Tests
 - Task should be fully covered with automatic tests ( unit/e2e ).
