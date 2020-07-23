@@ -6,7 +6,6 @@ class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
 
-    isAdmin = models.BooleanField(default=False)
     email = models.EmailField()
 
 
@@ -15,3 +14,6 @@ class Article(models.Model):
     description = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     approved = models.BooleanField(default=False)
+    
+    def __str__(self):
+    	return str(self.title) + " by " + str(self.author.username)

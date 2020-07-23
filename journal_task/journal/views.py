@@ -6,11 +6,12 @@ from .forms import RegisterForm,ArticleForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from journal.models import Article
+from journal.models import Article,User
 from django.utils.decorators import method_decorator
-from django.db.models import Count,Q
+from django.db.models import Count,Q,Value,Case
 from django.db.models import Case, When
 from .tables import ArticleListTable
+from django.db import models
 
 def register(response):
 	if response.method == "POST":
@@ -40,7 +41,11 @@ class AdminArticleList(generic.TemplateView):
 	template_name = "article_list.html"
 	def get_context_data(self, **kwargs):
 		context_dict = {}
-		articles_list = Article.objects.annotate(count_approved=Count('author', filter=Q(approved=True))).order_by('-count_approved')
+		authors = User.objects.annotate(count_approved=Count('article', filter=Q(article__approved=True))).order_by('-count_approved').values_list('id', flat=True)
+		authors_dict = {index: x for index, x in enumerate(authors, start=1)}
+		whens = [When(author=v, then=k) for k, v in authors_dict.items()]
+		articles_list = Article.objects.all().annotate(rank=Case(
+			*whens,default=0,output_field=models.DecimalField())).order_by('rank')
 		table = ArticleListTable(articles_list)
 		context_dict['object_list'] = table
 		return context_dict
