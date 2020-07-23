@@ -2,14 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '4a(3#f2x*$^^7q4q%k52u5&@6e0gxder8(6reh$g-0d+o&fsix'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -19,13 +13,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'journal.apps.JournalConfig',
-    'django.contrib.admin',
+    'crispy_forms',
+    'django_tables2',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
