@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm,ArticleForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -20,8 +20,7 @@ def register(response):
 		return redirect("/journal")
 	else:
 		form = RegisterForm()
-
-	return render(response, "journal/register.html", {"form":form})
+		return render(response, "journal/register.html", {"form":form})
 
 def login(request):
 	if request.method == "POST":
@@ -51,18 +50,24 @@ class AuthorArticleList(generic.TemplateView):
 		context = super().get_context_data(**kwargs)
 
 		context['object_list'] = Article.objects.order_by(
-    Case(When(author=self.request.user.id, then=0), default=1))
+	Case(When(author=self.request.user.id, then=0), default=1))
 		return context
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class ArticleList(generic.View):
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return AdminArticleList.as_view()(request, *args, **kwargs)
-        else:
-            return AuthorArticleList.as_view()(request, *args, **kwargs)
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_superuser:
+			return AdminArticleList.as_view()(request, *args, **kwargs)
+		else:
+			return AuthorArticleList.as_view()(request, *args, **kwargs)
 
 @login_required
 def create_article(request):
-	response = "You're creating an article"
-	return HttpResponse(response)
+	if request.method == "POST":
+		form = ArticleForm(request.POST, request = request)
+		if form.is_valid():
+			form.save()
+			return redirect("/journal")
+	else: 
+		form = ArticleForm()
+		return render(request, 'journal/create_article.html', {'form': form}) 
