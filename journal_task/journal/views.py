@@ -10,6 +10,7 @@ from journal.models import Article
 from django.utils.decorators import method_decorator
 from django.db.models import Count,Q
 from django.db.models import Case, When
+from .tables import ArticleListTable
 
 def register(response):
 	if response.method == "POST":
@@ -38,10 +39,11 @@ def login(request):
 class AdminArticleList(generic.TemplateView):
 	template_name = "article_list.html"
 	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-
-		context['object_list'] = Article.objects.annotate(count_approved=Count('author', filter=Q(approved=True))).order_by('count_approved')
-		return context
+		context_dict = {}
+		articles_list = Article.objects.annotate(count_approved=Count('author', filter=Q(approved=True))).order_by('-count_approved')
+		table = ArticleListTable(articles_list)
+		context_dict['object_list'] = table
+		return context_dict
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class AuthorArticleList(generic.TemplateView):
@@ -71,3 +73,18 @@ def create_article(request):
 	else: 
 		form = ArticleForm()
 		return render(request, 'journal/create_article.html', {'form': form}) 
+
+
+@login_required
+def delete_article(request,article_id):
+	if request.user.is_superuser:
+		Article.objects.filter(id=article_id).delete()
+		return redirect("/journal")
+
+@login_required
+def approve_article(request,article_id):
+	if request.user.is_superuser:
+		article = Article.objects.get(id = article_id)
+		article.approved = True
+		article.save()
+		return redirect("/journal")
