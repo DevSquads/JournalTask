@@ -18,6 +18,17 @@ def register(response):
 
 	return render(response, "journal/register.html", {"form":form})
 
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect("/journal")
+    else:
+        # Return an 'invalid login' error message.
+        ...
+
 def index(request):
 	return HttpResponse("You're looking at articles.")
 
