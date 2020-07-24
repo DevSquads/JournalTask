@@ -12,13 +12,13 @@ from django.db.models import Count,Q,Value,Case
 from django.db.models import Case, When
 from .tables import ArticleListTable
 from django.db import models
+from django.contrib.auth.decorators import user_passes_test
 
 def register(response):
 	if response.method == "POST":
 		form = RegisterForm(response.POST)
 		if form.is_valid():
 			form.save()
-
 		return redirect("/journal")
 	else:
 		form = RegisterForm()
@@ -36,28 +36,36 @@ def login(request):
 			else:
 				return redirect("/journal/register")
 
+def get_articles_list_admin_view():
+	authors = User.objects.annotate(count_approved=Count('article', filter=Q(article__approved=True))).order_by('-count_approved').values_list('id', flat=True)
+	authors_dict = {index: x for index, x in enumerate(authors, start=1)}
+	whens = [When(author=v, then=k) for k, v in authors_dict.items()]
+	articles_list = Article.objects.all().annotate(rank=Case(
+			*whens,default=0,output_field=models.DecimalField())).order_by('rank')
+	return articles_list
+
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class AdminArticleList(generic.TemplateView):
 	template_name = "article_list.html"
 	def get_context_data(self, **kwargs):
 		context_dict = {}
-		authors = User.objects.annotate(count_approved=Count('article', filter=Q(article__approved=True))).order_by('-count_approved').values_list('id', flat=True)
-		authors_dict = {index: x for index, x in enumerate(authors, start=1)}
-		whens = [When(author=v, then=k) for k, v in authors_dict.items()]
-		articles_list = Article.objects.all().annotate(rank=Case(
-			*whens,default=0,output_field=models.DecimalField())).order_by('rank')
+		articles_list = get_articles_list_admin_view()
 		table = ArticleListTable(articles_list)
 		context_dict['object_list'] = table
 		return context_dict
+
+def get_articles_list_author_view(author_id):
+	articles_list = Article.objects.order_by(
+	Case(When(author=author_id, then=0), default=1))
+	return articles_list
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
 class AuthorArticleList(generic.TemplateView):
 	template_name = "article_list.html"
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-
-		context['object_list'] = Article.objects.order_by(
-	Case(When(author=self.request.user.id, then=0), default=1))
+		articles_list = get_articles_list_author_view(self.request.user.id)
+		context['object_list'] = articles_list
 		return context
 
 @method_decorator(login_required(login_url='/login/'), name='dispatch')
@@ -80,16 +88,14 @@ def create_article(request):
 		return render(request, 'journal/create_article.html', {'form': form}) 
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_article(request,article_id):
-	if request.user.is_superuser:
-		Article.objects.filter(id=article_id).delete()
-		return redirect("/journal")
+	Article.objects.filter(id=article_id).delete()
+	return redirect("/journal")
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def approve_article(request,article_id):
-	if request.user.is_superuser:
-		article = Article.objects.get(id = article_id)
-		article.approved = True
-		article.save()
-		return redirect("/journal")
+	article = Article.objects.get(id = article_id)
+	article.approved = True
+	article.save()
+	return redirect("/journal")
