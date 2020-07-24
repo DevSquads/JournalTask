@@ -17,17 +17,13 @@ He wants to make an app that would help him manage the articles that being poste
 - Only Samir can approve/delete articles.
 - When an author view all articles, they see their own articles first. 
 - Edit README to include the required steps to run your application.
-- Dockerizing your application.
-
-# Tests
-- Task should be fully covered with automatic tests ( unit/e2e ).
-- Tests are considered to be developer documentation so please let it be as descriptive as possible.
 
 # Stack
 - Choosing the tech stack is up to you.
 
 # Nice to have
 - Organized and well written git commit history.
+- unit and e2e tests
 
 # Task Deadline
-- Sunday Morning 26/07/2020.
+- Tuesday Morning 28/07/2020.
