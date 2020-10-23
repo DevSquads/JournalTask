@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 database_uri = 'postgresql://postgres:root@localhost:5432/test'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 class Author(db.Model):
@@ -14,7 +16,11 @@ class Author(db.Model):
     mail = db.Column(db.String(50), nullable=False, unique=True)
     author_name = db.Column(db.String(50), nullable=False)
     approved_articles = db.Column(db.Integer, nullable=False)
-    articles = db.relationship('Article', backref='authors', lazy=True)
+    articles = db.relationship(
+        'Article',
+        backref='author',
+        lazy=True
+        )
 
     def __init__(self, mail, name, approved_articles):
         self.mail = mail
@@ -47,11 +53,13 @@ class Article(db.Model):
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=False)
     approved = db.Column(db.Boolean, nullable=False)
+
+    # CASCADE option for the foreign key
+    # added in the migration files
     author_id = db.Column(
         db.Integer,
         db.ForeignKey('authors.id'),
-        nullable=False
-        )
+        nullable=False)
 
     def __init__(self, title, description, approved, author_id):
         self.title = title
