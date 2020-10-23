@@ -2,10 +2,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+from .auth import requires_auth, AuthError
+
 database_uri = 'postgresql://postgres:root@localhost:5432/test'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -89,7 +92,9 @@ class Article(db.Model):
 
 
 @app.route('/')
-def hello():
+# @requires_auth('manage:articles')
+@requires_auth()
+def hello(payload):
     author = Author.query.first()
     return 'Hello ' + author.author_name
 
