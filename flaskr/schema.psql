@@ -1,0 +1,60 @@
+--
+-- Name: authors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE authors (
+    id SERIAL NOT NULL PRIMARY KEY,
+    mail VARCHAR(50) NOT NULL UNIQUE,
+    author_name VARCHAR(50) NOT NULL,
+    approved_articles INTEGER NOT NULL   
+);
+
+ALTER TABLE authors OWNER TO postgres;
+
+
+--
+-- Name: authors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+
+CREATE TABLE articles (
+    id SERIAL NOT NULL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description text NOT NULL,
+    approved BOOLEAN NOT NULL,
+    author_id BIGINT REFERENCES authors(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+ALTER TABLE articles OWNER TO postgres;
+
+
+
+--
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY authors (id, mail, author_name, approved_articles) FROM stdin;
+1	ahmed@gmail.com	Ahmed	1
+2	mo@hotmail.com	Mohamed	0
+3	islam@gmail.com	islam	1
+\.
+
+
+    
+
+-- --
+-- -- Data for Name: articles; Type: TABLE DATA; Schema: public; Owner: postgres
+-- --
+
+COPY articles (id, title, description, approved, author_id) FROM stdin;
+1	This is title	And of course this should be the description	True	3
+2	Here's another	I know this is another one but I don't have anything to say	False	3
+3	And guess What	I should try to write something. SOMETHING	False	2
+4	Trick the Divel	The mythical story from germany about a boy who tricked the devil	True	1
+\.
+
+
+--
+-- PostgreSQL database dump complete
+--
