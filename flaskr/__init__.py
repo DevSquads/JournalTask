@@ -1,102 +1,126 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 from .auth import requires_auth, AuthError
+from .db import db, Author, Article
 
-database_uri = 'postgresql://postgres:root@localhost:5432/test'
+
+#----------------------------------------------------------------------------#
+# App Config.
+#----------------------------------------------------------------------------#
+
+ 
+database_name = "test"
+postgres_user = "postgres"
+password = "root"
+
+database_uri = "postgresql://{}:{}@{}/{}".format(
+    postgres_user,
+    password,
+    'localhost:5432',
+    database_name
+    )
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
 
 
-class Author(db.Model):
-    __tablename__ = 'authors'
-    id = db.Column(db.Integer, primary_key=True)
-    mail = db.Column(db.String(50), nullable=False, unique=True)
-    author_name = db.Column(db.String(50), nullable=False)
-    approved_articles = db.Column(db.Integer, nullable=False)
-    articles = db.relationship(
-        'Article',
-        backref='author',
-        lazy=True
-        )
-
-    def __init__(self, mail, name, approved_articles):
-        self.mail = mail
-        self.author_name = name
-        self.approved_articles = approved_articles
-
-    def insert(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def format(self):
-        return {
-          'id': self.id,
-          'mail': self.mail,
-          'name': self.author_name,
-          'approved_articles': self.approved_articles
-        }
-
-
-class Article(db.Model):
-    __tablename__ = 'articles'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    approved = db.Column(db.Boolean, nullable=False)
-
-    # CASCADE option for the foreign key
-    # added in the migration files
-    author_id = db.Column(
-        db.Integer,
-        db.ForeignKey('authors.id'),
-        nullable=False)
-
-    def __init__(self, title, description, approved, author_id):
-        self.title = title
-        self.description = description
-        self.approved = approved
-        self.author_id = author_id
-
-    def insert(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def format(self):
-        return {
-          'id': self.id,
-          'title': self.title,
-          'description': self.description,
-          'approved': self.approved,
-          'author_id': self.author_id
-        }
-
+# ---------------------------------------------------------------------------#
+# Controllers.
+# ---------------------------------------------------------------------------#
 
 @app.route('/')
 # @requires_auth('manage:articles')
-@requires_auth()
-def hello(payload):
+# @requires_auth()
+def hello():
     author = Author.query.first()
     return 'Hello ' + author.author_name
+
+
+#  authors
+#  ----------------------------------------------------------------
+
+@app.route('/authors')
+def get_authors():
+   pass
+
+
+@app.route('/authors', methods=['POST'])
+def post_author():
+   pass
+
+
+@app.route('/authors/<int:id>')
+def get_author():
+   pass
+
+
+@app.route('/authors/<int:id>', methods=['POST'])
+def update_author():
+   pass
+
+
+@app.route('/authors/<int:id>', methods=['DELETE'])
+def delete_author():
+   pass
+
+#  articles
+#  ----------------------------------------------------------------
+
+@app.route('/articles')
+def get_articles():
+   pass
+
+
+@app.route('/articles/<int:id>')
+def get_article():
+   pass
+
+
+@app.route('/articles/<int:id>', methods=['PATCH'])
+def update_article():
+   pass
+
+
+@app.route('/articles', methods=['POST'])
+def post_article():
+   pass
+
+
+@app.route('/articles/<int:id>', methods=['POST'])
+def approve_article():
+   pass
+
+
+@app.route('/articles/<int:id>', methods=['DELETE'])
+def delete_article():
+   pass
+
+#  errors
+#  ----------------------------------------------------------------
+
+@app.errorhandler(400)
+def bad_request(error):
+    pass
+
+
+@app.errorhandler(404)
+def not_found(error):
+    pass
+
+
+@app.errorhandler(422)
+def Unprocessable(error):
+    pass
+
+
+@app.errorhandler(AuthError)
+def auth_error(error):
+    pass
 
 
 if __name__ == '__main__':
