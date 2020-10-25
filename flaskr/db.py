@@ -11,7 +11,7 @@ db = SQLAlchemy()
 >>>>>> authers <<<<<<
  - id:                INTEGER       PRIMARY KEY 
  - mail:              VARCHAR(50)   NOT NULL UNIQUE
- - author_name:       VARCHAR(50)   NOT NULL
+ - name:              VARCHAR(50)   NOT NULL
  - approved_articles: INTEGER       NOT NULL
 '''
 
@@ -20,7 +20,7 @@ class Author(db.Model):
     __tablename__ = 'authors'
     id = db.Column(db.Integer, primary_key=True)
     mail = db.Column(db.String(50), nullable=False, unique=True)
-    author_name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     approved_articles = db.Column(db.Integer, nullable=False)
     articles = db.relationship(
         'Article',
@@ -30,7 +30,7 @@ class Author(db.Model):
 
     def __init__(self, mail, name, approved_articles):
         self.mail = mail
-        self.author_name = name
+        self.name = name
         self.approved_articles = approved_articles
 
     def insert(self):
@@ -44,11 +44,14 @@ class Author(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def rollback(self):
+        db.session.rollback()
+
     def format(self):
         return {
             'id': self.id,
             'mail': self.mail,
-            'name': self.author_name,
+            'name': self.name,
             'approved_articles': self.approved_articles
         }
 
@@ -93,6 +96,9 @@ class Article(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+    def rollback(self):
+        db.session.rollback()
 
     def format(self):
         return {
