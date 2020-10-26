@@ -38,19 +38,18 @@ migrate = Migrate(app, db)
 #              |         | get self |           |
 # -------------|---------|----------|-----------|----------------------------#
 # authors/id   | get one |   XXX    | edit one  | delete one
-# -------------|-------------------------------------------------------------#
-# articles     |
-# -------------|-------------------------------------------------------------#
-# articles/id  |
+# -------------|---------|----------|-----------|----------------------------#
+# articles     | get all | post new |  XXX      |  XXX
+#              | get app.|          |           |
+# -------------|---------|----------|-----------|----------------------------#
+# articles/id  | get one | approve  | edit one  | delete one
+#              | get app.|          |           |
 # ---------------------------------------------------------------------------#
 
 @app.route('/')
-# @requires_auth('manage:articles')
-# @requires_auth()
 def hello():
-   author = Author.query.first()
    return jsonify({
-      'message': 'Hello ' + author.name
+      'message': 'Hello world'
    })
 
 
@@ -65,6 +64,7 @@ def hello():
 # ---------------------------------------------------------------------------#
 
 @app.route('/authors', methods=['GET'])
+@requires_auth()
 def get_authors():
    '''
    - A private endpoint to handle GET requests for all available authors.
@@ -80,6 +80,7 @@ def get_authors():
 
 
 @app.route('/authors', methods=['POST'])
+@requires_auth()
 def post_author():
    '''
    This private endpoint should:
@@ -127,6 +128,7 @@ def post_author():
 
 
 @app.route('/authors/<int:id>', methods=['GET'])
+@requires_auth()
 def get_author(id):
    '''
    - A private endpoint to handle GET requests for specific author data.
@@ -146,6 +148,7 @@ def get_author(id):
 
 
 @app.route('/authors/<int:id>', methods=['PATCH'])
+@requires_auth('manage:articles')
 def update_author(id):
    '''
    - A private endpoint to handle PATCH requests to edit author's name.
@@ -180,6 +183,7 @@ def update_author(id):
 
 
 @app.route('/authors/<int:id>', methods=['DELETE'])
+@requires_auth('manage:articles')
 def delete_author(id):
    '''
    - A private endpoint to handle DELETE requests to delete an author from the database.
@@ -197,36 +201,242 @@ def delete_author(id):
       })
 
 #  articles
-#  ----------------------------------------------------------------
+# -------------|---------|----------|-----------|----------------------------#
+# articles     | get all | post new |  XXX      |  XXX
+#              | get app.|          |           |
+# -------------|---------|----------|-----------|----------------------------#
+# articles/id  | get one | approve  | edit one  | delete one
+#              | get app.|          |           |
+# ---------------------------------------------------------------------------#
 
-@app.route('/articles')
-def get_articles():
-   pass
+@app.route('/admin/articles', methods=['GET'])
+@requires_auth('manage:articles')
+def get_all_articles():
+   '''
+   - A private endpoint to handle GET requests for all articles.
+   - return a list of all articles ordered by authors' no of approved
+   - It requires admin permission
+   '''
+
+   _articles = Article.query.all()
+
+   articles = [article.format() for article in _articles]
+   sorted_articles = sorted(articles, key=lambda i:i['no_of_approved'], reverse=True)
+   return jsonify({
+      'response': sorted_articles,
+      'success': True
+   })
+
+
+@app.route('/admin/articles/<int:id>')
+@requires_auth('manage:articles')
+def get_article(id):
+   '''
+   - A private endpoint to handle GET requests for specific article data.
+   - return details about a specific article.
+   - It requires admin permission
+   '''
+   article = Article.query.get(id)
+
+   if article is None:
+      abort(404)
+
+   else:
+      return jsonify({
+         'response': article.format(),
+         'success': True
+      })
+
+
+@app.route('/articles', methods=['GET'])
+def get_approved_articles():
+   '''
+   - A public endpoint to handle GET requests for approved articles.
+   - return a list of approved articles ordered by authors' no of approved
+   '''
+
+   _articles = Article.query.filter_by(approved=True).all()
+   articles = [article.format() for article in _articles]
+   sorted_articles = sorted(articles, key=lambda i:i['no_of_approved'], reverse=True)
+   return jsonify({
+      'response': sorted_articles,
+      'success': True
+   })
 
 
 @app.route('/articles/<int:id>')
-def get_article():
-   pass
+def get_approved_article(id):
+   '''
+   - A public endpoint to handle GET requests for approved article data.
+   - return details about a specific article.
+   '''
+   article = Article.query.get(id)
+
+   if article is None:
+      abort(404)
+
+   if article.approved:
+
+         return jsonify({
+         'response': article.format(),
+         'success': True
+         })
+      
+   else:
+      abort(404)
 
 
 @app.route('/articles/<int:id>', methods=['PATCH'])
-def update_article():
-   pass
+@requires_auth()
+def update_article(id):
+   '''
+   - A private endpoint to handle PATCH requests to edit an article.
+   - return the details of the articles after edit.
+   - It requires no permissions
+   '''
+   article = Article.query.get(id)
+
+   if article is None:
+      abort(404)
+
+   body = request.get_json()
+   mail = body.get('mail')
+
+   author = Author.query.filter_by(mail=mail).first()
+
+   if author is None:
+      abort(422)
+   
+   if author.mail != article.author.mail:
+      abort(400)
+
+
+   title = body.get('title')
+   description = body.get('description')
+
+   if (not title) and (not description):
+      abort(400)
+
+   else:
+      if title:
+         article.title = title
+      if description:
+         article.description = description
+      if article.approved:
+         article.approved = False
+         article.author.approved_articles -= 1
+
+      try:
+         article.update()
+      except Exception:
+         author.rollback()
+         abort(500)
+
+      return jsonify({
+         'response': article.format(),
+         'success': True
+      })
 
 
 @app.route('/articles', methods=['POST'])
+@requires_auth()
 def post_article():
-   pass
+   '''
+   This private endpoint should create a new article
+      - It requires no permission
+      - The header must contain the user id 
+   returns:
+      - 422 if the mail is missing
+      - 400 if the body is missing the title or the description
+      - 500 if there is an temporary error with the database 
+      - 200 and the article in the response
+   '''
+   body = request.get_json()
+
+   mail = body.get('mail')   
+   if not mail:
+      abort(422)
+
+   title = body.get('title')
+   description = body.get('description')
+
+   if (not title) or (not description):
+      abort(400)
+
+   else:
+      author = Author.query.filter_by(mail=mail).first()
+
+   if (author is None):
+      abort(400)
+
+   else:
+      article = Article(title, description, False, author.id)
+   
+      try:
+         article.insert()
+         return jsonify({
+         'response': article.format(),
+         'success': True
+         })
+      except Exception:
+         article.rollback()
+         abort(500)
 
 
 @app.route('/articles/<int:id>', methods=['POST'])
-def approve_article():
-   pass
+@requires_auth('manage:articles')
+def approve_article(id):
+   '''
+   - A private endpoint to handle POST requests to approve or unapprove articles.
+   - return the details of the approved articles.
+   - It requires admin permissions
+   '''
+   article = Article.query.get(id)
+
+   if article is None:
+      abort(404)
+
+   else:
+      article.approved = not article.approved
+      
+      if article.approved:
+         article.author.approved_articles += 1
+
+      else:
+         article.author.approved_articles -= 1
+
+      try:
+         article.update()
+      except Exception:
+         article.rollback()
+         abort(500)
+
+      return jsonify({
+         'response': article.format(),
+         'success': True
+      })
 
 
 @app.route('/articles/<int:id>', methods=['DELETE'])
-def delete_article():
-   pass
+@requires_auth('manage:articles')
+def delete_article(id):
+   '''
+   - A private endpoint to handle DELETE requests to delete an article from the database.
+   - It requires admin permissions
+   '''
+   article = Article.query.get(id)
+
+   if article is None:
+      abort(404)
+   
+   else:
+      if article.approved:
+         article.author.approved_articles -= 1
+
+      article.delete()
+      return jsonify({
+         'success': True
+      })
 
 #  errors
 #  ----------------------------------------------------------------

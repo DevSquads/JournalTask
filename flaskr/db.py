@@ -106,5 +106,7 @@ class Article(db.Model):
             'title': self.title,
             'description': self.description,
             'approved': self.approved,
-            'author_id': self.author_id
+            'author_id': self.author_id,
+            'author_name': self.author.name,
+            'no_of_approved': self.author.approved_articles
         }

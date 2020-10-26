@@ -1,0 +1,2070 @@
+{
+	"info": {
+		"_postman_id": "a9335251-fa42-4132-afc0-a78b23973031",
+		"name": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin_tests",
+			"item": [
+				{
+					"name": "get_authors_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a7789f09-4f9a-422a-9ca4-f8cf12fac032",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						},
+						"description": "A private endpoint to handle GET requests for all available authors.\nreturn an ordered list of authors accroding to approved articles\nIt requires no permission"
+					},
+					"response": []
+				},
+				{
+					"name": "get_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bf25b1cd-773e-485c-8a94-eced5538eeb9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_new_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "57b4db2e-d581-46c2-aa36-eb5e8b87456f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.collectionVariables.set('author_id', jsonData.response.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\",\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_old_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "948010ec-9005-4328-a7e2-ef3b92559d59",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\",\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "15db3e22-0c37-4181-8a59-fe08f4dea2f5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/{{author_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"{{author_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e96188b0-1ee0-49c2-a891-6488c04d1dab",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/{{author_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"{{author_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_authors_no_authentication_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b4b4605a-4b44-4614-ac7b-c2839da4c897",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"Authorization header is expected.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						},
+						"description": "A private endpoint to handle GET requests for all available authors.\nreturn an ordered list of authors accroding to approved articles\nIt requires no permission"
+					},
+					"response": []
+				},
+				{
+					"name": "post_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b07117d0-e3f4-4574-8acc-967529b44a5b",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('unprocessable');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_author_fail_",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74c17a66-1796-4ced-acb5-75b53f8f087b",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('bad request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8240a016-1f3e-429d-a7dc-7552eeaab63f",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37cf0c7b-245e-4cd9-bec2-2599051a1d75",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "521bef5c-de43-4059-911b-c9fb5caac0e4",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_articles_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a38084b-6c01-4d67-8cd2-ac1a9a64c870",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/admin/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_articles_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a4ea3f3-fc5c-4486-85ac-5cd274370856",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d28037f-320e-4cbc-bfbe-256843a299fa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/admin/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9cbf217e-e368-479f-b970-9ec07482b5f5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd188541-4e3a-4fa8-940b-4230ad49b8c2",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('bad request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"ahmed@gmail.com\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f21ff5e2-4cc3-4739-9c04-96ad0f6bd71e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "514dc6b0-8b5e-4247-aadf-feb5488794d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.collectionVariables.set('article_id', jsonData.response.id)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"ahmed@gmail.com\",\n    \"title\": \"del this title\",\n    \"description\": \"delete this description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5dde2550-30a7-405f-b9a6-64213d0a4ab1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/{{article_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"{{article_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "036493ab-29c8-4576-9673-b62516d71588",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47fb2356-0c95-4217-a80f-6af861f67f05",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/admin/articles/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"articles",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "169ed421-2694-4028-b32e-71a5409255de",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('unprocessable');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"del this title\",\n    \"description\": \"delete this description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8800e437-045e-40b3-af04-0b549f5b1a08",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('resource not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d40d6aa3-b97d-494e-a3c3-588810f5b54f",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('resource not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{admin_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "580ec236-effa-41e4-8674-1264817ba2d7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fcd4418-5dc9-42b7-aca4-8287f178f4ca",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "author_tests",
+			"item": [
+				{
+					"name": "get_authors_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ba23e91-c27b-49d9-b00b-39e5079b5b8b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						},
+						"description": "A private endpoint to handle GET requests for all available authors.\nreturn an ordered list of authors accroding to approved articles\nIt requires no permission"
+					},
+					"response": []
+				},
+				{
+					"name": "get_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f759dfd1-b042-496d-9c76-4c43d2668720",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_new_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f2c3db3e-ae77-4f82-8902-934102f08e37",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.collectionVariables.set('author_id', jsonData.response.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\",\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_old_author_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa2b364b-65e1-4705-ac9f-25db6a7f2d9b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\",\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7789faaa-f99f-4d92-816a-fcfab947f820",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/{{author_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"{{author_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a09dd3e-e06e-4d19-9aa0-29b7bd441ef3",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/{{author_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"{{author_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_authors_no_authentication_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "96d826a3-64a2-495d-8a7b-9aabdb67f728",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"Authorization header is expected.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						},
+						"description": "A private endpoint to handle GET requests for all available authors.\nreturn an ordered list of authors accroding to approved articles\nIt requires no permission"
+					},
+					"response": []
+				},
+				{
+					"name": "post_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f3eead2-d139-413a-a444-83564254dce4",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('unprocessable');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"author\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_author_fail_",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84392bbc-530e-411b-9cf1-368afa10acae",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('bad request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"author@news.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_author_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "acf5ef5f-2154-44dd-8420-00605c65a84b",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/authors/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"authors",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_articles_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "658e9711-e9d0-48f9-9db7-92dcd982af3f",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/admin/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_articles_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a17d61c-21ca-4432-8666-980a297ccd27",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd6ba12b-b817-4ac7-bd45-63969db4569f",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/admin/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"admin",
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6ff42dc1-0609-4bf9-83ee-723b771e8f85",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f5ef5b2-d96c-4ceb-9781-8731c377ae05",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('bad request');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"ahmed@gmail.com\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "20a5fbdb-c685-4b5a-963a-d9a803a1455a",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_article_success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5841152d-3def-4bd4-b452-7a81baf8e7ff",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"    pm.collectionVariables.set('article_id', jsonData.response.id)",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"ahmed@gmail.com\",\n    \"title\": \"del this title\",\n    \"description\": \"delete this description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56403947-c16b-4d18-89b1-df8c9aea44c7",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('Permission Not found');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/{{article_id}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"{{article_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_approved_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e354d177-112c-445e-867a-c4c4fb91ba28",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql(\"resource not found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_article_fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8729d2bd-ca26-46a8-a90a-1590c67b32f8",
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(false);",
+									"    pm.expect(jsonData.message).to.eql('unprocessable');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"del this title\",\n    \"description\": \"delete this description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/articles",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "61b2993a-7129-44ec-b199-eecb6e73c206",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9f697c4-b80d-424b-80a9-f99fa1589edf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "344d2f29-dc39-49d8-beb5-bac02a599ba3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "dee3cb30-bdf7-4a0b-a9a3-d5511b73af2d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "91a2d013-6b60-4cd6-b4db-d0f1b2d6ebf1",
+			"key": "admin_token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IktIWFZIVFNFZDVaaVQ4alJqb2E3ZyJ9.eyJpc3MiOiJodHRwczovL2xlZ2VuZGFyeS1uZXdzLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJXUmRmbGdJRG9LeW10MjNFZFZGV1JVYzQwbGVrSlN6cEBjbGllbnRzIiwiYXVkIjoiQXJ0aWNsZSIsImlhdCI6MTYwMzY2NTEyNiwiZXhwIjoxNjAzNzUxNTI2LCJhenAiOiJXUmRmbGdJRG9LeW10MjNFZFZGV1JVYzQwbGVrSlN6cCIsInNjb3BlIjoibWFuYWdlOmFydGljbGVzIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIiwicGVybWlzc2lvbnMiOlsibWFuYWdlOmFydGljbGVzIl19.ev-3Dcu0pKAc7FniRRMpkRc5sFZBi4IGz1cuuyD0ulptbAn4oYKwRqgdsTnlcWd2d34sw7sZNHeQ-0NrOf1rxwONh2m3XJmV1Fg7ZKp-e7k5C1zInGWwO9afzYWPrMJY16l9DBP5zEnmftktZn2Oj4Z3ycZPSSO3LfDHdU5NhEH_FI_gBTWl6b2jyQ5S6ri4ThFl0TFp_6bxvzjOoj5FUlm6lNnnvpsk54XtCvLUeR6kPYycNe2VFWa_5hsNLqD7yrx2UEU3JEQGC8Ewawc5PWKSwRWnV2xIvfWn1oz32qj1thaza4PQfBaP3t2qO6g2JLmQoZ3-tFPotyEcwhCZtg"
+		},
+		{
+			"id": "56ef517b-1122-411f-8bb0-bf3764cf8bca",
+			"key": "author_id",
+			"value": "0"
+		},
+		{
+			"id": "110c0983-ffcc-4a7c-93e6-216bfd58694a",
+			"key": "article_id",
+			"value": "0"
+		},
+		{
+			"id": "44470cd4-b423-4315-a035-470086f487aa",
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IktIWFZIVFNFZDVaaVQ4alJqb2E3ZyJ9.eyJpc3MiOiJodHRwczovL2xlZ2VuZGFyeS1uZXdzLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJTQThQMkN4cmJkd2RHUnNPY1FON0tiemx3UHVzOGVyeUBjbGllbnRzIiwiYXVkIjoiQXJ0aWNsZSIsImlhdCI6MTYwMzY4MDEzMCwiZXhwIjoxNjAzNzY2NTMwLCJhenAiOiJTQThQMkN4cmJkd2RHUnNPY1FON0tiemx3UHVzOGVyeSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyIsInBlcm1pc3Npb25zIjpbXX0.sUofBaKGrfZobxm5nuF11t4F5vh7y1QNBhFwsgHp_IwlOz0KKpHEPGQbPvzUHnwDbGnXcfHbwL_LjEpSuVC8qNOWma43CdkZndmREd0TiiuhR48V7nLtZkHK5pCKcmqdmRQkJlrYKN9cUTpnUxkp8RPeijoFuTDtjHLo815m5YK_vKVCukcr9zFcvsM1suqiWp9fUUghTYCFRMCWBtJIDUGkPb_wcCpFwCby5zyN3OHiR_2tdSf63lbmRFI15vJsfXCaO00xyQm484TkGy1Q7T1ekNi5Uxk8iUWJWFrAr2C9yT1Vot-mxFnZ9SUKFPx00qL8hUH_LweWaUD7aZul_Q"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

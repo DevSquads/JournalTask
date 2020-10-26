@@ -146,12 +146,6 @@ class basic_tests(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'resource not found')
 
-    # def test_update_author_success(self):
-
-        
-
-    #     record.delete()
-
 
     def test_update_author_fail(self):
         res = self.app.patch(

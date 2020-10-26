@@ -184,7 +184,7 @@ def requires_auth(permission=''):
             token = get_token_auth_header()
             payload = verify_decode_jwt(token)
             if (check_permissions(permission, payload)):
-                return f(payload, *args, **kwargs)
+                return f(*args, **kwargs)
             else:
                 raise AuthError({
                     'code': 'unauthorized',
