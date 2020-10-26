@@ -2,12 +2,12 @@
 -- Name: authors; Type: TABLE; Schema: public; Owner: postgres
 --
 
--- CREATE TABLE authors (
---     id SERIAL NOT NULL PRIMARY KEY,
---     mail VARCHAR(50) NOT NULL UNIQUE,
---     author_name VARCHAR(50) NOT NULL,
---     approved_articles INTEGER NOT NULL   
--- );
+CREATE TABLE authors (
+    id SERIAL NOT NULL PRIMARY KEY,
+    mail VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL,
+    approved_articles INTEGER NOT NULL   
+);
 
 -- ALTER TABLE authors OWNER TO postgres;
 
@@ -17,13 +17,13 @@
 --
 
 
--- CREATE TABLE articles (
---     id SERIAL NOT NULL PRIMARY KEY,
---     title VARCHAR(200) NOT NULL,
---     description text NOT NULL,
---     approved BOOLEAN NOT NULL,
---     author_id INTEGER NOT NULL
--- );
+CREATE TABLE articles (
+    id SERIAL NOT NULL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description text NOT NULL,
+    approved BOOLEAN NOT NULL,
+    author_id INTEGER NOT NULL
+);
 
 
 -- ALTER TABLE articles OWNER TO postgres;
@@ -34,7 +34,7 @@
 -- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY authors (id, mail, author_name, approved_articles) FROM stdin;
+COPY authors (id, mail, name, approved_articles) FROM stdin;
 1	ahmed@gmail.com	Ahmed	1
 2	mo@hotmail.com	Mohamed	0
 3	islam@gmail.com	islam	1
@@ -55,8 +55,11 @@ COPY articles (id, title, description, approved, author_id) FROM stdin;
 \.
 
 
+SELECT pg_catalog.setval('authors_id_seq', 4, true);
 
--- ALTER TABLE articles ADD CONSTRAINT articles_author_id_fkey FOREIGN KEY (author_id) REFERENCES authors(id) ON UPDATE CASCADE ON DELETE CASCADE;
+SELECT pg_catalog.setval('articles_id_seq', 5, true);
+
+ALTER TABLE articles ADD CONSTRAINT articles_author_id_fkey FOREIGN KEY (author_id) REFERENCES authors(id) ON UPDATE CASCADE ON DELETE CASCADE;
 --
 -- PostgreSQL database dump complete
 --

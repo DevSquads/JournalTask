@@ -28,3 +28,7 @@ ecdsa==0.14.1
 pyasn1==0.4.8
 python-jose==3.2.0
 rsa==4.6
+
+
+# CORS
+flask-cors==3.0.9

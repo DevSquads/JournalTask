@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, abort
 from flask_migrate import Migrate
+from flask_cors import CORS
 
 from .auth import requires_auth, AuthError
 from .db import db, Author, Article
@@ -27,6 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
+CORS(app)
 
 
 # ---------------------------------------------------------------------------#
