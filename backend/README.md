@@ -19,6 +19,7 @@ the commands associated with the steps are for linux (ubuntu) users
 2. create a virtual env for the project
 
     ```
+    cd JournalTask/backend
     $ python3 -m venv venv
     $ source venv/bin/activate    
     ```
@@ -38,6 +39,7 @@ the commands associated with the steps are for linux (ubuntu) users
 5. upgrade the database schema with the migeration
     
     ```
+    $ export FLASK_APP=flaskr
     flask db upgrade
     ```
 
@@ -51,7 +53,6 @@ the commands associated with the steps are for linux (ubuntu) users
 7. run the flask server
     
     ```
-    $ export FLASK_APP=flaskr
     $ flask run
     ```
 

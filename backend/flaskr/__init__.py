@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, abort
 from flask_migrate import Migrate
 from flask_cors import CORS
 
+# from .auth import requires_auth, AuthError
 from .auth import requires_auth, AuthError
 from .db import db, Author, Article
 

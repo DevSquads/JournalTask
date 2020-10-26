@@ -2,12 +2,12 @@
 -- Name: authors; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE authors (
-    id SERIAL NOT NULL PRIMARY KEY,
-    mail VARCHAR(50) NOT NULL UNIQUE,
-    name VARCHAR(50) NOT NULL,
-    approved_articles INTEGER NOT NULL   
-);
+-- CREATE TABLE authors (
+--     id SERIAL NOT NULL PRIMARY KEY,
+--     mail VARCHAR(50) NOT NULL UNIQUE,
+--     name VARCHAR(50) NOT NULL,
+--     approved_articles INTEGER NOT NULL   
+-- );
 
 -- ALTER TABLE authors OWNER TO postgres;
 
@@ -17,13 +17,13 @@ CREATE TABLE authors (
 --
 
 
-CREATE TABLE articles (
-    id SERIAL NOT NULL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    description text NOT NULL,
-    approved BOOLEAN NOT NULL,
-    author_id INTEGER NOT NULL
-);
+-- CREATE TABLE articles (
+--     id SERIAL NOT NULL PRIMARY KEY,
+--     title VARCHAR(200) NOT NULL,
+--     description text NOT NULL,
+--     approved BOOLEAN NOT NULL,
+--     author_id INTEGER NOT NULL
+-- );
 
 
 -- ALTER TABLE articles OWNER TO postgres;
@@ -59,7 +59,7 @@ SELECT pg_catalog.setval('authors_id_seq', 4, true);
 
 SELECT pg_catalog.setval('articles_id_seq', 5, true);
 
-ALTER TABLE articles ADD CONSTRAINT articles_author_id_fkey FOREIGN KEY (author_id) REFERENCES authors(id) ON UPDATE CASCADE ON DELETE CASCADE;
+-- ALTER TABLE articles ADD CONSTRAINT articles_author_id_fkey FOREIGN KEY (author_id) REFERENCES authors(id) ON UPDATE CASCADE ON DELETE CASCADE;
 --
 -- PostgreSQL database dump complete
 --
