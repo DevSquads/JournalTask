@@ -1,0 +1,11 @@
+<div>
+  <% @articles.each do |article| %>
+    <tr>
+      <h1><td><%= article.author_name %></td></h1>
+      <h2><td><%= tweet.title %></td></h2>
+      <h3><td><%= tweet.description %></td></h3>
+    </tr>
+  <% end %>
+</div>
+ 
+<%= link_to 'New article', new_article_path(@user) %>
