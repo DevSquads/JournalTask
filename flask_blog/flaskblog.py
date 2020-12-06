@@ -2,19 +2,19 @@ from flask import Flask, escape, request, render_template
 
 app = Flask(__name__)
 
-post= [
+posts = [
     {
-        'author= Rana',
-        'title= tennis',
-        'content= Blog post 1',
-        'Date_Posted= April 21 , 2019'
+        'author': 'Rana',
+        'title':'tennis',
+        'content': 'Blog post 1',
+        'Date_Posted': 'April 21 , 2019'
 
-    }
+    },
     {
-        'author= Radwa',
-        'title= Books',
-        'content= Blog post 2',
-        'Date_Posted= April 21 , 2019'
+        'author': 'Radwa',
+        'title':'Books',
+        'content': 'Blog post 2',
+        'Date_Posted': 'April 21 , 2019'
 
     }
 ]
@@ -27,7 +27,7 @@ def home():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title=about)
 
 
 if __name__ == '__main__':
