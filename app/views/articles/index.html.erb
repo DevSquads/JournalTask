@@ -1,4 +1,43 @@
 <div>
+      <%if (current_user.admin? == true) && (@unapproved_articles.count > 0) %>
+      <h1><td>pending for approve articles: <%=@unapproved_articles.count%></td></h1>
+  <% @unapproved_articles.each do |article| %>
+    <tr>
+      <h2><td><%= article.author_name %></td></h2>
+      <h3><td><%= article.title %></td></h3>
+      <h4><td><%= article.description %></td></h4>
+       <% if current_user.admin? == true %>
+        <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
+        <%if article.approved? != true %>
+        <%= link_to "approve", approve_article_path(article.id), method: :put  %>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+  <% end %>
+</div>
+<div>
+      <h1><td>Your approved articles</td></h1>
+      <%if current_user.approved_articles == 0 %>
+      You don't have any approved articles yet , wanna write new article?<%= link_to ' New article', new_article_path(current_user) %>
+      <% else %>
+         <% @myarticles.each do |article| %>
+         <tr>
+           <h2><td><%= article.author_name %></td></h2>
+          <h3><td><%= article.title %></td></h3>
+          <h4><td><%= article.description %></td></h4>
+           <% if current_user.admin? == true %>
+          <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
+          <%if article.approved? != true %>
+          <%= link_to "approve", approve_article_path(article.id), method: :put  %>
+        <% end %>
+      <% end %>
+    </tr>
+        <% end %>
+    <% end %>
+</div>
+
+<div>
       <h1><td>articles</td></h1>
   <% @articles.each do |article| %>
     <tr>

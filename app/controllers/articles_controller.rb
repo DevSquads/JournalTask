@@ -4,10 +4,15 @@ class ArticlesController < ApplicationController
     before_action :require_admin, only: [:destroy, :approve]
 
     def index
+      @myarticles = Article.all.where(user_id: current_user.id)
+      @myarticles = @myarticles.where(approved: true)
+
+      @unapproved_articles = Article.all.where(approved: false)
+
         @articles = if current_user.admin? == true 
-           Article.all
+           Article.all.where.not(user_id: current_user.id)
         else
-           Article.all.where(approved: true)
+           Article.all.where(approved: true).where.not(user_id: current_user.id)
         end
     end
 
