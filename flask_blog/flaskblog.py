@@ -1,4 +1,6 @@
-from flask import Flask, escape, request, render_template
+from flask import Flask, escape, request, render_template, url_for
+
+#url_for finds the exact route for us in flask
 
 app = Flask(__name__)
 
