@@ -4,11 +4,14 @@
       <h1><td><%= article.author_name %></td></h1>
       <h2><td><%= article.title %></td></h2>
       <h3><td><%= article.description %></td></h3>
+       <% if current_user.admin? == true %>
+        <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
+      <% end %>
     </tr>
   <% end %>
 </div>
 
-<%= link_to 'New article', new_user_article_path(current_user) %>
+<%= link_to 'New article', new_article_path(current_user) %>
 
 <%if current_user%>
 <%= link_to "Sign out", destroy_user_session_path , method: :delete %>

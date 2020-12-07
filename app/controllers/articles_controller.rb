@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
     before_action :authenticate_user!
+    before_action :require_admin, only: [:destroy]
 
     def index
         @articles = Article.all
@@ -29,11 +30,20 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
+      @article = Article.find(params[:id])
+      @article.destroy
+      redirect_to root_path, :notice => "The article has been deleted"
     end
 
     private
 
 def article_params
     params.require(:article).permit(:title , :description , :author_name)
+  end
+  def require_admin
+		if current_user.admin? != true
+			flash[:danger] = "You not allowed to do this only samir can do it"
+			redirect_to root_path
+    end
   end
 end
