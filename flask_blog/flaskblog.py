@@ -1,7 +1,6 @@
 from flask import Flask, escape, request, render_template, url_for
 #url_for finds the exact route for us in flask
 from forms import RegistrationForm, LoginForm
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'bee2b6b98e91cbe9c98f9268a8eea985'
@@ -40,7 +39,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/login')
-def register():
+def login():
     form= LoginForm()
     return render_template('login.html', title='Login', form=form)
 
