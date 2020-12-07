@@ -1,9 +1,10 @@
 <div>
+      <h1><td>articles</td></h1>
   <% @articles.each do |article| %>
     <tr>
-      <h1><td><%= article.author_name %></td></h1>
-      <h2><td><%= article.title %></td></h2>
-      <h3><td><%= article.description %></td></h3>
+      <h2><td><%= article.author_name %></td></h2>
+      <h3><td><%= article.title %></td></h3>
+      <h4><td><%= article.description %></td></h4>
        <% if current_user.admin? == true %>
         <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
         <%if article.approved? != true %>

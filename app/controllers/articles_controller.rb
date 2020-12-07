@@ -4,13 +4,15 @@ class ArticlesController < ApplicationController
     before_action :require_admin, only: [:destroy, :approve]
 
     def index
-        @articles = Article.all
+        @articles = if current_user.admin? == true 
+           Article.all
+        else
+           Article.all.where(approved: true)
+        end
     end
 
     def new
-      
-        @article = Article.new
-        
+        @article = Article.new   
     end
 
     def create
@@ -32,13 +34,24 @@ class ArticlesController < ApplicationController
     def destroy
       @article = Article.find(params[:id])
       @article.destroy
-      redirect_to root_path, :notice => "The article has been deleted"
+      @author = User.where(id: @article.user_id).last
+      if @article.approved? != true
+         redirect_to root_path, :notice => "The article has been deleted"
+      else
+        @author.approved_articles -=1
+        @author.save
+        redirect_to root_path, :notice => "The article has been deleted"
+      end
     end
 
 
     def approve
       @article = Article.find(params[:id])
-      @article.toggle!(:approved)
+      @article.toggle!(:approved)  
+      @author = User.where(id: @article.user_id).last
+      @author.approved_articles +=1
+      @author.save
+
       redirect_to root_path, :notice => "The article has been approved"
     end
 
