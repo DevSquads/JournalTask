@@ -5,14 +5,16 @@ class ArticlesController < ApplicationController
 
     def index
       @myarticles = Article.all.where(user_id: current_user.id)
-      @myarticles = @myarticles.where(approved: true)
+      @myarticles = @myarticles.where(approved: true).reverse
 
       @unapproved_articles = Article.all.where(approved: false)
-
-        @articles = if current_user.admin? == true 
-           Article.all.where.not(user_id: current_user.id)
-        else
-           Article.all.where(approved: true).where.not(user_id: current_user.id)
+        # @articles =Article.all.where(approved: true).where.not(user_id: current_user.id)
+        @articles = []
+        all_users = User.order('approved_articles DESC').where.not(id: current_user.id)
+        all_users.each do |user|
+          user.articles.where(approved: true).reverse.each do |article|
+          @articles << article
+          end
         end
     end
 
