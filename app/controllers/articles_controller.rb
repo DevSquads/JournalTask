@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
     before_action :authenticate_user!
-    before_action :require_admin, only: [:destroy]
+    before_action :require_admin, only: [:destroy, :approve]
 
     def index
         @articles = Article.all
@@ -34,6 +34,14 @@ class ArticlesController < ApplicationController
       @article.destroy
       redirect_to root_path, :notice => "The article has been deleted"
     end
+
+
+    def approve
+      @article = Article.find(params[:id])
+      @article.toggle!(:approved)
+      redirect_to root_path, :notice => "The article has been approved"
+    end
+
 
     private
 

@@ -1,0 +1,35 @@
+[33mcommit 721a6fec8c3da5e3989efdb40ea0d9a4f96eb8a5[m[33m ([m[1;36mHEAD -> [m[1;32mmostafaabdelsalam_task[m[33m, [m[1;31morigin/mostafaabdelsalam_task[m[33m)[m
+Author: mostafa abdelsalam <mostafa.abdelsalam96@gmail.com>
+Date:   Mon Dec 7 10:16:48 2020 +0100
+
+    Added admin role to users table and gave him authority to delete articles
+
+[33mcommit d0b530eae8437be0132ad9ff180c4984d048ba63[m
+Author: mostafa abdelsalam <mostafa.abdelsalam96@gmail.com>
+Date:   Mon Dec 7 09:49:11 2020 +0100
+
+    Added admin attribute to users table
+
+[33mcommit 552afeca5ebc509e4dba7a7039ff316a6a8b2b9c[m
+Author: mostafa abdelsalam <mostafa.abdelsalam96@gmail.com>
+Date:   Sun Dec 6 18:41:17 2020 +0100
+
+    Added articles views and routes
+
+[33mcommit 2c332ca01960daee0eaa23b0210a04141822b79e[m
+Author: mostafa abdelsalam <mostafa.abdelsalam96@gmail.com>
+Date:   Sun Dec 6 17:49:14 2020 +0100
+
+    Created article model and articles controller
+
+[33mcommit 80dc5e7798ea44614a88e2fecb7bdb1141bd0e88[m
+Author: mostafa abdelsalam <mostafa.abdelsalam96@gmail.com>
+Date:   Sun Dec 6 16:45:50 2020 +0100
+
+    Added authentication using devise and added user model
+
+[33mcommit 528d6b59d9a498db12a4622232dcc37f3f77b6e6[m[33m ([m[1;32mmaster[m[33m)[m
+Author: = <=>
+Date:   Sun Dec 6 16:00:18 2020 +0100
+
+    Created application
