@@ -1,0 +1,24 @@
+.container{
+    height: 100vh;
+    background-color:#181818;
+    display: flex;
+    justify-content: center;
+}
+.createArticleButton{
+    font-size: 18px;
+    font-family: 'Netflix Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 200;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+}
+.content{
+    padding-top: 30px;
+}
+.creatArticleInput{
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}

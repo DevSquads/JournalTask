@@ -10,6 +10,7 @@ var server = app.listen('8081',function(){console.log('listening to port 8081');
 app.use(bodyParser.json());
 app.use(cors()) 
 app.get('/showArticles',getData);
+
 function getData(req,res) {
     const fs = require('fs');
     let rawdata = fs.readFileSync('database.json');

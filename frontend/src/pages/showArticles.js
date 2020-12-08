@@ -1,13 +1,16 @@
 import React,{ useState, useEffect} from 'react';
 import axios from 'axios';
-
+// import './showArticles.css'
 
  export default function ShowArticles(){
-      const [articles,setValueArticles]=useState([]);
-      const [authorName,setValueAuthorName]=useState('');
+    const [articles,setValueArticles]=useState([]);
+    const [authorName,setValueAuthorName]=useState('');
+    const [flagAuthor, setValueFlagAuthor]=useState(false);
+    const [flagReader, setValueFlagReader]=useState(false);
+    const [authorContent, setValueAuthorContent]=useState('none');
+    const [readerContent, setValueReaderContent]=useState('none');
 
-
-      useEffect(()=>{
+    useEffect(()=>{
             const base_url="http://127.0.0.1:8081/showArticles"
             axios.get(base_url)
             .then(response =>{
@@ -16,8 +19,15 @@ import axios from 'axios';
             .catch(error =>{
                 console.log(error.response)
             })
-     },[]);
+    },[]);
     function showReaderArticles(){
+        setValueFlagReader(prevFlag => !prevFlag );
+        if(flagAuthor==true){
+            setValueReaderContent("block");
+        }
+        else{
+            setValueReaderContent("none");
+        }
         var dict={};
         for(var i=0; i<articles.length; i++){
             if(!dict[articles[i].authorName]){
@@ -46,6 +56,13 @@ import axios from 'axios';
         setValueAuthorName(event.target.value);
     }
     function showAuthorArticles(){
+        setValueFlagAuthor(prevFlag => !prevFlag );
+        if(flagAuthor==true){
+            setValueAuthorContent("block");
+        }
+        else{
+            setValueAuthorContent("none");
+        }
         var authorArticles=[]
         var otherArticles=[]
         for(var j=0; j<articles.length; j++){
@@ -70,24 +87,26 @@ import axios from 'axios';
         })
     }
     return (
-	<div>
-        <button onClick={showAuthorArticles}>Author</button><br/>
-        <input onChange={handleInput} placeholder="Author Name"/><br/>
-        <button onClick={showReaderArticles}>Reader</button><br/>
+	<div className="container">
         <div>
-            {articles.map(article=>
-                <div>
+            <button className="userTypeButton" onClick={showAuthorArticles}>Author</button><br/>
+            <button className="userTypeButton" onClick={showReaderArticles}>Reader</button><br/>
+            <input style={{display:authorContent}} onChange={handleInput} placeholder="Author Name"/><br/>
+            <div>
+                {articles.map(article=>
                     <div>
-                        {article.title}<br/>
-                        {article.authorName}<br/>
-                        {article.description}<br/>
+                        <div>
+                            {article.title}<br/>
+                            {article.authorName}<br/>
+                            {article.description}<br/>
+                        </div>
+                        <button onClick={()=>deleteArticle(article)}>Delete Article</button><br/>
                     </div>
-                    <button onClick={()=>deleteArticle(article)}>Delete Article</button><br/>
-                </div>
 
-            )}
+                )}
+            </div>
         </div>
-	</div>
+    </div>
 	)
 }
  

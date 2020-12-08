@@ -1,6 +1,7 @@
 
 import React,{ useState, useEffect} from 'react';
 import axios from 'axios';
+import './createArticle.css'
 
  export default function CreateArticle(){
     const [articles,setValueArticles]=useState([]);
@@ -31,11 +32,13 @@ import axios from 'axios';
         })
     }
     return (
-	<div>
-		<input onChange={handleTitleInput} placeholder="Title"/><br/>
-		<input onChange={handleDescriptionInput} placeholder="Description"/><br/>
-		<input onChange={handleAuthorInput} placeholder="Author"/><br/>
-		<button onClick={createArticle}>Create Article</button><br/>
+	<div className="container">
+        <div className="content">
+            <input className="creatArticleInput" onChange={handleTitleInput} placeholder="Title"/><br/>
+            <input className="creatArticleInput"  onChange={handleDescriptionInput} placeholder="Description"/><br/>
+            <input className="creatArticleInput"  onChange={handleAuthorInput} placeholder="Author"/><br/>
+            <button className="createArticleButton" onClick={createArticle}>Create Article</button><br/>
+        </div>
 	</div>
 	)
 }
