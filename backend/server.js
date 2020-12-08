@@ -17,3 +17,15 @@ function getData(req,res) {
     res.send(data)
 }
 
+app.post('/createArticle',updateData);
+
+function updateData(req,res) {
+    console.log(req.body)
+    const fs = require('fs');
+    let rawdata = fs.readFileSync('database.json');
+    let data = JSON.parse(rawdata);
+    data["Database"].push(req.body)
+    console.log(data["Database"])
+    data = JSON.stringify(data);
+    fs.writeFileSync('database.json', data);
+}
