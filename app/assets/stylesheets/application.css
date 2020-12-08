@@ -20,8 +20,7 @@ body {
 }
 
 .logo {
-    float: left;
-    font-size: 1.7em;
+    font-size: 22px;
     color: #fff;
     text-transform: uppercase;
     letter-spacing: -1px;
@@ -102,7 +101,7 @@ input[type=text] {
 .navbar-text {
     color: #fff;
     background-color: #62A9E0;
-    padding: 15px;
+    padding: 27px;
     margin: -10px;
     font-size: 14px;
 }
