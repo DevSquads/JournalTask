@@ -3,15 +3,21 @@
       <h1><td>pending for approve articles: <%=@unapproved_articles.count%></td></h1>
   <% @unapproved_articles.each do |article| %>
     <tr>
-      <h2><td><%= article.author_name %></td></h2>
-      <h3><td><%= article.title %></td></h3>
-      <h4><td><%= article.description %></td></h4>
+     <div  class="article">
+      <h2 class="article-title"><td>author: <%= article.author_name %></td></h2>
+      <h3 class="article-body"><td>title: <%= article.title %></td></h3>
+      <h4 class="article-body"><td>description: <%= article.description %></td></h4>
        <% if current_user.admin? == true %>
+       <span class="delete-button">
         <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
+        </span>
         <%if article.approved? != true %>
+        <span class="approve-button">
         <%= link_to "approve", approve_article_path(article.id), method: :put  %>
+        </span>
         <% end %>
       <% end %>
+      </div>
     </tr>
   <% end %>
   <% end %>
@@ -23,42 +29,39 @@
       <% else %>
          <% @myarticles.each do |article| %>
          <tr>
-           <h2><td><%= article.author_name %></td></h2>
-          <h3><td><%= article.title %></td></h3>
-          <h4><td><%= article.description %></td></h4>
+          <div  class="article">
+      <h2 class="article-title"><td>author: <%= article.author_name %></td></h2>
+      <h3 class="article-body"><td>title: <%= article.title %></td></h3>
+      <h4 class="article-body"><td>description: <%= article.description %></td></h4>
            <% if current_user.admin? == true %>
+           <span class="delete-button">
           <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
-          <%if article.approved? != true %>
-          <%= link_to "approve", approve_article_path(article.id), method: :put  %>
-        <% end %>
+          </span>
       <% end %>
+      </div>
     </tr>
         <% end %>
     <% end %>
 </div>
 
 <div>
-      <h1><td>articles</td></h1>
+      <h1><td>Authors articles</td></h1>
   <% @articles.each do |article| %>
     <tr>
-      <h2><td><%= article.author_name %></td></h2>
-      <h3><td><%= article.title %></td></h3>
-      <h4><td><%= article.description %></td></h4>
+        <div  class="article">
+      <h2 class="article-title"><td>author: <%= article.author_name %></td></h2>
+      <h3 class="article-body"><td>title: <%= article.title %></td></h3>
+      <h4 class="article-body"><td>description: <%= article.description %></td></h4>
        <% if current_user.admin? == true %>
+       <span class="delete-button">
         <%= link_to "Delete", article_path(article.id), :confirm => "Are you sure?", :method => :delete %>
-        <%if article.approved? != true %>
-        <%= link_to "approve", approve_article_path(article.id), method: :put  %>
-        <% end %>
+        </span>
       <% end %>
+      </div>
     </tr>
   <% end %>
 </div>
 
-<%= link_to 'New article', new_article_path(current_user) %>
 
-<%if current_user%>
-<%= link_to "Sign out", destroy_user_session_path , method: :delete %>
-<% else %>
-<%= link_to "Sign up", new_user_registration_path %>
-<%= link_to "sign in", new_user_session_path  %>
-<%end%>
+
+  <%= link_to 'New article', new_article_path(current_user) %>
