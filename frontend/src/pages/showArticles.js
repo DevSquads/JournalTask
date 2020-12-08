@@ -6,6 +6,7 @@ import axios from 'axios';
       const [articles,setValueArticles]=useState([]);
       const [authorName,setValueAuthorName]=useState('');
 
+
       useEffect(()=>{
             const base_url="http://127.0.0.1:8081/showArticles"
             axios.get(base_url)
@@ -57,16 +58,17 @@ import axios from 'axios';
         authorArticles = authorArticles.concat(otherArticles);
         setValueArticles(authorArticles)
     }
-    // function deleteArticle(){
-    //     const base_url="http://127.0.0.1:8080/deleteArticle"
-    //     axios.delete(base_url)
-    //     .then(response =>{
-    //         console.log(response)
-    //     })
-    //     .catch(error =>{
-    //         console.log(error.response)
-    //     })
-    // }
+    function deleteArticle(article){
+        const base_url="http://127.0.0.1:8081/deleteArticle"
+        axios.post(base_url,article)
+        .then(response =>{
+            console.log(response)
+            setValueArticles(response.data.Database)
+        })
+        .catch(error =>{
+            console.log(error.response)
+        })
+    }
     return (
 	<div>
         <button onClick={showAuthorArticles}>Author</button><br/>
@@ -75,11 +77,14 @@ import axios from 'axios';
         <div>
             {articles.map(article=>
                 <div>
-                    {article.title}<br/>
-                    {article.authorName}<br/>
-                    {article.description}<br/>
-                    {/* <button onClick={deleteArticle}>Delete Article</button><br/> */}
+                    <div>
+                        {article.title}<br/>
+                        {article.authorName}<br/>
+                        {article.description}<br/>
+                    </div>
+                    <button onClick={()=>deleteArticle(article)}>Delete Article</button><br/>
                 </div>
+
             )}
         </div>
 	</div>
