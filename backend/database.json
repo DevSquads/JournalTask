@@ -1,1 +1,5 @@
-{"Database":[{"title":"Article 1","description":"","authorName":"Ahmed"},{"title":"Article 2","description":"","authorName":"Mohamed"},{"title":"Article 3","description":"","authorName":"Karim"},{"title":"Article 4","description":"","authorName":"Karim"}]}
+{"Database":[
+    {"id":"0","title":"Article 1","description":"","authorName":"Ahmed"},
+    {"id":"1","title":"Article 2","description":"","authorName":"Mohamed"},
+    {"id":"2","title":"Article 3","description":"","authorName":"Karim"},
+    {"id":"3","title":"Article 4","description":"","authorName":"Karim"}]}

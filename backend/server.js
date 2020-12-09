@@ -24,9 +24,16 @@ function updateData(req,res) {
     const fs = require('fs');
     let rawdata = fs.readFileSync('database.json');
     let data = JSON.parse(rawdata);
+    var id= Number(data["Database"][data["Database"].length-1].id)
+    id = id+1
+    console.log(id)
+    const idStr=id.toString()
+    req.body["id"]=idStr
     data["Database"].push(req.body)
     data = JSON.stringify(data);
     fs.writeFileSync('database.json', data);
+    console.log(data["Database"])
+    res.send(200)
 }
 app.post('/deleteArticle',deleteData);
 
