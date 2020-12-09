@@ -3,7 +3,7 @@
 Journal Blog that manages to publish articles by authors, the project aims to have articles that apprroved and managed by admins.
 
 
-# stack 
+# Stack 
 
 - Language: Ruby 2.7.0
 - Web Framework: Rails 5.2.4.4
