@@ -22,3 +22,16 @@
     padding: 10px;
     border-radius: 5px;
 }
+h3{
+    color:White;
+    text-align: center;
+}
+@media screen and (max-width: 600px) {
+    .createArticleButton{
+        width: 114px;
+        font-size: 14px;
+    }
+}
+.container input{
+    margin-left: 0;
+}

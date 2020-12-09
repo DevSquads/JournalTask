@@ -22,15 +22,13 @@ describe("Create Article Test", () => {
       },
       userAgent: ''
     });    
-    const data = {title: "M", description: "m", author:"m" }
+    const data = {title: "M Post", description: "My Description", author:"My Name" }
     await page.goto('http://localhost:3000/');
     await page.click("button[id=createArticleBtn]");
     await page.type("input[id=title]", data.title);
     await page.type("input[id=description]", data.description);
     await page.type("input[id=author]", data.author);
     await page.click("button[id=createBtn]");
-    //expect(screen.getByText(/M/i)).toBeInTheDocument()
-    // await waitFor(() =>expect(screen.getByText("M")).toBeInTheDocument());
     browser.close();
   }, 9000000);
   afterAll(() => {
@@ -87,18 +85,22 @@ describe("Show Author's Articles", () => {
     await page.goto('http://localhost:3000/');
     await page.click("button[id=showArticlesBtn]");
     await page.click("button[id=author]");
-    await page.click("button[id=author]");
-
     await page.waitForSelector('#authorName', {
       visible: true,
     })
     await page.type("input[id=authorName]", 'Karim');
-    await page.click("button[id=author]");
     browser.close();
   }, 9000000);
 });
 
 describe("Delete Articles", () => {
+  var obj={}
+  beforeAll(() => {
+      const fs = require('fs');
+      let rawdata = fs.readFileSync('C:/Users/hp/Projects/journal-task/backend/database.json');
+      let dataa = JSON.parse(rawdata);
+      obj=dataa["Database"][dataa["Database"].length-1]
+  })
   test('Delete', async () => {
     let browser = await puppeteer.launch({
       headless: false,
@@ -116,8 +118,17 @@ describe("Delete Articles", () => {
     });    
     await page.goto('http://localhost:3000/');
     await page.click("button[id=showArticlesBtn]");
+    await page.click("button[id=reader]");
     await page.click("button[id=deleteBtn]");
 
     browser.close();
   }, 9000000);
+  afterAll(() => {
+      const fs = require('fs');
+      let rawdata = fs.readFileSync('C:/Users/hp/Projects/journal-task/backend/database.json');
+      let dataa = JSON.parse(rawdata);
+      dataa["Database"].push(obj)
+      dataa = JSON.stringify(dataa);
+      fs.writeFileSync('C:/Users/hp/Projects/journal-task/backend/database.json', dataa);
+  });
 });

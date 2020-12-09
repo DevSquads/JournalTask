@@ -5,7 +5,7 @@
     height: 100vh;
     background-color:#181818;
 }
-.button{
+.container .button{
     margin-top: 50%;
     margin-left:10px;
     font-size: 18px;
@@ -14,4 +14,8 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
+    width: auto;
+}
+.link{
+    height: max-content;
 }

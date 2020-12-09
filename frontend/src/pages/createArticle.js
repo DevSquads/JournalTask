@@ -42,7 +42,7 @@ import {updateData} from './functions'
             <input id="author" className="creatArticleInput"  onChange={handleAuthorInput} placeholder="Author"/><br/>
             <button id="createBtn" className="createArticleButton" onClick={createArticle}>Create Article</button><br/>
             
-            <h3 style={{display:flag, color:'red'}}>Done</h3>
+            <h3 style={{display:flag}}>Done</h3>
         </div>
 	</div>
 	)
