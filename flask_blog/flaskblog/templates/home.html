@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     {% for post in posts %}
+      {% if current_user.admin_user or post.approved %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
           <div class="media-body">
@@ -12,5 +13,6 @@
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
+      {% endif%} 
     {% endfor %}
 {% endblock content %}

@@ -1,6 +1,9 @@
 from datetime import datetime
 from flaskblog import db , login_manager
 from flask_login import UserMixin
+#from flask_admin import Admin
+#from flask_admin.contrib.sqla import ModelView
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -14,10 +17,12 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    admin_user = db.Column(db.Boolean  , default= False)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}', '{self.password}')"
 
+    
   
 class Post(db.Model):
     __tablename__ = 'Posts'
@@ -26,7 +31,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
-    #user = db.relationship('User', backref="posts", lazy=True)
+    approved = db.Column(db.Boolean , default= False, nullable= False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"

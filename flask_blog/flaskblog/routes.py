@@ -1,16 +1,22 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm , PostForm
-from flaskblog.models import User, Post
+from flaskblog.models import db, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+#import pdb
 
 @app.route('/')
 @app.route('/home')
+@login_required
 def home():
-    posts = Post.query.all()
+    posts=[]
+    if current_user.admin_user:
+        posts = Post.query.all()
+    else:  
+        posts = Post.query.filter_by(approved=True).all() # ana fhemtaha ba3d ma katbtaha:D
     return render_template('home.html', posts=posts)
 
 @app.route('/about')
@@ -130,7 +136,7 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.author != current_user and not(current_user.admin_user): 
         abort(403)
     db.session.delete(post)
     db.session.commit()
