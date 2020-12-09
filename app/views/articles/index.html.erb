@@ -25,7 +25,7 @@
 <div>
       <h1><td>Your approved articles</td></h1>
       <%if current_user.approved_articles == 0 %>
-      You don't have any approved articles yet , wanna write new article?<%= link_to ' New article', new_article_path(current_user) %>
+      You don't have any approved articles yet
       <% else %>
          <% @myarticles.each do |article| %>
          <tr>
@@ -63,5 +63,5 @@
 </div>
 
 
-
   <%= link_to 'New article', new_article_path %>
+  
