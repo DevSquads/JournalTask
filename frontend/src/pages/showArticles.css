@@ -41,7 +41,7 @@ input{
     min-height: 750px;
     /* justify-content: center; */
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     input{
         width:90px;
     }
