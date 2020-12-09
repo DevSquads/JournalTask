@@ -16,7 +16,8 @@ def home():
     if current_user.admin_user:
         posts = Post.query.all()
     else:  
-        posts = Post.query.filter_by(approved=True).all() # ana fhemtaha ba3d ma katbtaha:D
+        posts = Post.query.filter_by(approved=True).all()
+
     return render_template('home.html', posts=posts)
 
 @app.route('/about')
@@ -142,3 +143,18 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
+
+
+@app.route("/post/<int:post_id>/approve", methods=['POST'])
+@login_required
+def approve_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if current_user.admin_user: 
+        post_added = Post( post , approved = True)
+        post.approved = True
+        db.session.add(post)
+        db.session.commit()
+        flash('The post has been approved!', 'success')
+    return redirect(url_for('home'))
+
+

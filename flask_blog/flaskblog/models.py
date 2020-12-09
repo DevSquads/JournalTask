@@ -32,6 +32,6 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
     approved = db.Column(db.Boolean , default= False, nullable= False)
-
+    
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
