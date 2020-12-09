@@ -22,7 +22,7 @@ describe("Create Article Test", () => {
       },
       userAgent: ''
     });    
-    const data = {title: "M Post", description: "My Description", author:"My Name" }
+    const data = {title: "My Post", description: "My Description", author:"My Name" }
     await page.goto('http://localhost:3000/');
     await page.click("button[id=createArticleBtn]");
     await page.type("input[id=title]", data.title);
