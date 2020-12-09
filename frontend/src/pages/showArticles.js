@@ -1,6 +1,6 @@
 import React,{ useState, useEffect} from 'react';
 import axios from 'axios';
-// import './showArticles.css'
+import './showArticles.css'
 
  export default function ShowArticles(){
     const [articles,setValueArticles]=useState([]);
@@ -88,10 +88,10 @@ import axios from 'axios';
     }
     return (
 	<div className="container">
-        <div>
-            <button className="userTypeButton" onClick={showAuthorArticles}>Author</button><br/>
-            <button className="userTypeButton" onClick={showReaderArticles}>Reader</button><br/>
-            <input style={{display:authorContent}} onChange={handleInput} placeholder="Author Name"/><br/>
+        <div className="contents" style={{display:"flex"}}>
+            <button id='author'className="userTypeButton" onClick={showAuthorArticles}>Author</button><br/>
+            <button id = 'reader' className="userTypeButton" onClick={showReaderArticles}>Reader</button><br/>
+            <input id='authorName'style={{display:authorContent}} onChange={handleInput} placeholder="Author Name"/><br/>
             <div>
                 {articles.map(article=>
                     <div>
@@ -100,7 +100,7 @@ import axios from 'axios';
                             {article.authorName}<br/>
                             {article.description}<br/>
                         </div>
-                        <button onClick={()=>deleteArticle(article)}>Delete Article</button><br/>
+                        <button id='deleteBtn' onClick={()=>deleteArticle(article)}>Delete Article</button><br/>
                     </div>
 
                 )}

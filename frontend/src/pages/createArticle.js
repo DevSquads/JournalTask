@@ -1,13 +1,16 @@
 
-import React,{ useState, useEffect} from 'react';
+import React,{ useState, useEffect, } from 'react';
 import axios from 'axios';
 import './createArticle.css'
+import {updateData} from './functions'
+// var Button = require('react-button')
 
  export default function CreateArticle(){
-    const [articles,setValueArticles]=useState([]);
     const [title,setValueTitle]=useState([]);
     const [description,setValueDescription]=useState([]);
     const [author,setValueAuthor]=useState([]);
+    const [flag,setValueFlag]=useState('none');
+
 	function handleTitleInput(event) {
 		setValueTitle(event.target.value);
  	}
@@ -17,27 +20,29 @@ import './createArticle.css'
 	function handleAuthorInput(event) {
 		setValueAuthor(event.target.value);
  	}
-
-	function createArticle(){
-        const obj={ title:title,
-                    description:description,
-                    authorName:author}
-        const base_url="http://127.0.0.1:8081/createArticle"
-        axios.post(base_url, obj)
-        .then(response =>{
-            console.log(response)
-        })
-        .catch(error =>{
-            console.log(error.response)
-        })
+      
+    async function createArticle() {
+        console.log('Create Article has been called')
+        const obj = {   
+                      title:title,
+                      description:description,
+                      authorName:author
+                    }
+        const response = await updateData(obj)
+        if(response.status==200){
+            setValueFlag('block')
+        }
     }
+  
     return (
 	<div className="container">
         <div className="content">
-            <input className="creatArticleInput" onChange={handleTitleInput} placeholder="Title"/><br/>
-            <input className="creatArticleInput"  onChange={handleDescriptionInput} placeholder="Description"/><br/>
-            <input className="creatArticleInput"  onChange={handleAuthorInput} placeholder="Author"/><br/>
-            <button className="createArticleButton" onClick={createArticle}>Create Article</button><br/>
+            <input id="title" className="creatArticleInput" onChange={handleTitleInput} placeholder="Title"/><br/>
+            <input id="description" className="creatArticleInput"  onChange={handleDescriptionInput} placeholder="Description"/><br/>
+            <input id="author" className="creatArticleInput"  onChange={handleAuthorInput} placeholder="Author"/><br/>
+            <button id="createBtn" className="createArticleButton" onClick={createArticle}>Create Article</button><br/>
+            
+            <h3 style={{display:flag, color:'red'}}>Done</h3>
         </div>
 	</div>
 	)

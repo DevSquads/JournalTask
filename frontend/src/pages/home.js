@@ -6,10 +6,10 @@ import './home.css'
     return (
 	<div className="container">
 		<Link to="showArticles">
-            <button className="button">Show Articles</button><br/>
+            <button id="showArticlesBtn" className="button">Show Articles</button><br/>
         </Link>
         <Link to="createArticle">
-		    <button className="button">Create Article</button><br/>
+		    <button id="createArticleBtn" className="button">Create Article</button><br/>
         </Link>
 	</div>
 	)
