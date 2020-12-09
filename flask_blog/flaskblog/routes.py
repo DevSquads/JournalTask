@@ -6,19 +6,24 @@ from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm , PostForm
 from flaskblog.models import db, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-#import pdb
+import pdb
+
 
 @app.route('/')
 @app.route('/home')
 @login_required
 def home():
-    posts=[]
-    if current_user.admin_user:
-        posts = Post.query.all()
-    else:  
-        posts = Post.query.filter_by(approved=True).all()
+    all_users = User.query.all()
+    if current_user:
+            pdb.set_trace()
+            if current_user.admin_user:
+                # get all approved - un approved posts
+                all_users.sort(key=lambda user: len(user.posts), reverse=True)
+            else:
+                all_users.sort(key=lambda user: len(user.posts.filter(lambda post: post.approved == True)), reverse=True)        
 
     return render_template('home.html', posts=posts)
+
 
 @app.route('/about')
 def about():
