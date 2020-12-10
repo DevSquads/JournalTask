@@ -13,17 +13,32 @@ import pdb
 @app.route('/home')
 @login_required
 def home():
+    posts = []
     all_users = User.query.all()
     if current_user:
-            pdb.set_trace()
+        if current_user.admin_user:
+            all_users.sort(key=lambda user: len(user.posts), reverse=True)
+        else:
+            all_users.sort(key=lambda user: len(get_approved_posts(user.posts)), reverse=True)        
+
+        for user in all_users:
             if current_user.admin_user:
-                # get all approved - un approved posts
-                all_users.sort(key=lambda user: len(user.posts), reverse=True)
+                for post in user.posts:
+                    posts.append(post)
             else:
-                all_users.sort(key=lambda user: len(user.posts.filter(lambda post: post.approved == True)), reverse=True)        
+                for post in get_approved_posts(user.posts):
+                    posts.append(post)
 
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts) 
 
+def get_approved_posts(posts):
+    approved_posts = []
+
+    for post in posts:
+        if post.approved:
+                approved_posts.append(post)
+
+    return approved_posts
 
 @app.route('/about')
 def about():
