@@ -170,7 +170,6 @@ def delete_post(post_id):
 def approve_post(post_id):
     post = Post.query.get_or_404(post_id)
     if current_user.admin_user: 
-        post_added = Post( post , approved = True)
         post.approved = True
         db.session.add(post)
         db.session.commit()
