@@ -1,29 +1,7 @@
 # JournalTask
 
 # Description
-- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.
-- Push your work to your forked repo "user-name/JournalTask".
-- Create pull request in the original repo "devsquads/JournalTask"
-
-# Story
-Samir the chief editor in “legen- wait for it-dary news” asked the journal owner Yehia to make him an appointment with DevSquads their technical partner to ask them for help.
-He wants to make an app that would help him manage the articles that being posted by the journalists, Samir is the only one that can delete articles, and approve the articles to be published, every article has a title, description, and author name.
-
-
-# Requirements
-- List of articles sorted by most popular authors ( who has the highest number of published articles).
-- Create article.
-- Delete article.
-- When an author view all articles, they see their own articles first.
-- e2e tests.
-- Edit README to include the required steps to run your application.
-
-# Stack
-- Choosing the tech stack is up to you(Java is preferred).
-
-# Nice to have
-- Organized and well written git commit history.
-- unit tests.
-
-# Task Deadline
-- Thursday 10/12/2020 12:00 PM.
+- Enter username ("samir" in Lower case letters if you want to be able to create or delete an article , otherwise write any other name )
+-Click on 'View Articles' tab to get a list of published articles (with the delete button available in case you're "samir")
+-Click on'Create article' tab to create a new article , fill in the fields and press 'Create'
+(this is only possible if you are "samir", otherwise you will get a "not allowed" message and a link to be go back to Login page)
