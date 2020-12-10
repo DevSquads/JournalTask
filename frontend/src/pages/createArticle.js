@@ -2,7 +2,7 @@
 import React,{ useState, useEffect, } from 'react';
 import axios from 'axios';
 import './createArticle.css'
-import {updateData} from './functions'
+import {updateDataApi} from './API'
 // var Button = require('react-button')
 
  export default function CreateArticle(){
@@ -28,7 +28,7 @@ import {updateData} from './functions'
                       description:description,
                       authorName:author
                     }
-        const response = await updateData(obj)
+        const response = await updateDataApi(obj)
         if(response.status==200){
             setValueFlag('block')
         }

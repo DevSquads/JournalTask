@@ -1,6 +1,9 @@
 import React,{ useState, useEffect} from 'react';
 import axios from 'axios';
 import './showArticles.css'
+import {fetchDataApi} from './API'
+import {deleteArticleApi} from './API'
+
 
  export default function ShowArticles(){
     const [articles,setValueArticles]=useState([]);
@@ -11,16 +14,13 @@ import './showArticles.css'
     const [articlesList, setValueArticlesList]=useState('none');
 
     useEffect(()=>{
-            const base_url="http://127.0.0.1:8081/showArticles"
-            axios.get(base_url)
-            .then(response =>{
-                setValueArticles(response.data.Database)
-            })
-            .catch(error =>{
-                console.log(error.response)
-            })
+            fetchData()
             window.addEventListener('load', showAuthorInputField());
     },[]);
+    async function fetchData(){
+        const response = await fetchDataApi()
+        setValueArticles(response.data.Database)
+    }
     function showReaderArticles(){
         setValueFlagReader(prevFlag => !prevFlag );
         if(flagAuthor==true){
@@ -78,30 +78,27 @@ import './showArticles.css'
             setValueAuthorNameInput("none");
         }
     }
-    function deleteArticle(article){
-        const base_url="http://127.0.0.1:8081/deleteArticle"
-        axios.post(base_url,article)
-        .then(response =>{
-            console.log(response)
-            setValueArticles(response.data.Database)
-        })
-        .catch(error =>{
-            console.log(error.response)
-        })
+    async function deleteArticle(article){
+        const response = await deleteArticleApi(article)
+        setValueArticles(response.data.Database)
+        setValueArticlesList('none')
+        setValueAuthorNameInput('none')
+        setValueFlagReader('block')
+        setValueAuthorName('')
     }
     return (
 	<div className="containerShow">
         <div className="contents row" style={{display:"flex"}}>
             <button id='author'className="userTypeButton" onClick={showAuthorInputField}>Author</button><br/>
             <button id = 'reader' className="userTypeButton" style={{display:flagReader}} onClick={showReaderArticles}>Reader</button><br/>
-            <input id='authorName' style={{display:authorNameInput}} onChange={handleInput} placeholder="Author Name"/><br/>
+            <input id='authorName' style={{display:authorNameInput}} value={authorName} onChange={handleInput} placeholder="Author Name"/><br/>
         </div>
 
         <div className="articles row" style={{display:articlesList}}>
             {articles.map(article=>
                 <div>
                     <div>
-                        <h5>{article.title}</h5>
+                        <h2>{article.title}</h2>
                         <h5>By: {article.authorName}</h5>
                         <h5>{article.description}</h5>
                     </div>
