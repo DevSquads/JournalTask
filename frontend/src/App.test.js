@@ -1,9 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
-import CreateArticle from './pages/createArticle'
-import { updateData } from "./pages/functions";
-import * as helpers from "./pages/functions"
-// import * as helpers from "./pages/showArticles"
 
 const puppeteer = require('puppeteer');
 describe("Create Article Test", () => {
@@ -88,7 +84,7 @@ describe("Show Author's Articles", () => {
     await page.waitForSelector('#authorName', {
       visible: true,
     })
-    await page.type("input[id=authorName]", 'Karim');
+    await page.type("input[id=authorName]", 'Mohamed');
     browser.close();
   }, 9000000);
 });
@@ -99,7 +95,7 @@ describe("Delete Articles", () => {
       const fs = require('fs');
       let rawdata = fs.readFileSync('C:/Users/hp/Projects/journal-task/backend/database.json');
       let dataa = JSON.parse(rawdata);
-      obj=dataa["Database"][dataa["Database"].length-1]
+      obj=dataa["Database"][0]
   })
   test('Delete', async () => {
     let browser = await puppeteer.launch({
@@ -118,7 +114,11 @@ describe("Delete Articles", () => {
     });    
     await page.goto('http://localhost:3000/');
     await page.click("button[id=showArticlesBtn]");
-    await page.click("button[id=reader]");
+    await page.click("button[id=author]");
+    await page.waitForSelector('#authorName', {
+      visible: true,
+    })
+    await page.type("input[id=authorName]", 'Ahmed');
     await page.click("button[id=deleteBtn]");
 
     browser.close();
