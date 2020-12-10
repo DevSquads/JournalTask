@@ -9,6 +9,10 @@
 4-Set the secret key for session encryption: export SECRET_KEY=<your_secret_key_here> (if you're just testing, the length of the string doesn't matter). <br>
 5-Enable export DEBUG=1  debug mode for the built-in server (enabling debugging is recommended for testing; if you plan to run the app on a production server, though, debugging should be disabled). <br>
 6-python run.py. <br>
+# Images for the site
+![first.png](flask_blog/flaskblog/static/profile_pics/first.png)
+
+![second.png](flask_blog/flaskblog/static/profile_pics/second.png)
 
 # Description
 - Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.
