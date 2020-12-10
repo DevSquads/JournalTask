@@ -48,4 +48,10 @@ input{
     .contents{
         flex-direction: column;
     }
+    h2{
+        width: auto;
+    }
+    .containerShow{
+        width: auto
+    }
 }
