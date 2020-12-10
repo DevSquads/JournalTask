@@ -1,0 +1,9 @@
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\bin\Debug\JournalDB.dacpac
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\bin\Debug\JournalDB.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\bin\Debug\JournalDB.pdb
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\Model.xml
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\refactor.xml
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\postdeploy.sql
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\predeploy.sql
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\JournalDB.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\JournalDB\obj\Debug\JournalDB.pdb

@@ -1,0 +1,9 @@
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\DataLibrary.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\DataLibrary.pdb
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\Dapper.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\DapperExtensions.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\Dapper.pdb
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\bin\Debug\DapperExtensions.pdb
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\obj\Debug\DataLibrary.csprojResolveAssemblyReference.cache
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\obj\Debug\DataLibrary.dll
+c:\Users\dell\documents\visual studio 2015\Projects\Journal\DataLibrary\obj\Debug\DataLibrary.pdb
