@@ -1,13 +1,13 @@
 # JournalTask
 
 # Required Steps to Run the package
+
 # Setup
-1- cd path/to/flaskblog
-2-Optional: set up a virtual environment using virtualenv.
-3-Install the required packages: pip install -r requirements.txt
+1 - cd path/to/flaskblog.
+1 -Optional: set up a virtual environment using virtualenv.
+3-Install the required packages: pip install -r requirements.txt.
 4-Set the secret key for session encryption: export SECRET_KEY=<your_secret_key_here> (if you're just testing, the length of the string doesn't matter).
 5-Enable export DEBUG=1  debug mode for the built-in server (enabling debugging is recommended for testing; if you plan to run the app on a production server, though, debugging should be disabled).
-
 6-python run.py.
 
 # Description
