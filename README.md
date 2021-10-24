@@ -17,12 +17,12 @@ He wants to make an app that would help him manage the articles that being poste
 - When an author view all articles, they see their own articles first.
 - e2e tests.
 - Edit README to include the required steps to run your application.
+- Organized and well written git commit history.
 
 # Stack
 - Choosing the tech stack is up to you(Java is preferred).
 
 # Nice to have
-- Organized and well written git commit history.
 - unit tests.
 
 # Task Deadline
