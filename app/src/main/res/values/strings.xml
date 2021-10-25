@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">legendaryNews</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="email_suffix">/@legendaryNews.org</string>
+    <string name="login">Login</string>
 </resources>
