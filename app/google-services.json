@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "889660906498",
+    "project_id": "legendary-news",
+    "storage_bucket": "legendary-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889660906498:android:57086eb1a044052c079b1b",
+        "android_client_info": {
+          "package_name": "com.toka.legendarynews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889660906498-i7i1tgh4l3k80rda5m3di260qktorahp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7FxERvQNLBgP0FFDJQdvvxGBMrVgwE1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889660906498-i7i1tgh4l3k80rda5m3di260qktorahp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
