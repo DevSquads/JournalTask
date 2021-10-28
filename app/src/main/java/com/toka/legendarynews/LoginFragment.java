@@ -5,9 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
@@ -17,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.toka.legendarynews.databinding.FragmentLoginBinding;
-
-import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,7 +94,7 @@ public class LoginFragment extends Fragment {
                 binding.tfUserName.setEnabled(true);
                 break;
             case SUCCESS:
-                NavHostFragment.findNavController(this).navigate(R.id.action_loginFragment_to_articlesFragment2);
+                NavHostFragment.findNavController(this).navigate(LoginFragmentDirections.actionLoginFragmentToArticlesFragment2());
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.toka.legendarynews;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,10 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.toka.legendarynews.databinding.ViewArticleFragmentBinding;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ViewArticleFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class ViewArticleFragment extends Fragment {
 
-    private ViewArticleViewModel mViewModel;
+    private ViewArticleFragmentBinding binding;
 
+    public ViewArticleFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment ViewArticleFragment.
+     */
     public static ViewArticleFragment newInstance() {
         return new ViewArticleFragment();
     }
@@ -23,14 +38,16 @@ public class ViewArticleFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.view_article_fragment, container, false);
+        binding = ViewArticleFragmentBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ViewArticleViewModel.class);
-        // TODO: Use the ViewModel
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+//        binding.tvTitle.setText(title);
+//        binding.tvDesc.setText(desc);
+//        binding.tvAuthor.setText(getString(R.string.by_author_name, authorName));
+    }
 }

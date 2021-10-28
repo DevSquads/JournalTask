@@ -45,12 +45,12 @@ public class LoginViewModel extends ViewModel implements Observable {
     public void onLogin(LifecycleOwner lifecycleOwner) {
         Log.d(TAG, "onLogin");
         status.setValue(Status.LOADING);
-        API.login(username, password).observe(lifecycleOwner, task -> {
+        Repo.login(username, password).observe(lifecycleOwner, task -> {
             if (task.isSuccessful())
                 status.postValue(Status.SUCCESS);
-            else  {
+            else {
                 Exception exception = task.getException();
-                error = exception != null? exception.getLocalizedMessage(): null;
+                error = exception != null ? exception.getLocalizedMessage() : null;
                 status.postValue(Status.ERROR);
             }
         });

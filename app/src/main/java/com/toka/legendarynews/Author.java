@@ -1,10 +1,12 @@
 package com.toka.legendarynews;
 
+import java.util.Objects;
+
 public class Author {
     private String name;
     private String id;
-    private String username;
     private boolean isAdmin;
+    private int noOfArticles;
 
     public String getName() {
         return name;
@@ -22,19 +24,32 @@ public class Author {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public int getNoOfArticles() {
+        return noOfArticles;
+    }
+
+    public void setNoOfArticles(int noOfArticles) {
+        this.noOfArticles = noOfArticles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+        Author author = (Author) o;
+        return isAdmin() == author.isAdmin() && getNoOfArticles() == author.getNoOfArticles() && Objects.equals(getName(), author.getName()) && Objects.equals(getId(), author.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getId(), isAdmin(), getNoOfArticles());
     }
 }

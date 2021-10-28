@@ -8,8 +8,12 @@
     android:padding="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvArticles"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/article_row_item"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabCreateArticle"
@@ -19,9 +23,18 @@
         android:text="@string/create_article"
         app:icon="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/cpi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="3"
-        tools:listitem="@layout/article_row_item"/>
+        app:showAnimationBehavior="outward"
+        app:hideAnimationBehavior="outward"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
