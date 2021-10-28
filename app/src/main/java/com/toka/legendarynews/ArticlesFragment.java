@@ -1,19 +1,15 @@
 package com.toka.legendarynews;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.toka.legendarynews.databinding.FragmentArticlesBinding;
 
@@ -25,8 +21,6 @@ import com.toka.legendarynews.databinding.FragmentArticlesBinding;
 public class ArticlesFragment extends Fragment {
 
     private FragmentArticlesBinding binding;
-
-    private ArticlesViewModel articlesViewModel;
 
     // the fragment initialization parameters
     private static final String ARG_PARAM1 = "param1";
@@ -76,9 +70,27 @@ public class ArticlesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ArticleAdapter adapter = new ArticleAdapter(article -> NavHostFragment.findNavController(this).navigate(ArticlesFragmentDirections.actionArticlesFragment2ToViewArticleFragment(article.getTitle(), article.getDescription(), article.getAuthor().getName())));
+        binding.rvArticles.setAdapter(adapter);
 
-        binding.rvArticles.setAdapter(new ArticleAdapter(article -> NavHostFragment.findNavController(this).navigate(ArticlesFragmentDirections.actionArticlesFragment2ToViewArticleFragment(article.getTitle(), article.getDescription(), article.getAuthor().getName()))));
+        ArticlesViewModel articlesViewModel = new ViewModelProvider(this).get(ArticlesViewModel.class);
+        articlesViewModel.startFetchingArticles(getViewLifecycleOwner());
+        articlesViewModel.getStatus().observe(getViewLifecycleOwner(), this::renderStatus);
+        articlesViewModel.getArticles().observe(getViewLifecycleOwner(), adapter::submitList);
 
         binding.fabCreateArticle.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.action_articlesFragment2_to_newArticleFragment));
+    }
+
+    private void renderStatus(Status status) {
+        switch (status) {
+            case LOADING:
+                binding.cpi.setVisibility(View.VISIBLE);
+                break;
+            case ERROR:
+                Toast.makeText(getContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
+            case IDLE:
+                binding.cpi.setVisibility(View.GONE);
+                break;
+        }
     }
 }

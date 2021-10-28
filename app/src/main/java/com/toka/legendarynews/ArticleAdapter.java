@@ -1,6 +1,7 @@
 package com.toka.legendarynews;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,9 @@ public class ArticleAdapter extends ListAdapter<Article, ArticleAdapter.ArticleV
 
         holder.binding.getRoot().setOnClickListener(v -> onArticleClickListener.onArticleClick(article));
 
+        holder.binding.g.setVisibility(article.getAuthor().isAdmin()? View.VISIBLE: View.GONE);
+
+        // because we don't have an actual journal, both publish and delete will perform the same action
         holder.binding.ibDelete.setOnClickListener(v -> {
 
         });

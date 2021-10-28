@@ -1,21 +1,15 @@
 package com.toka.legendarynews;
 
-import android.util.Log;
-
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class LoginViewModel extends ViewModel implements Observable {
+public class LoginViewModel extends BaseViewModel implements Observable {
 
-    private static final String TAG = ViewModel.class.getSimpleName();
     private String username;
     private String password;
     private String error;
-    private final MutableLiveData<Status> status = new MutableLiveData<>(Status.IDLE);
 
     private final PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
 
@@ -43,15 +37,14 @@ public class LoginViewModel extends ViewModel implements Observable {
     }
 
     public void onLogin(LifecycleOwner lifecycleOwner) {
-        Log.d(TAG, "onLogin");
-        status.setValue(Status.LOADING);
+        getStatus().setValue(Status.LOADING);
         Repo.login(username, password).observe(lifecycleOwner, task -> {
             if (task.isSuccessful())
-                status.postValue(Status.SUCCESS);
+                getStatus().postValue(Status.SUCCESS);
             else {
                 Exception exception = task.getException();
                 error = exception != null ? exception.getLocalizedMessage() : null;
-                status.postValue(Status.ERROR);
+                getStatus().postValue(Status.ERROR);
             }
         });
     }
@@ -74,14 +67,6 @@ public class LoginViewModel extends ViewModel implements Observable {
     @Bindable
     public String getPassword() {
         return password;
-    }
-
-    public void setStatus(Status status) {
-        this.status.setValue(status);
-    }
-
-    public MutableLiveData<Status> getStatus() {
-        return status;
     }
 
     public void setError(String error) {
