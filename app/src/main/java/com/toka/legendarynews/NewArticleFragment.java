@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.view.LayoutInflater;
@@ -88,8 +87,8 @@ public class NewArticleFragment extends Fragment {
         return titleEditable.toString().trim().length() > 0 && descEditable.toString().trim().length() > 0;
     }
 
-    private void renderStatus(Status status) {
-        switch (status) {
+    private void renderStatus(UIStatus UIStatus) {
+        switch (UIStatus) {
             case LOADING:
                 binding.lpi.setVisibility(View.VISIBLE);
                 binding.btnSendForPublishing.setEnabled(false);

@@ -3,7 +3,7 @@ package com.toka.legendarynews;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-public class DiffUtilCallback extends DiffUtil.ItemCallback<Article> {
+public class ArticlesDiffUtilCallback extends DiffUtil.ItemCallback<Article> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Article oldItem, @NonNull Article newItem) {

@@ -1,34 +1,40 @@
 package com.toka.legendarynews;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Repo {
 
+    private static final String ARTICLES = "articles";
+    private static final String USERS = "users";
+    private static final String ID = "id";
+    private static final String NAME = "name";
+    private static final String IS_ADMIN = "isAdmin";
+
     private static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final FirebaseUser user = mAuth.getCurrentUser();
-    private static final DatabaseReference usersTable = FirebaseDatabase.getInstance().getReference().child("users"),
+    private static final DatabaseReference usersTable = FirebaseDatabase.getInstance().getReference().child(USERS),
             currentUserRow = user != null ? usersTable.child(user.getUid()) : null,
-            currentUserArticles = user != null ? currentUserRow.child("articles") : null;
+            currentUserArticles = user != null ? currentUserRow.child(ARTICLES) : null;
 
     private Repo() {
     }
 
     public static MutableLiveData<Task<AuthResult>> login(String username, String password) {
         MutableLiveData<Task<AuthResult>> authResultTask = new MutableLiveData<>();
+        if (mAuth.getCurrentUser() != null)
+            mAuth.signOut();
+
         mAuth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(authResultTask::postValue);
         return authResultTask;
@@ -43,19 +49,20 @@ public class Repo {
             article.setDescription(description);
             article.setPublished(false);
 
-            Author author = new Author();
-            usersTable.child(user.getUid()).get().addOnCompleteListener(task -> {
+            currentUserRow.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful() && task.getResult() != null) {
-                    author.setId(task.getResult().child("id").getValue(String.class));
-                    author.setName(task.getResult().child("name").getValue(String.class));
-                    author.setAdmin(task.getResult().child("isAdmin").getValue(boolean.class));
+                    Author author = new Author();
+                    author.setId(task.getResult().child(ID).getValue(String.class));
+                    author.setName(task.getResult().child(NAME).getValue(String.class));
+                    author.setAdmin(task.getResult().child(IS_ADMIN).getValue(Boolean.class));
 
                     article.setAuthor(author);
 
-                    String articleId = author.getId() + author.getNoOfArticles();
+                    long noOfArticles = task.getResult().child(ARTICLES).getChildrenCount();
+                    String articleId = author.getId() + noOfArticles;
                     article.setId(articleId);
 
-                    usersTable.child(user.getUid()).child("articles").child(articleId).setValue(article).addOnCompleteListener(articleAddingResultTask::postValue);
+                    currentUserArticles.child(articleId).setValue(article).addOnCompleteListener(articleAddingResultTask::postValue);
                 }
             });
         }
@@ -67,43 +74,19 @@ public class Repo {
         MutableLiveData<List<Article>> articlesLiveData = new MutableLiveData<>();
 
         if (user != null) {
-            List<Article> articles = new ArrayList<>();
-            ChildEventListener childEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                    // A new data item has been added, add it to the list
-                    Article article = dataSnapshot.getValue(Article.class);
-                    articles.add(article);
-                }
+            currentUserArticles.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    GenericTypeIndicator<Map<String, Article>> genericTypeIndicator = new GenericTypeIndicator<Map<String, Article>>() {};
+                    Map<String, Article> hashMap = task.getResult().getValue(genericTypeIndicator);
+                    if (hashMap != null) {
+                        List<Article> articles = new ArrayList<>();
+                        for (Map.Entry<String, Article> entry : hashMap.entrySet())
+                            articles.add(entry.getValue());
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                    // A data item has changed
-                    Article article = dataSnapshot.getValue(Article.class);
-                    if (articles.contains(article))
-                        articles.set(articles.indexOf(article), article);
+                        articlesLiveData.postValue(articles);
+                    }
                 }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    // A data item has been removed
-                    Article article = dataSnapshot.getValue(Article.class);
-                    articles.remove(article);
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
-                    // A data item has changed position; doesn't affect us hence we don't care about the current user's articles order
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    //Toast.makeText(mContext, "Failed to load data.", Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            currentUserArticles.addChildEventListener(childEventListener);
-            articlesLiveData.postValue(articles);
+            });
         }
         return articlesLiveData;
     }

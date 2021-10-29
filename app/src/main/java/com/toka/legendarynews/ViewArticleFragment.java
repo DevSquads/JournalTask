@@ -46,8 +46,10 @@ public class ViewArticleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        binding.tvTitle.setText(title);
-//        binding.tvDesc.setText(desc);
-//        binding.tvAuthor.setText(getString(R.string.by_author_name, authorName));
+        ViewArticleFragmentArgs args = ViewArticleFragmentArgs.fromBundle(getArguments());
+
+        binding.tvTitle.setText(args.getTitle());
+        binding.tvDesc.setText(args.getDesc());
+        binding.tvAuthor.setText(getString(R.string.by_author_name, args.getAuthorName()));
     }
 }

@@ -5,8 +5,7 @@ import java.util.Objects;
 public class Author {
     private String name;
     private String id;
-    private boolean isAdmin;
-    private int noOfArticles;
+    private Boolean isAdmin;
 
     public String getName() {
         return name;
@@ -24,20 +23,12 @@ public class Author {
         this.id = id;
     }
 
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         isAdmin = admin;
-    }
-
-    public int getNoOfArticles() {
-        return noOfArticles;
-    }
-
-    public void setNoOfArticles(int noOfArticles) {
-        this.noOfArticles = noOfArticles;
     }
 
     @Override
@@ -45,11 +36,11 @@ public class Author {
         if (this == o) return true;
         if (!(o instanceof Author)) return false;
         Author author = (Author) o;
-        return isAdmin() == author.isAdmin() && getNoOfArticles() == author.getNoOfArticles() && Objects.equals(getName(), author.getName()) && Objects.equals(getId(), author.getId());
+        return isAdmin() == author.isAdmin() && Objects.equals(getName(), author.getName()) && Objects.equals(getId(), author.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getId(), isAdmin(), getNoOfArticles());
+        return Objects.hash(getName(), getId(), isAdmin());
     }
 }

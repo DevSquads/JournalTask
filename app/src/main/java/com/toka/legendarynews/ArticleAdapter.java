@@ -15,7 +15,7 @@ public class ArticleAdapter extends ListAdapter<Article, ArticleAdapter.ArticleV
     private OnArticleClickListener onArticleClickListener;
 
     public ArticleAdapter(OnArticleClickListener onArticleClickListener) {
-        super(new DiffUtilCallback());
+        super(new ArticlesDiffUtilCallback());
 
         this.onArticleClickListener = onArticleClickListener;
     }
@@ -35,7 +35,7 @@ public class ArticleAdapter extends ListAdapter<Article, ArticleAdapter.ArticleV
 
         holder.binding.getRoot().setOnClickListener(v -> onArticleClickListener.onArticleClick(article));
 
-        holder.binding.g.setVisibility(article.getAuthor().isAdmin()? View.VISIBLE: View.GONE);
+        holder.binding.g.setVisibility(Boolean.TRUE.equals(article.getAuthor().isAdmin())? View.VISIBLE: View.GONE);
 
         // because we don't have an actual journal, both publish and delete will perform the same action
         holder.binding.ibDelete.setOnClickListener(v -> {

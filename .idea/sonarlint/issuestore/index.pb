@@ -18,11 +18,19 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
-d
-4app/src/main/java/com/toka/legendarynews/Status.java,f/b/fb05986ced755f2bb3dfe31895dbc36ee109c104
 |
 Lapp/src/androidTest/java/com/toka/legendarynews/ExampleInstrumentedTest.java,b/d/bd5bad0f4cd4dc9b7bd7709ee56727e5b7580f28
 m
 =app/src/test/java/com/toka/legendarynews/ExampleUnitTest.java,5/5/55956a4554ab419fa620b401f9cbc5b21bfda5ef
 A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
+j
+:app/src/main/java/com/toka/legendarynews/MainActivity.java,7/0/70419eed81d4244efbac1b30a6a52e4dadddcdcb
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+e
+5app/src/main/java/com/toka/legendarynews/Article.java,3/c/3c5f5aa5b2781ae1fa6759824da97f6bdf4fe253
+<
+build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35

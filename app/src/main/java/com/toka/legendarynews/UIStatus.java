@@ -1,6 +1,6 @@
 package com.toka.legendarynews;
 
-public enum Status {
+public enum UIStatus {
     IDLE,
     SUCCESS,
     ERROR,

@@ -9,7 +9,7 @@ public class ArticlesViewModel extends BaseViewModel {
     private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
 
     public void startFetchingArticles(LifecycleOwner lifecycleOwner) {
-        getStatus().postValue(Status.LOADING);
+        getStatus().postValue(UIStatus.LOADING);
         Repo.getArticles().observe(lifecycleOwner, articles::postValue);
     }
 

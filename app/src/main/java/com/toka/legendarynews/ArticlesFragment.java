@@ -81,8 +81,8 @@ public class ArticlesFragment extends Fragment {
         binding.fabCreateArticle.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.action_articlesFragment2_to_newArticleFragment));
     }
 
-    private void renderStatus(Status status) {
-        switch (status) {
+    private void renderStatus(UIStatus UIStatus) {
+        switch (UIStatus) {
             case LOADING:
                 binding.cpi.setVisibility(View.VISIBLE);
                 break;
