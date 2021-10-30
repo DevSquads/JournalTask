@@ -1,5 +1,8 @@
 package com.toka.legendarynews;
 
+import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_ERROR;
+import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_SUCCESS;
+
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,21 +15,24 @@ public class ArticlesViewModel extends ViewModel {
     private final MutableLiveData<ArticlesUIStatus> status = new MutableLiveData<>(ArticlesUIStatus.IDLE);
 
     public void startFetchingArticles(LifecycleOwner lifecycleOwner) {
-        getStatus().postValue(ArticlesUIStatus.LOADING);
         Repo.listenForCurrentUserArticleChanges().observe(lifecycleOwner, articles::postValue);
     }
 
-    public void publishArticle(Article article) {
-        getStatus().postValue(ArticlesUIStatus.LOADING);
-        Repo.publishArticle(article);
+    public void publishArticle(LifecycleOwner lifecycleOwner, Article article) {
+        status.postValue(ArticlesUIStatus.LOADING);
+        Repo.publishArticle(article).observe(lifecycleOwner, voidTask -> {
+            if (voidTask.isSuccessful())
+                status.postValue(PUBLISH_ARTICLES_SUCCESS);
+            else status.postValue(PUBLISH_ARTICLES_ERROR);
+        });
     }
 
     public void deleteArticle(LifecycleOwner lifecycleOwner, Article article) {
-        getStatus().postValue(ArticlesUIStatus.LOADING);
+        status.postValue(ArticlesUIStatus.LOADING);
         Repo.deleteArticle(article).observe(lifecycleOwner, voidTask -> {
             if (voidTask.isSuccessful())
-                getStatus().postValue(ArticlesUIStatus.DELETE_ARTICLE_SUCCESS);
-            else getStatus().postValue(ArticlesUIStatus.DELETE_ARTICLE_ERROR);
+                status.postValue(ArticlesUIStatus.DELETE_ARTICLE_SUCCESS);
+            else status.postValue(ArticlesUIStatus.DELETE_ARTICLE_ERROR);
         });
     }
 

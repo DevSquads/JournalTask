@@ -61,7 +61,7 @@ public class ArticlesFragment extends Fragment {
 
             @Override
             public void onArticlePublishClick(Article article) {
-                articlesViewModel.publishArticle(article);
+                articlesViewModel.publishArticle(ArticlesFragment.this, article);
             }
 
             @Override

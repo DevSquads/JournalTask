@@ -2,7 +2,6 @@ package com.toka.legendarynews;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +28,7 @@ public class Repo {
     private static final String USERS = "users";
     private static final String NAME = "name";
     private static final String IS_ADMIN = "isAdmin";
+    private static final String PUBLISHED_ARTICLES = "published_articles";
 
     private static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final List<Article> articlesList = new ArrayList<>();
@@ -155,15 +155,21 @@ public class Repo {
                 .collect(Collectors.toList()));
     }
 
-    public static void publishArticle(@NonNull Article article) {
-
+    public static MutableLiveData<Task<Void>> publishArticle(@NonNull Article article) {
+        MutableLiveData<Task<Void>> result = new MutableLiveData<>();
+        deleteArticleTask(article).addOnCompleteListener(task -> FirebaseDatabase.getInstance().getReference().child(PUBLISHED_ARTICLES).child(article.getId()).setValue(article).addOnCompleteListener(result::postValue));
+        return result;
     }
 
     public static MutableLiveData<Task<Void>> deleteArticle(Article article) {
         MutableLiveData<Task<Void>> articleDeletionResultTask = new MutableLiveData<>();
-        FirebaseDatabase.getInstance().getReference().child(ARTICLES).child(article.getId()).removeValue().addOnCompleteListener(articleDeletionResultTask::postValue);
+        deleteArticleTask(article).addOnCompleteListener(articleDeletionResultTask::postValue);
 
         return articleDeletionResultTask;
+    }
+
+    private static Task<Void> deleteArticleTask(Article article) {
+        return FirebaseDatabase.getInstance().getReference().child(ARTICLES).child(article.getId()).removeValue();
     }
 
     public static MutableLiveData<Boolean> setCurrentUserInfo() {
