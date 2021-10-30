@@ -1,5 +1,7 @@
 package com.toka.legendarynews;
 
+import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_SUCCESS;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,7 +66,7 @@ public class ArticlesFragment extends Fragment {
 
             @Override
             public void onArticleDeleteClick(Article article) {
-                articlesViewModel.deleteArticle(article);
+                articlesViewModel.deleteArticle(ArticlesFragment.this, article);
             }
         });
         binding.rvArticles.setAdapter(adapter);
@@ -74,9 +76,30 @@ public class ArticlesFragment extends Fragment {
         binding.fabCreateArticle.setOnClickListener(v -> NavHostFragment.findNavController(this).navigate(R.id.action_articlesFragment2_to_newArticleFragment));
     }
 
-    private void renderStatus(UIStatus UIStatus) {
-        if (UIStatus == com.toka.legendarynews.UIStatus.LOADING) {
-            binding.cpi.setVisibility(View.VISIBLE);
-        } else binding.cpi.setVisibility(View.GONE);
+    private void renderStatus(ArticlesUIStatus status) {
+        switch (status) {
+            case LOADING:
+                binding.cpi.setVisibility(View.VISIBLE);
+                break;
+            case IDLE:
+                binding.cpi.setVisibility(View.GONE);
+                break;
+            case PUBLISH_ARTICLES_SUCCESS:
+                binding.cpi.setVisibility(View.GONE);
+                Toast.makeText(getContext(), getString(R.string.publish_article_success), Toast.LENGTH_SHORT).show();
+                break;
+            case PUBLISH_ARTICLES_ERROR:
+                binding.cpi.setVisibility(View.GONE);
+                Toast.makeText(getContext(), getString(R.string.publish_article_failure), Toast.LENGTH_SHORT).show();
+                break;
+            case DELETE_ARTICLE_SUCCESS:
+                binding.cpi.setVisibility(View.GONE);
+                Toast.makeText(getContext(), getString(R.string.delete_article_success), Toast.LENGTH_SHORT).show();
+                break;
+            case DELETE_ARTICLE_ERROR:
+                binding.cpi.setVisibility(View.GONE);
+                Toast.makeText(getContext(), getString(R.string.delete_article_failure), Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

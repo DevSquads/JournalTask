@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
                 onLoginClicked();
             else {
                 loginViewModel.setError(getString(R.string.empty_fields_error));
-                loginViewModel.setStatus(UIStatus.ERROR);
+                loginViewModel.setStatus(BasicUIStatus.ERROR);
             }
         });
     }
@@ -77,8 +77,8 @@ public class LoginFragment extends Fragment {
         loginViewModel.onLogin(this);
     }
 
-    private void renderStatus(UIStatus UIStatus) {
-        switch (UIStatus) {
+    private void renderStatus(BasicUIStatus status) {
+        switch (status) {
             case LOADING:
                 binding.lpi.setVisibility(View.VISIBLE);
                 binding.btnLogin.setEnabled(false);

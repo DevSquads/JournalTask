@@ -5,7 +5,7 @@ import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
 import androidx.lifecycle.LifecycleOwner;
 
-public class LoginViewModel extends BaseViewModel implements Observable {
+public class LoginViewModel extends BasicViewModel implements Observable {
 
     private String username;
     private String password;
@@ -37,17 +37,17 @@ public class LoginViewModel extends BaseViewModel implements Observable {
     }
 
     public void onLogin(LifecycleOwner lifecycleOwner) {
-        getStatus().setValue(UIStatus.LOADING);
+        getStatus().setValue(BasicUIStatus.LOADING);
         Repo.login(username, password).observe(lifecycleOwner, task -> {
             if (task.isSuccessful()) {
                 Repo.setCurrentUserInfo().observe(lifecycleOwner, aBoolean -> {
-                    if (Boolean.TRUE.equals(aBoolean)) getStatus().postValue(UIStatus.SUCCESS);
+                    if (Boolean.TRUE.equals(aBoolean)) getStatus().postValue(BasicUIStatus.SUCCESS);
                 });
             }
             else {
                 Exception exception = task.getException();
                 error = exception != null ? exception.getLocalizedMessage() : null;
-                getStatus().postValue(UIStatus.ERROR);
+                getStatus().postValue(BasicUIStatus.ERROR);
             }
         });
     }

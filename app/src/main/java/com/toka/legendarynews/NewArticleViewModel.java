@@ -2,14 +2,14 @@ package com.toka.legendarynews;
 
 import androidx.lifecycle.LifecycleOwner;
 
-public class NewArticleViewModel extends BaseViewModel {
+public class NewArticleViewModel extends BasicViewModel {
 
     public void addArticle(String title, String desc, LifecycleOwner lifecycleOwner) {
-        getStatus().setValue(UIStatus.LOADING);
+        getStatus().setValue(BasicUIStatus.LOADING);
         Repo.addArticle(title, desc).observe(lifecycleOwner, voidTask -> {
             if (voidTask.isSuccessful())
-                getStatus().postValue(UIStatus.SUCCESS);
-            else getStatus().postValue(UIStatus.ERROR);
+                getStatus().postValue(BasicUIStatus.SUCCESS);
+            else getStatus().postValue(BasicUIStatus.ERROR);
         });
     }
 }

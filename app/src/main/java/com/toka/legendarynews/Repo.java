@@ -2,6 +2,7 @@ package com.toka.legendarynews;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +35,6 @@ public class Repo {
     private static final MutableLiveData<List<Article>> articlesLiveData = new MutableLiveData<>();
     private static Boolean isCurrentUserAdmin;
     private static String currentUserName;
-
 
     private Repo() {
     }
@@ -155,12 +155,15 @@ public class Repo {
                 .collect(Collectors.toList()));
     }
 
-    public static void publishArticle(Article article) {
+    public static void publishArticle(@NonNull Article article) {
 
     }
 
-    public static void deleteArticle(Article article) {
+    public static MutableLiveData<Task<Void>> deleteArticle(Article article) {
+        MutableLiveData<Task<Void>> articleDeletionResultTask = new MutableLiveData<>();
+        FirebaseDatabase.getInstance().getReference().child(ARTICLES).child(article.getId()).removeValue().addOnCompleteListener(articleDeletionResultTask::postValue);
 
+        return articleDeletionResultTask;
     }
 
     public static MutableLiveData<Boolean> setCurrentUserInfo() {

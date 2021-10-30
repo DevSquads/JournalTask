@@ -5,11 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.toka.legendarynews.databinding.ArticleErrorRowItemBinding;
 import com.toka.legendarynews.databinding.ArticleRowItemBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleAdapter extends ListAdapter<Article, RecyclerView.ViewHolder> {
 
@@ -59,6 +63,14 @@ public class ArticleAdapter extends ListAdapter<Article, RecyclerView.ViewHolder
         if (getItem(position) == null)
             return VIEW_TYPE_ERROR;
         else return VIEW_TYPE_ITEM;
+    }
+
+    @Override
+    public void submitList(@Nullable List<Article> list) {
+        if (list != null) {
+            List<Article> newList = new ArrayList<>(list);
+            super.submitList(newList);
+        } else super.submitList(null);
     }
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
