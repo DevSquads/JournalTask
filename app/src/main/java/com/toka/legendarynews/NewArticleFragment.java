@@ -79,6 +79,8 @@ public class NewArticleFragment extends Fragment {
                 break;
             case SUCCESS:
                 reActivateScreen();
+                binding.tietDesc.setText("");
+                binding.tietTitle.setText("");
                 Toast.makeText(getContext(), getString(R.string.article_sent), Toast.LENGTH_SHORT).show();
         }
     }
