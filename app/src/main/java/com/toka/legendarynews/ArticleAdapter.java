@@ -8,43 +8,57 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.toka.legendarynews.databinding.ArticleErrorRowItemBinding;
 import com.toka.legendarynews.databinding.ArticleRowItemBinding;
 
-public class ArticleAdapter extends ListAdapter<Article, ArticleAdapter.ArticleViewHolder> {
+public class ArticleAdapter extends ListAdapter<Article, RecyclerView.ViewHolder> {
 
-    private OnArticleClickListener onArticleClickListener;
+    private static final int VIEW_TYPE_ITEM = 0;
+    private static final int VIEW_TYPE_ERROR = 1;
 
-    public ArticleAdapter(OnArticleClickListener onArticleClickListener) {
+    private final boolean isCurrentUserAdmin;
+    private final OnArticleActionsListener onArticleActionsListener;
+
+    public ArticleAdapter(boolean isCurrentUserAdmin, OnArticleActionsListener onArticleActionsListener) {
         super(new ArticlesDiffUtilCallback());
 
-        this.onArticleClickListener = onArticleClickListener;
+        this.isCurrentUserAdmin = isCurrentUserAdmin;
+        this.onArticleActionsListener = onArticleActionsListener;
     }
 
     @NonNull
     @Override
-    public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ArticleViewHolder(ArticleRowItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if (viewType == VIEW_TYPE_ITEM)
+            return new ArticleViewHolder(ArticleRowItemBinding.inflate(inflater));
+        else return new ErrorViewHolder(ArticleErrorRowItemBinding.inflate(inflater));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article article = getItem(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ArticleViewHolder) {
+            Article article = getItem(position);
+            ArticleViewHolder articleViewHolder = (ArticleViewHolder)holder;
 
-        holder.binding.tvTitle.setText(article.getTitle());
-        holder.binding.tvDesc.setText(article.getDescription());
+            articleViewHolder.binding.tvTitle.setText(article.getTitle());
+            articleViewHolder.binding.tvDesc.setText(article.getDescription());
 
-        holder.binding.getRoot().setOnClickListener(v -> onArticleClickListener.onArticleClick(article));
+            articleViewHolder.binding.getRoot().setOnClickListener(v -> onArticleActionsListener.onArticleClick(article));
 
-        holder.binding.g.setVisibility(Boolean.TRUE.equals(article.getAuthor().isAdmin())? View.VISIBLE: View.GONE);
+            articleViewHolder.binding.g.setVisibility(isCurrentUserAdmin ? View.VISIBLE : View.GONE);
 
-        // because we don't have an actual journal, both publish and delete will perform the same action
-        holder.binding.ibDelete.setOnClickListener(v -> {
+            articleViewHolder.binding.ibDelete.setOnClickListener(v -> onArticleActionsListener.onArticleDeleteClick(article));
 
-        });
+            articleViewHolder.binding.ibPublish.setOnClickListener(v -> onArticleActionsListener.onArticlePublishClick(article));
+        }
+    }
 
-        holder.binding.ibPublish.setOnClickListener(v -> {
-
-        });
+    @Override
+    public int getItemViewType(int position) {
+        if (getItem(position) == null)
+            return VIEW_TYPE_ERROR;
+        else return VIEW_TYPE_ITEM;
     }
 
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +72,16 @@ public class ArticleAdapter extends ListAdapter<Article, ArticleAdapter.ArticleV
         }
     }
 
-    public interface OnArticleClickListener {
+    public static class ErrorViewHolder extends RecyclerView.ViewHolder {
+
+        public ErrorViewHolder(@NonNull ArticleErrorRowItemBinding binding) {
+            super(binding.getRoot());
+        }
+    }
+
+    public interface OnArticleActionsListener {
         void onArticleClick(Article article);
+        void onArticlePublishClick(Article article);
+        void onArticleDeleteClick(Article article);
     }
 }

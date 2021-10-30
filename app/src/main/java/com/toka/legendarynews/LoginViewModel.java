@@ -39,8 +39,11 @@ public class LoginViewModel extends BaseViewModel implements Observable {
     public void onLogin(LifecycleOwner lifecycleOwner) {
         getStatus().setValue(UIStatus.LOADING);
         Repo.login(username, password).observe(lifecycleOwner, task -> {
-            if (task.isSuccessful())
-                getStatus().postValue(UIStatus.SUCCESS);
+            if (task.isSuccessful()) {
+                Repo.setCurrentUserInfo().observe(lifecycleOwner, aBoolean -> {
+                    if (Boolean.TRUE.equals(aBoolean)) getStatus().postValue(UIStatus.SUCCESS);
+                });
+            }
             else {
                 Exception exception = task.getException();
                 error = exception != null ? exception.getLocalizedMessage() : null;

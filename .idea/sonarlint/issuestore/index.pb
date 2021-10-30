@@ -9,9 +9,6 @@ F
 gradlew,5/b/5bbfa66edb4db3c7c33c5181f43510990d3307f9
 ?
 settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
-:
-
-.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 H
 app/google-services.json,f/d/fd8d34b142d02ec743a8efefefd2c097961666e9
 X
@@ -26,11 +23,22 @@ A
 gradle.properties,2/a/2afbb999f001938c88fa43fc2ef52abf0f8213e4
 j
 :app/src/main/java/com/toka/legendarynews/MainActivity.java,7/0/70419eed81d4244efbac1b30a6a52e4dadddcdcb
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 @
 app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
-e
-5app/src/main/java/com/toka/legendarynews/Article.java,3/c/3c5f5aa5b2781ae1fa6759824da97f6bdf4fe253
 <
 build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
+v
+Fapp/src/main/java/com/toka/legendarynews/ArticlesDiffUtilCallback.java,d/6/d616671f60bc89f3a6ab9512786194ebd10ce62b
+f
+6app/src/main/java/com/toka/legendarynews/UIStatus.java,1/2/1201f29132b615ac0c75a9d693ebc86515a43c33
+k
+;app/src/main/java/com/toka/legendarynews/LoginFragment.java,e/d/ed51b811895879af484e0e32675a16722374d4cc
+q
+Aapp/src/main/java/com/toka/legendarynews/ViewArticleFragment.java,2/7/27b86b2833c1ad9dcb34bd4babc4b6a3eb43f78b
+p
+@app/src/main/java/com/toka/legendarynews/NewArticleFragment.java,a/5/a5bf9aeb9871d19b123f13289e53a76be3f4e8d1
+k
+;app/src/main/java/com/toka/legendarynews/BaseViewModel.java,3/8/3860680d54d8e75fd51fc37c93c475ca452b4e46
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
