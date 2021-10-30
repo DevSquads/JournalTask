@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.articles;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.toka.legendarynews.data.model.Article;
 import com.toka.legendarynews.databinding.ArticleErrorRowItemBinding;
 import com.toka.legendarynews.databinding.ArticleRowItemBinding;
 

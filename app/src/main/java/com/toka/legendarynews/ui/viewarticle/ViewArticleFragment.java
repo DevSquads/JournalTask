@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.viewarticle;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.toka.legendarynews.R;
 import com.toka.legendarynews.databinding.ViewArticleFragmentBinding;
 
 /**

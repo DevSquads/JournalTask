@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.data.remote;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -12,6 +12,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.toka.legendarynews.data.model.Article;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

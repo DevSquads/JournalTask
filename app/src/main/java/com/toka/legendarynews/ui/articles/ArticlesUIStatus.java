@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.articles;
 
 public enum ArticlesUIStatus {
     IDLE,

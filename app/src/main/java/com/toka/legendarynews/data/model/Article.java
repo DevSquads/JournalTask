@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.data.model;
 
 import java.util.Objects;
 

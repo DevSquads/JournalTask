@@ -1,6 +1,4 @@
-package com.toka.legendarynews;
-
-import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_SUCCESS;
+package com.toka.legendarynews.ui.articles;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.toka.legendarynews.R;
+import com.toka.legendarynews.data.model.Article;
 import com.toka.legendarynews.databinding.FragmentArticlesBinding;
 
 /**

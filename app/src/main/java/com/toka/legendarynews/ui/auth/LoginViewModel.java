@@ -1,9 +1,14 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.auth;
 
 import androidx.databinding.Bindable;
 import androidx.databinding.Observable;
 import androidx.databinding.PropertyChangeRegistry;
 import androidx.lifecycle.LifecycleOwner;
+
+import com.toka.legendarynews.BR;
+import com.toka.legendarynews.data.remote.Repo;
+import com.toka.legendarynews.ui.base.BasicUIStatus;
+import com.toka.legendarynews.ui.base.BasicViewModel;
 
 public class LoginViewModel extends BasicViewModel implements Observable {
 

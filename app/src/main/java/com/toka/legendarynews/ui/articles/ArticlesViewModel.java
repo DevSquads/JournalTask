@@ -1,11 +1,14 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.articles;
 
-import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_ERROR;
-import static com.toka.legendarynews.ArticlesUIStatus.PUBLISH_ARTICLES_SUCCESS;
+import static com.toka.legendarynews.ui.articles.ArticlesUIStatus.PUBLISH_ARTICLES_ERROR;
+import static com.toka.legendarynews.ui.articles.ArticlesUIStatus.PUBLISH_ARTICLES_SUCCESS;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.toka.legendarynews.data.model.Article;
+import com.toka.legendarynews.data.remote.Repo;
 
 import java.util.List;
 

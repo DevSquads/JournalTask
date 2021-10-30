@@ -1,6 +1,10 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.newarticle;
 
 import androidx.lifecycle.LifecycleOwner;
+
+import com.toka.legendarynews.data.remote.Repo;
+import com.toka.legendarynews.ui.base.BasicUIStatus;
+import com.toka.legendarynews.ui.base.BasicViewModel;
 
 public class NewArticleViewModel extends BasicViewModel {
 

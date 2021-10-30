@@ -1,4 +1,4 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.base;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -1,7 +1,9 @@
-package com.toka.legendarynews;
+package com.toka.legendarynews.ui.articles;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
+
+import com.toka.legendarynews.data.model.Article;
 
 public class ArticlesDiffUtilCallback extends DiffUtil.ItemCallback<Article> {
 
