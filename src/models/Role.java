@@ -1,8 +1,9 @@
 package models;
 
+
 public class Role {
-	String name;
-	Role(String name){
+	RoleName name;
+	Role(RoleName name){
 		this.name = name;
 	}
 }

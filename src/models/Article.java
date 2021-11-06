@@ -1,13 +1,16 @@
 package models;
 
 public class Article {
-	private String title,description,authorName;
+	private int id;
+	private String title,description;
+	private Journalist author;
 	private boolean approved;
-	public Article(String title, String description, String authorName){
+	public Article(String title, String description, String authorName, int id, Journalist author){
 		this.setTitle(title);
 		this.setDescription(description);
-		this.setAuthorName(authorName);
 		this.setApproved(false);
+		this.setId(id);
+		this.setAuthor(author);
 		
 	}
 	public String getTitle() {
@@ -22,16 +25,23 @@ public class Article {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getAuthorName() {
-		return authorName;
-	}
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
+	
 	public boolean isApproved() {
 		return approved;
 	}
 	public void setApproved(boolean approved) {
 		this.approved = approved;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Journalist getAuthor() {
+		return author;
+	}
+	public void setAuthor(Journalist author) {
+		this.author = author;
 	}
 }
