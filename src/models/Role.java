@@ -2,7 +2,7 @@ package models;
 
 
 public class Role {
-	RoleName name;
+	public RoleName name;
 	Role(RoleName name){
 		this.name = name;
 	}
