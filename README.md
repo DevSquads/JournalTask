@@ -2,11 +2,13 @@ This app is designed to help samir the chief editor manage the articles
 that are being posted by the journalists.
 
 Features
+
 I) Samir is the only one that can:
 	1- Approve articles
 	2- Delete articles
 	3- Add journalists to the app
 II) Samir can view articles sorted by most popular
+
 III) Other journalists can view all approved articles starting with 
 their own articles first
 
