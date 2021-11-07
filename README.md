@@ -1,29 +1,27 @@
-# JournalTask
+This app is designed to help samir the chief editor manage the articles
+that are being posted by the journalists.
 
-# Description
-- Fork the repo to your Github https://help.github.com/en/articles/fork-a-repo.
-- Push your work to your forked repo "user-name/JournalTask".
-- Create pull request in the original repo "devsquads/JournalTask"
+Features
 
-# Story
-Samir the chief editor in “legen- wait for it-dary news” asked the journal owner Yehia to make him an appointment with DevSquads their technical partner to ask them for help.
-He wants to make an app that would help him manage the articles that being posted by the journalists, Samir is the only one that can delete articles, and approve the articles to be published, every article has a title, description, and author name.
+I) Samir is the only one that can:
+	1- Approve articles
+	2- Delete articles
+	3- Add journalists to the app
+II) Samir can view articles sorted by most popular
 
+III) Other journalists can view all approved articles starting with 
+their own articles first
 
-# Requirements
-- List of articles sorted by most popular authors ( who has the highest number of published articles).
-- Create article.
-- Delete article.
-- When an author view all articles, they see their own articles first.
-- e2e tests.
-- Edit README to include the required steps to run your application.
-- Organized and well written git commit history.
+To run the application:
 
-# Stack
-- Choosing the tech stack is up to you(Java is preferred).
+1- Download and install mysql database server
 
-# Nice to have
-- unit tests.
+2- Download and install mysql workbench
 
-# Task Deadline
-- Sunday 7/11/2021 09:00 AM.
+3- Import provided dump data file to mysql workbench "Navigator -> Administration -> Data Import/Restor -> Import from dump project folder -> select data file path -> Start import"
+
+4- Download and install Eclipse IDE for enterprise java and web developers 2021-09
+
+5-  Import project "download the project folder, create workspace, File -> import, General -> Existing project into workspace, select the project folder, finish"
+
+6- Run the project
