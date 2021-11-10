@@ -28,7 +28,7 @@ He wants to make an app that would help him manage the articles that being poste
 # Task Deadline
 - Sunday 7/11/2021 09:00 AM.
 
-#Packages
+# Packages
 -Model
 	Account.java
 	AccountsDatabase.java
@@ -39,7 +39,7 @@ He wants to make an app that would help him manage the articles that being poste
 -JunitTest
 	JunitTestCases.java
 
-#how to run code:
+# How to run code:
 this is a console application,you run the Application file where you can sign up or login and after that you are allowed options to choose from based on the user.
 samir already has an account with crentials username: "samir" password:"admin" where only this account can access create and delete article functionality.
 their is also another account also on the system with credentials username:"admin" password:"admin"	
