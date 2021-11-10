@@ -29,15 +29,15 @@ He wants to make an app that would help him manage the articles that being poste
 - Sunday 7/11/2021 09:00 AM.
 
 # Packages
--Model
-	Account.java
-	AccountsDatabase.java
-	Article.java
-	ArticleDatabase.java
-	Application.java
+- Model:
+	- Account.java
+	- AccountsDatabase.java
+	- Article.java
+	- ArticleDatabase.java
+	- Application.java
 
--JunitTest
-	JunitTestCases.java
+- JunitTest:
+	- JunitTestCases.java
 
 # How to run code:
 this is a console application,you run the Application file where you can sign up or login and after that you are allowed options to choose from based on the user.
